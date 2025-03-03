@@ -1,15 +1,28 @@
+import { PostLink } from "@/components/blog/post-link";
+import { Hero } from "@/components/hero";
 import { Button } from "@/components/ui/button";
+import { getPostsMeta } from "@/lib/blog";
+import Link from "next/link";
 
 export default function Home() {
+  const allPosts = getPostsMeta();
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1>Hello there</h1>
-        <Button>Press me</Button>
+    <div className="">
+      <Hero />
+      <main className="">
+        <section className="w-full md:w-[60vw]">
+          <h2 className="font-bold">Najnowsze wpisy</h2>
+          {allPosts.slice(0, 5).map((post) => (
+            <PostLink key={post.slug} post={post} />
+          ))}
+          <div>
+            <Button asChild variant="secondary">
+              <Link href="/blog">Zobacz wszystkie wpisy</Link>
+            </Button>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        kamiljozwik.com @ {new Date().getFullYear()}
-      </footer>
     </div>
   );
 }
