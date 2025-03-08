@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { toc } from "mdast-util-toc";
 
 const renderChildren = (children: any) => {

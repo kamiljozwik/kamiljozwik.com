@@ -16,6 +16,7 @@ export function getPostsMeta() {
   const folderNames = fs.readdirSync(postsDirectory);
 
   const postsMeta = folderNames.map((name) => {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const meta = require(`../posts/${name}/content.mdx`).meta as Omit<
       PostMeta,
       "slug"

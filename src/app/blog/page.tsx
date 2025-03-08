@@ -7,17 +7,13 @@ export const metadata = {
   description: "Lista wszystkich postów na blogu.",
 };
 
-type Props = {
-  title: string;
-  tag?: string;
-};
-
-const BlogPage = ({ title, tag }: Props) => {
+const BlogPage = () => {
   const allPosts = getPostsMeta();
+  const tag = undefined;
 
   return (
-    <section>
-      <PageHeader>{title}</PageHeader>
+    <main>
+      <PageHeader>Blog</PageHeader>
       <div>
         {tag
           ? allPosts
@@ -27,7 +23,7 @@ const BlogPage = ({ title, tag }: Props) => {
             .map((post) => <PostLink key={post.slug} post={post} />)
           : allPosts.map((post) => <PostLink key={post.slug} post={post} />)}
       </div>
-    </section>
+    </main>
   );
 };
 

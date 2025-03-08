@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PostMeta, getPostBySlug, getPostsMeta } from "@/lib/blog";
-import { TableOfContents } from "./components/toc";
+// import { TableOfContents } from "./components/toc";
 import { NoPost } from "./components/no-post";
 
 export async function generateStaticParams() {
@@ -13,9 +13,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
 
@@ -23,7 +21,7 @@ export async function generateMetadata({
   return { title: meta?.title, description: meta?.seo_desc };
 }
 
-const PostPage = async ({ params }: { params: PostMeta }) => {
+const PostPage = async ({ params }: { params: Promise<PostMeta> }) => {
   const { slug } = await params;
 
   const slugs = getPostsMeta().map(({ slug }) => slug);
@@ -63,11 +61,11 @@ const PostPage = async ({ params }: { params: PostMeta }) => {
       </header>
       <div className="flex gap-2">
         <main className="w-full sm:w-2/3 md:w-3/4">
-          <div className="">
+          <div className="prose prose-lg dark:prose-invert">
             {meta ? <PostContent /> : <NoPost />}
           </div>
         </main>
-        <div className="hidden sm:block w-[1px] bg-gray-700" />
+        {/* <div className="hidden sm:block w-[1px] bg-gray-700" /> */}
         {/* <aside className="hidden sm:block w-1/3 md:w-1/4">
           <TableOfContents mdxContent={mdxContent} />
         </aside> */}
