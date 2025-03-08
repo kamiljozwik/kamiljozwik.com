@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
-    <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-      kamiljozwik.com @ {new Date().getFullYear()}
+    <footer className="flex py-12 items-center justify-center">
+      <p>kamiljozwik.com @ {new Date().getFullYear()}</p>
     </footer>
   )
 }
