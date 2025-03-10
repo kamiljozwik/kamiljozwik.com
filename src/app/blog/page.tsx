@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/page-header";
 import { getPostsMeta } from "@/lib/blog";
 
 export const metadata = {
-  title: "Wszystkie posty",
+  title: "Kamil Józwik | Blog",
   description: "Lista wszystkich postów na blogu.",
 };
 
@@ -13,7 +13,7 @@ const BlogPage = () => {
 
   return (
     <main>
-      <PageHeader>Blog</PageHeader>
+      <PageHeader>All articles</PageHeader>
       <div>
         {tag
           ? allPosts
