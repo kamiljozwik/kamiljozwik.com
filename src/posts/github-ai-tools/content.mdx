@@ -1,26 +1,34 @@
 export const meta = {
   title: "GitHub AI Tools",
-  seo_desc: "seo_desc seo_desc",
-  short: "short short short short ",
-  date: "2025-03-10",
-  tags: ["ai"],
+  description:
+    "AI is everywhere. As majority of companies already is using (and paying for) GitHub, it is worth to know what AI tools GitHub offers to developers.",
+  date: "2025-03-11",
+  tags: ["ai", "github"],
 };
 
-GitHub is revolutionizing software development through its [experimental projects](https://githubnext.com/) and deep integration of artificial intelligence.
+GitHub is doing its best to revolutionize software development through its [experimental projects](https://githubnext.com/) and deep integration of artificial intelligence.
 
 Today, many organizations keep their code on GitHub and have signed agreements regarding the privacy of that code. A sizable number of organizations also have paid licenses for their developers. As the issue of code security and privacy is often a roadblock in the adaptation of AI tools, so it's worth knowing what opportunities GitHub gives us here, since we already keep our code there anyway 🙂
 
 In this post, I'll explore GitHub’s current AI capabilities, highlighting how each tool can practically benefit your development workflow.
 
+Tools covered in this post include:
+
+- [GitHub Copilot](#github-copilot-your-ai-pair-programmer)
+- [Copilot Workspace](#copilot-workspace-agentic-dev-environment)
+- [GitHub Spark](#github-spark-micro-apps-for-everyone)
+- [Copilot Code Review](#code-reviews-accelerating-quality-with-ai-assistance)
+- [GitHub Model Catalog](#github-model-catalog-ai-integration-in-your-workflow)
+
 As soon as new tools are available in the future, I will update this post with the latest information.
 
-## GitHub Copilot: Your AI pair programmer
+## GitHub Copilot: your AI pair programmer
 
 [GitHub Copilot](https://github.com/features/copilot) represents a major leap in developer productivity by acting as an AI pair programmer. Designed to understand your code context and generate relevant suggestions in real time, Copilot integrates seamlessly into your development workflow. Let's make a high-level overview of this tool, outlining its core features, benefits, and what makes it a compelling tool for modern software development.
 
 ### What is GitHub Copilot?
 
-I think today it's hard to find a developer who hasn't heard of or used Copilot, but perhaps this post is being read by someone who isn't a programmer, so let me do a brief introduction. GitHub Copilot leverages advanced machine learning models, specifically trained on vast amounts of open-source code, to assist developers by suggesting complete lines or even whole blocks of code. It can help you:
+I think today it's challenging to find a developer who hasn't heard of or used Copilot, but perhaps this post is being read by someone who isn't a programmer, so let me do a brief introduction. GitHub Copilot leverages advanced machine learning models, specifically trained on vast amounts of open-source code, to assist developers by suggesting complete lines or even whole blocks of code. It can help you:
 
 - **Accelerate coding tasks:** by auto-completing boilerplate code and repetitive patterns.
 - **Improve code quality:** offering suggestions that align with best practices.
@@ -34,67 +42,162 @@ More information about Copilot can be found [here](https://docs.github.com/en/co
 
 As of the date of writing this post (March 2025), Copilot does well with autocomplete and in generating individual code snippets [during chat](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat), but we then have to transfer code to the files ourselves.
 
-There is also a feature called [Copilot Edits](https://code.visualstudio.com/docs/copilot/copilot-edits), but it stays behind with automatic edition of multiple files (agentic coding) e.g. [Cursor](https://www.cursor.com/). All this should change when the functionality available for now in [VS Code Insiders](https://code.visualstudio.com/insiders/) is introduced into the production version of Copilot. If everything works stably and as it [does in this video](https://www.youtube.com/watch?v=C95drFKy4ss), then Copilot can take over the primacy as an programming copilot, making tools like Cursor or [Cline](https://cline.bot/) less relevant.
+There is also a feature called [Copilot Edits](https://code.visualstudio.com/docs/copilot/copilot-edits), but it stays behind with automatic editing of multiple files (agentic coding) e.g. [Cursor](https://www.cursor.com/). All this should change when the functionality available for now in [VS Code Insiders](https://code.visualstudio.com/insiders/) is introduced into the production version of Copilot. If everything works stably and as it [does in this video](https://www.youtube.com/watch?v=C95drFKy4ss), then Copilot can take over the primacy as a programming copilot, making tools like Cursor or [Cline](https://cline.bot/) less relevant.
 
 ### Subscription and adoption considerations
 
 GitHub offers Copilot as part of its subscription plans, reflecting the tool’s value for both individual developers and enterprise teams. Organizations that have already invested in GitHub’s ecosystem might find Copilot a natural extension to enhance their coding efficiency.
 
-Copilot is also available for free with the limit of 2000 completions and 50 messages (using Chat) per month. Price for individuals is $10 per month ($100 USD per year), so it is relatively cheap for what it offers.
+Copilot is also available for free with the limit of 2000 completions and 50 messages (using Chat) per month. The price for individuals is $10 per month ($100 USD per year), so it is relatively cheap for what it offers.
 
 Full pricing can be found [here](https://docs.github.com/en/copilot/about-github-copilot/subscription-plans-for-github-copilot) and [here](https://github.com/features/copilot/plans).
 
-## Copilot Workspace: Streamlining Development with Natural Language
+### Useful links
 
-Currently available in public preview, Copilot Workspace is designed to minimize cognitive load and facilitate deeper focus on problem-solving.
+- [GitHub Copilot Blog](https://github.blog/ai-and-ml/github-copilot/)
+- [GitHub Copilot YT playlist](https://www.youtube.com/playlist?list=PL0lo9MOBetEHEHi9h0k_lPn0XZdEeYZDS)
+- [Get Started with GitHub Copilot in VS Code (2025)](https://www.youtube.com/watch?v=vdBxfFVXnc0)
 
-**Intuitive Planning:**
-Simply describe your coding task in plain English, and Copilot Workspace generates structured, actionable plans based on your existing codebase and related discussions.
+## Copilot Workspace: agentic dev environment
 
-**AI-Assisted Implementation:**
-Within these generated plans, Workspace suggests precise code implementations, allowing you to review, refine, and deploy seamlessly.
+[Copilot Workspace](https://githubnext.com/projects/copilot-workspace) is a next-generation (but still in technical preview), agentic development environment that transforms how developers tackle coding tasks. Rather than offering simple inline suggestions like Copilot, it guides you through the entire process, from understanding your intent to producing a pull request, all within GitHub. You can find demos [here](https://www.youtube.com/watch?v=pkotufZchjE) and [here](https://www.youtube.com/watch?v=L5Xny6yehUg).
 
-**Integrated Testing & Collaboration:**
-This environment supports built-in testing and debugging, integrated version control, and real-time collaboration—making teamwork frictionless and efficient.
+### A task-centric approach
 
-## GitHub Spark: Democratizing App Creation
+Every session in Copilot Workspace starts with a **task** — a natural language description of what you need to achieve. Whether you’re addressing an issue, refining a pull request, or bootstrapping a new project, you kick off the process by specifying your intent directly within GitHub. This integration ensures that the context (such as the repository and any linked issue or PR) is immediately available to the tool.
 
-GitHub Spark, currently in technical preview, empowers users—even those without traditional coding expertise—to rapidly create functional micro-apps, or "sparks," entirely through natural language.
+### Copilot Workspace flow
 
-**No-Code Micro-App Development:**
-Describe your app concept in conversational English, and Spark instantly translates it into a fully functional, hosted application.
+Once the task is set, Copilot Workspace enters a two-step process to clarify and define the desired outcome:
 
-**Interactive Refinement:**
-Real-time interactive previews enable continuous iteration and refinement, allowing immediate feedback as you articulate new features or adjustments.
+- **Specification**:  
+   The system generates a "current specification" — a bulleted summary that describes the existing state of your codebase, as well as a "proposed specification" that outlines what success looks like. This distilled "topic" (often posed as a question) helps you verify that the tool understands your requirements correctly before moving forward.
 
-**Easy Sharing and Collaboration:**
-Effortlessly share your micro-apps with team members, facilitating collaboration and collective innovation with intuitive permission settings.
+- **Plan generation**:  
+   With the specifications validated, Copilot Workspace produces a detailed plan. This plan lists every file to be modified, created, or removed, along with explicit steps for each change. Notably, the plan is fully editable: you can tweak it to fine-tune your changes or steer the AI in a different direction if needed.
 
-## AI-Powered Code Reviews: Enhancing Quality and Efficiency
+### Implementation and iteration
 
-GitHub’s Copilot-powered code reviews, now in public preview, integrate seamlessly into existing workflows to augment human reviewers.
+After agreeing on a plan, the system transitions to the **implementation** phase:
 
-**Automated Insights & Recommendations:**
-Copilot scans proposed changes, proactively identifying potential issues and recommending specific improvements that can be applied with minimal effort.
+- **Automated code changes**:  
+  Copilot Workspace applies the plan by sequentially updating your files. As changes are generated, they’re presented as editable diffs, allowing you to directly review and refine the code before finalizing a pull request.
 
-**Seamless Pull Request Integration:**
-Easily request and manage AI-assisted code reviews directly within GitHub.com or Visual Studio Code, accelerating feedback cycles without compromising the critical role of human judgment.
+- **Iterative refinement**:  
+  If any part of the diff isn’t quite right, you can easily iterate on individual files. This granular control minimizes risk, ensuring that large-scale changes remain both manageable and verifiable.
 
-## GitHub Model Catalog: Your Gateway to AI Models
+### Validation, collaboration, and delivery
 
-The GitHub Model Catalog simplifies the integration of AI capabilities by offering centralized access to a curated selection of leading AI models.
+To complete the workflow, Copilot Workspace offers built-in features for post-implementation validation and collaboration:
 
-**Diverse and Accessible AI Models:**
-Explore and integrate models from renowned providers such as Azure OpenAI Service, Mistral, Meta, Cohere, NVIDIA, and Hugging Face, tailored specifically to your project needs.
+- **Integrated terminal and codespaces integration**:  
+  Use the integrated terminal to run tests, builds, or linting commands within a secure [Codespace environment](https://github.com/features/codespaces).
 
-**Interactive Experimentation:**
-Utilize the built-in interactive playground to experiment with model responses, fine-tune parameters, and rapidly prototype solutions without extensive setup.
+- **Session sharing**:  
+   Once your task is complete, you can share your workspace session, either as a snapshot for ad-hoc reviews or as a pull request.
 
-**Effortless Integration:**
-Seamlessly incorporate your chosen models into your existing development workflows via GitHub Codespaces and familiar APIs and SDKs.
+Copilot Workspace isn’t just another AI tool — it’s a whole development workflow that guides you from an initial idea all the way to production-ready code.
 
-## Conclusion: Embracing AI for Modern Development
+It is still in technical preview and I have to admit, that in my experiments it works pretty well, but the proposed solution wasn't always the best one. It works great for smaller repositories and simple tasks, but I think it is a matter of time, when it will be able to generate code that is not only correct, but also optimal and elegant.
 
-GitHub’s suite of AI-driven tools empowers developers by streamlining workflows, reducing manual tasks, and enhancing collaboration. From intelligent coding assistance and streamlined workspace environments to democratized app creation and efficient code reviews, GitHub is transforming how software teams operate.
+For more detailed insights on the flow and underlying principles of Copilot Workspace, refer to the [user manual](https://github.com/githubnext/copilot-workspace-user-manual/blob/main/overview.md) and explore the project overview on [GitHub Next](https://githubnext.com/projects/copilot-workspace).
 
-Explore these innovative tools to elevate your productivity, quality, and creativity in software development today.
+## GitHub Spark: micro apps for everyone
+
+[GitHub Spark](https://githubnext.com/projects/github-spark) is an AI-powered tool that lets you create, deploy, and share "sparks", personalized micro apps, without writing traditional code. By leveraging natural language processing and a fully managed runtime environment, Spark lowers the barrier to entry, allowing anyone to build bespoke tools tailored to their workflow. Whether you’re prototyping a life management tool, a learning aid, or even a playful game, Spark bridges the gap between your ideas and production-ready applications.
+
+### Core components and workflow
+
+GitHub Spark’s power lies in its three tightly integrated components:
+
+1. **NL-based editor**
+
+   - **Express in plain english:** Start by describing your app’s purpose. Say “I need an app to track daily tasks” and Spark immediately converts that into a working prototype.
+   - **Interactive previews:** As you type your idea, an instant, interactive preview runs in real time. This "app-centric feedback loop" lets you see the results as they evolve so you can refine your vision on the fly.
+   - **Revision variants & automatic history:** Not sure about a specific detail? Request multiple variants to explore different approaches. Every change is automatically saved, allowing you to review or roll back to previous iterations effortlessly.
+
+2. **Managed runtime environment**
+
+   - **Deployment-free hosting:** Once you’re satisfied with your spark, the tool deploys it automatically — ready to run on your desktop, tablet, or mobile device without any extra setup.
+   - **Themeable design system:** Spark comes with built-in UI components and customizable themes. You can tweak layout, color, and spacing easily to match your personal or brand aesthetics.
+   - **Persistent data storage:** With an integrated key-value store and data editor, managing app state is seamless and does not require manual configuration.
+
+3. **PWA-enabled dashboard**
+   - **Centralized management:** Launch, monitor, and share your sparks from a progressive web app (PWA) dashboard that’s accessible anywhere.
+   - **Collaborative sharing & remixing:** Decide whether to share your spark in read-only mode, or allow others to remix and build upon your creation.
+
+GitHub published on YouTube a short [demo](https://www.youtube.com/watch?v=oM2amcnVmzM) of this tool, as well as a two example apps built with it [podcast timers app](https://www.youtube.com/watch?v=T9bx_Dn2zxg) and [travel log app](https://www.youtube.com/watch?v=zB-izOTcQ6s).
+
+GitHub Spark is set to transform how we think about and build applications. By enabling the creation of fully functional micro apps through plain English instructions, Spark not only streamlines development but also opens up the world of software creation to a broader audience.
+
+## Code Reviews: accelerating quality with AI assistance
+
+[GitHub Copilot Code Review](https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review) brings AI-powered, actionable feedback directly into your development workflow. Designed to speed up the process from "in-progress" to "ready to merge", it helps you catch issues and iterate on improvements while you wait for a human review.
+
+You can check video announcement [here](https://www.youtube.com/watch?v=cyPaAkRfEBQ)
+
+At the time of writing, this tool is still in [public preview](https://github.blog/changelog/2025-02-26-code-review-in-github-copilot-is-now-in-public-preview/).
+
+### How it works?
+
+Copilot Code Review analyzes your pull requests and committed changes to highlight potential issues and offer suggestions. There are three primary ways to engage with this feature:
+
+- **Tag as a reviewer:** On github.com, you can add Copilot as a pull request reviewer directly from the "Reviewers" menu. Once tagged, Copilot will analyze the code and provide feedback.
+- **Automatic Reviews:** Administrators can enable automatic reviews for new pull requests using repository rulesets, so feedback is provided as soon as changes are pushed.
+- **Visual Studio Code Integration:** In VS Code, the "Review Changes" button in the "Source Control" tab (no extensions required) lets you perform a review of changed files before creating commit.
+- **GitHub Pull Requests extension:** If you’re using the [GitHub Pull Requests extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github) in VS Code, you can also initiate automatic local (within IDE) review when creating a new pull request. Yet, it is still worth running Copilot Code Review on GitHub.com as, based on my experience, it can catch some issues that are not detected in the IDE.
+
+While the tool supports several programming languages, it’s important to remember that Copilot Code Review might not catch every issue. It’s best used as an accelerator in your review process, complementing, rather than replacing, the insight of a human reviewer.
+
+### Configuring your review guidelines
+
+One of the powerful aspects of Copilot Code Review is its flexibility. You can tailor its feedback by [configuring coding guidelines](https://docs.github.com/en/copilot/using-github-copilot/code-review/configuring-coding-guidelines) that match your team’s standards. By setting up repository-specific rules, you can ensure that the AI’s suggestions align with your project’s style, security and quality requirements.
+
+### Integrating with Copilot Workspace
+
+Copilot Code Review doesn’t stop at merely flagging issues. Its seamless integration with, mentioned in previous chapters, Copilot Workspace, means you can quickly take its suggestions and dive deeper into making changes. With a simple click on the "Open in Workspace" button, you can validate, tweak, and test proposed changes directly within GitHub.
+
+### Responsible use
+
+Remember that automatic code reviews catch only syntax errors and some common mistakes, and they are not a substitute for human review and testing. Always validate the AI’s suggestions and ensure they align with your project’s standards, practices, requirements and security policies.
+
+## GitHub Model Catalog: AI Integration in your workflow
+
+[GitHub Model Catalog](https://docs.github.com/en/github-models) is a centralized, curated resource that brings together a wide range of AI models for developers to explore, prototype, and integrate. It’s designed to bridge the gap between experimental research and production-grade AI applications by streamlining the process of discovering and using state-of-the-art models directly within your GitHub environment.
+
+You can check these demos from GitHub - [shorter one](https://www.youtube.com/watch?v=WiBB8Lsgl7I) and [longer one](https://www.youtube.com/watch?v=OCNvxcMfunA).
+
+### What is GitHub Model Catalog?
+
+At its core, the GitHub Model Catalog is a repository of AI models covering various domains and tasks, from natural language processing to computer vision and beyond. It serves as a one-stop shop for developers looking to leverage AI capabilities without the hassle of hunting down individual models across disparate sources. By consolidating these resources, GitHub makes it easier to:
+
+- **Discover popular models:** Browse models that have been vetted and documented for ease of use.
+- **Prototype rapidly:** Test models in an isolated environment to evaluate their performance and suitability for your projects.
+- **Integrate seamlessly:** Follow best practices and guidelines to incorporate AI models into your development workflow.
+
+### How it works?
+
+The easiest way to start exploring the catalog is through the GitHub interface. You can visit [GitHub marketplace](https://github.com/marketplace?type=models) and quickly navigate through the available models, read their documentation, and experiment with them using provided examples. Of course, everything within some free-tier limits.
+
+You can find more information about the models, prototyping and rate limits in this [guide](https://docs.github.com/en/github-models/prototyping-with-ai-models).
+
+You can prototype and test models using [a dedicated playground](https://github.com/marketplace/models/azureml/Phi-4/playground) or [via API](https://docs.github.com/en/github-models/integrating-ai-models-into-your-development-workflow) - check [sample code](https://techcommunity.microsoft.com/blog/educatordeveloperblog/github-model-catalog---getting-started/4212711).
+
+### Benefits and future directions
+
+To sum up, GitHub Model Catalog empowers developers by:
+
+- **Reducing Friction:** Lowering the barrier to entry for using advanced AI models.
+- **Accelerating Innovation:** Enabling rapid experimentation, so you can iterate quickly on new ideas.
+- **Streamlining Integration:** Providing clear documentation and best practices that help seamlessly embed AI into your projects.
+- **Fostering Collaboration:** Allowing teams to share insights and build on each other’s work within a centralized, well-documented ecosystem.
+
+As the catalog evolves, we can expect to see more models added, deeper integration with GitHub’s native tools, and enhanced support for diverse AI frameworks.
+
+If you prefer to use IDE like VS Code, you can also use [AI Toolkit extension](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio) to integrate GitHub Models directly into VS Code.
+
+## Conclusion
+
+GitHub is at the forefront of AI integration in software development, offering a suite of tools that enhance productivity, streamline workflows, and foster collaboration. From Copilot’s intelligent code suggestions to the task-centric approach of Copilot Workspace, GitHub nowadays is redefining how developers interact with their codebases.
+
+As I mentioned at the beginning of this post, I will keep it updated with new tools and features as they become available.

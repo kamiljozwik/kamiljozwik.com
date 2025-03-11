@@ -1,10 +1,13 @@
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Calendar, Tags } from "lucide-react";
 
 import { PostMeta, getPostBySlug, getPostsMeta } from "@/lib/blog";
 // import { TableOfContents } from "./components/toc";
 import { NoPost } from "./components/no-post";
+import { Badge } from "@/components/ui/badge";
+import { formatDate } from "@/lib/utils";
+
 
 export async function generateStaticParams() {
   return getPostsMeta();
@@ -18,7 +21,7 @@ export async function generateMetadata({
   const { slug } = await params;
 
   const meta = getPostBySlug(slug);
-  return { title: meta?.title, description: meta?.seo_desc };
+  return { title: meta?.title, description: meta?.description };
 }
 
 const PostPage = async ({ params }: { params: Promise<PostMeta> }) => {
@@ -41,36 +44,38 @@ const PostPage = async ({ params }: { params: Promise<PostMeta> }) => {
   // ]();
 
   return (
-    <div>
-      <header className="mt-12 mb-12">
-        <div className="flex gap-6 items-center mb-4">
-          <div className="" title="Ostatnia aktualizacja">
-            <span>📅</span>
-            <time dateTime={meta?.date}>{meta?.date}</time>
+    <main className="flex flex-col items-center">
+      <header className="mb-20 max-w-[700px]">
+        <h1 className="text-6xl md:text-7xl mb-4 font-bold">{meta?.title}</h1>
+        <p className="font-semibold text-muted-foreground">{meta?.description}</p>
+        <div className="flex gap-8 items-center mt-8">
+          <div className="flex gap-1 items-center" title="Updated date">
+            <Calendar size={20} />
+            <time dateTime={meta?.date}>{formatDate(meta?.date)}</time>
           </div>
-          <div className="" title="Tagi">
-            <span>🏷️</span>
+          <div className="flex gap-1" title="Tags">
+            <Tags />
             {meta?.tags.map((tag) => (
-              <Link key={tag} href={`/blog/tags/${tag.toLowerCase()}`}>
-                {tag}
-              </Link>
+              <Badge key={tag} variant='outline'>{tag}</Badge>
             ))}
+            {/* {meta?.tags.map((tag) => (
+              <Link key={tag} href={`/blog/tags/${tag.toLowerCase()}`} className={badgeVariants({ variant: "outline" })}>{tag}</Link>
+            ))} */}
           </div>
         </div>
-        <h1 className="text-3xl md:text-5xl mb-12 font-bold">{meta?.title}</h1>
       </header>
-      <div className="flex gap-2">
-        <main className="w-full sm:w-2/3 md:w-3/4">
+      <div className="flex justify-center">
+        <section className="border-t-2 border-t-primary/50 pt-8">
           <div className="prose prose-lg dark:prose-invert">
             {meta ? <PostContent /> : <NoPost />}
           </div>
-        </main>
+        </section>
         {/* <div className="hidden sm:block w-[1px] bg-gray-700" /> */}
         {/* <aside className="hidden sm:block w-1/3 md:w-1/4">
           <TableOfContents mdxContent={mdxContent} />
         </aside> */}
       </div>
-    </div>
+    </main>
   );
 };
 

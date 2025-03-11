@@ -8,6 +8,17 @@
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --animate-blink: blink 1s step-end infinite;
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
 }
 
 :root {
@@ -127,6 +138,7 @@
 
   html {
     scrollbar-gutter: stable;
+    scroll-behavior: smooth;
   }
 
   body {

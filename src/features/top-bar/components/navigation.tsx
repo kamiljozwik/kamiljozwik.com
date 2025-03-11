@@ -16,12 +16,12 @@ export const Navigation = () => {
               <ListItem href="/blog" title="All posts">
                 See all my articles
               </ListItem>
-              <ListItem href="/blog" title="AI for Developers">
+              {/* <ListItem href="/blog" title="AI for Developers">
                 Posts related to AI tools, agents, models etc. we can use in programming.
-              </ListItem>
-              <ListItem href="/blog" title="Web development.">
+              </ListItem> */}
+              {/* <ListItem href="/blog" title="Web development.">
                 Posts and topic related to web development. Both frontend and backend.
-              </ListItem>
+              </ListItem> */}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>

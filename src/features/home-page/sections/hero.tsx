@@ -1,13 +1,10 @@
-
 export const Hero = () => {
   return (
-    <section className="my-12">
-      <header className="flex flex-col gap-4 items-center mb-6">
-        <p className="text-lg md:text-2xl text-center font-bold">
-          You know how to do business.
-        </p>
-        <p className="text-lg md:text-2xl text-center font-bold">
-          I know how to handle technology
+    <section className="mt-8 mb-16">
+      <header className="flex flex-col gap-1 items-center text-2xl text-center font-bold">
+        <p className="">
+          Hi, welcome to my website
+          <span className="inline-block relative top-0.5 w-0.5 h-[1.1em] bg-current ml-1 animate-blink" />
         </p>
       </header>
     </section>
