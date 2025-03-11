@@ -1,13 +1,13 @@
-import { PostLink } from "@/components/blog/post-link";
+import { PostLink } from "@/components/posts/post-link";
 import { PageHeader } from "@/components/page-header";
-import { getPostsMeta } from "@/lib/blog";
+import { getPostsMeta } from "@/lib/posts";
 
 export const metadata = {
-  title: "Kamil Józwik | Blog",
-  description: "Lista wszystkich postów na blogu.",
+  title: "Kamil Józwik | Posts",
+  description: "List of all posts.",
 };
 
-const BlogPage = () => {
+const PostsPage = () => {
   const allPosts = getPostsMeta();
   const tag = undefined;
 
@@ -27,4 +27,4 @@ const BlogPage = () => {
   );
 };
 
-export default BlogPage;
+export default PostsPage;

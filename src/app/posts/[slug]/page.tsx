@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { Calendar, Tags } from "lucide-react";
 
-import { PostMeta, getPostBySlug, getPostsMeta } from "@/lib/blog";
+import { PostMeta, getPostBySlug, getPostsMeta } from "@/lib/posts";
 // import { TableOfContents } from "./components/toc";
 import { NoPost } from "./components/no-post";
 import { Badge } from "@/components/ui/badge";
@@ -59,7 +59,7 @@ const PostPage = async ({ params }: { params: Promise<PostMeta> }) => {
               <Badge key={tag} variant='outline'>{tag}</Badge>
             ))}
             {/* {meta?.tags.map((tag) => (
-              <Link key={tag} href={`/blog/tags/${tag.toLowerCase()}`} className={badgeVariants({ variant: "outline" })}>{tag}</Link>
+              <Link key={tag} href={`/posts/tags/${tag.toLowerCase()}`} className={badgeVariants({ variant: "outline" })}>{tag}</Link>
             ))} */}
           </div>
         </div>

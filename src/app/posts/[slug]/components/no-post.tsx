@@ -6,7 +6,7 @@ export const NoPost = () => {
       <h1>Ups...</h1>
       <p>Nie możemy znaleźć tego posta 🤔</p>
       <p>
-        Sprawdź <Link href="/blog">listę wszystkich postów</Link> lub wróć na{" "}
+        Sprawdź <Link href="/posts">listę wszystkich postów</Link> lub wróć na{" "}
         <Link href="/">stronę główną</Link>.
       </p>
     </section>

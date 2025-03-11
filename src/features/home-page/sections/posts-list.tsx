@@ -1,10 +1,10 @@
-import { PostLink } from "@/components/blog/post-link";
+import { PostLink } from "@/components/posts/post-link";
 import { Button } from "@/components/ui/button";
-import { getPostsMeta } from "@/lib/blog";
+import { getPostsMeta } from "@/lib/posts";
 import Link from "next/link";
 import { Section } from "../components/section";
 
-export const BlogPosts = () => {
+export const PostsList = () => {
   const allPosts = getPostsMeta();
 
   return (
@@ -15,7 +15,7 @@ export const BlogPosts = () => {
       ))}
       <div>
         <Button asChild variant="secondary">
-          <Link href="/blog">See all</Link>
+          <Link href="/posts">See all</Link>
         </Button>
       </div>
     </Section>

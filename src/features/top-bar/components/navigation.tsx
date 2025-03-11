@@ -13,13 +13,13 @@ export const Navigation = () => {
           <NavigationMenuTrigger>Posts</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="flex flex-wrap w-[200px] gap-3 p-2 md:grid-cols-2">
-              <ListItem href="/blog" title="All posts">
+              <ListItem href="/posts" title="All posts">
                 See all my articles
               </ListItem>
-              {/* <ListItem href="/blog" title="AI for Developers">
+              {/* <ListItem href="/posts" title="AI for Developers">
                 Posts related to AI tools, agents, models etc. we can use in programming.
               </ListItem> */}
-              {/* <ListItem href="/blog" title="Web development.">
+              {/* <ListItem href="/posts" title="Web development.">
                 Posts and topic related to web development. Both frontend and backend.
               </ListItem> */}
             </ul>
