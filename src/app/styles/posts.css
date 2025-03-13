@@ -1,0 +1,16 @@
+@layer base {
+  .prose h2 > a,
+  .prose h3 > a {
+    text-decoration: none;
+    &::before {
+      content: "#";
+      color: var(--muted-foreground);
+      margin-right: 4px;
+    }
+    &:hover {
+      &::before {
+        opacity: 0.6;
+      }
+    }
+  }
+}

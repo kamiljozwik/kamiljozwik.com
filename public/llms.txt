@@ -1,0 +1,7 @@
+# Website of Kamil Józwik
+
+> This website is a personal project of Kamil Józwik, a software engineer and solopreneur. It serves as a platform to share my thoughts, projects, and experiences in the tech industry and AI space.
+
+## Posts
+
+- [All posts](https://www.kamiljozwik.com/posts): A list of all my posts.
