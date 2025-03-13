@@ -47,7 +47,7 @@ const PostPage = async ({ params }: { params: Promise<PostMeta> }) => {
     <main className="flex flex-col items-center">
       <header className="mb-20 max-w-[700px]">
         <h1 className="text-6xl md:text-7xl mb-4 font-bold">{meta?.title}</h1>
-        <p className="font-semibold text-muted-foreground">{meta?.description}</p>
+        <p className="text-muted-foreground">{meta?.description}</p>
         <div className="flex gap-8 items-center mt-8">
           <div className="flex gap-1 items-center" title="Updated date">
             <Calendar size={20} />
@@ -66,7 +66,9 @@ const PostPage = async ({ params }: { params: Promise<PostMeta> }) => {
       </header>
       <div className="flex justify-center">
         <section className="border-t-2 border-t-primary/50 pt-8">
-          <div className="prose prose-lg dark:prose-invert">
+          <div className="prose prose-lg dark:prose-invert 
+          prose-a:text-blue-400 prose-a:hover:text-blue-300 prose-a:no-underline  prose-a:font-normal"
+          >
             {meta ? <PostContent /> : <NoPost />}
           </div>
         </section>

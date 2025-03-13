@@ -1,0 +1,68 @@
+export const meta = {
+  title: "What are llms.txt files?",
+  description:
+    "AI and LLMs are changing the way we interact with the web. The llms.txt file is a new proposed standard that helps LLMs understand website content more effectively.",
+  date: "2025-03-13",
+  tags: ["ai"],
+};
+
+`llms.txt` is a new [proposed standard](https://github.com/AnswerDotAI/llms-txt) for websites to provide a file that helps Large Language Models (LLMs) understand and use website content more effectively.
+
+From the technical point of view, it is a streamlined, Markdown-formatted file designed to provide LLMs with the most relevant website content quickly and efficiently. Much like how `robots.txt` or `sitemap.xml` guides search engines, `llms.txt` targets AI inference by summarizing a website’s key components without the noise of navigation menus, ads, or complex HTML structures.
+
+For example, if an LLM needs to answer a question about a software library's documentation, `llms.txt` could provide a quick overview and direct it to the right resources, making responses faster and more accurate.
+
+## Why?
+
+This initiative, first proposed in September 2024 by Jeremy Howard and detailed on platforms like [llmstxt.org](https://llmstxt.org), aims to address the growing reliance of LLMs on web content while acknowledging their technical limitations.
+
+Traditional web pages are optimized for human engagement, not for LLMs, which must extract relevant information from an ocean of HTML, JavaScript, and other extraneous elements.
+
+Converting such complex structures into LLM-friendly plain text is imprecise and inefficient, as noted in the proposal on [answer.ai](https://www.answer.ai/posts/2024-09-03-llmstxt.html).
+
+By implementing `llms.txt`, website owners can offer a curated "map" of their content, thereby:
+
+- **Enhancing context utilization**:
+  LLMs operate within a limited context window. A well-crafted `llms.txt` file ensures that only the most pertinent details are processed, leading to more accurate and context-rich responses.
+
+- **Reducing processing overhead**:
+  Instead of parsing an entire webpage, LLMs can directly refer to the `llms.txt` file to locate documentation, APIs, or support resources.
+
+## File structure
+
+The structure of `llms.txt` aims to be standardized to ensure consistency across websites. According to [llmstxt.org](https://llmstxt.org/#example), it should include the following sections:
+
+| Section                          | Details                                                                                                                                                             |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **H1 header**                    | Required, name of the project or site (e.g. `# Awesome Lib`)                                                                                                        |
+| **Blockquote**                   | Required, short summary with key information necessary for understanding the rest of the file (e.g., `> This is a python library...`)                               |
+| **Additional markdown sections** | Optional, any type except headings, for detailed information about the project and file interpretation                                                              |
+| **File lists (H2 headers)**      | Optional, each a markdown list with required hyperlinks `[name](url)` and optional notes after `:`, e.g., `- [Link title](https://link_url): Optional link details` |
+| **Optional section**             | Special meaning, if included, URLs can be skipped for shorter context, marked with `## Optional`                                                                    |
+
+This structure allows for flexibility while ensuring LLMs can parse the file using classical programming techniques like `parsers` and `regex`.
+
+Several early adopters are experimenting with dual versions of the file:
+
+- `llms.txt`: A high-level overview for quick AI processing.
+- `llms-full.txt`: An extended version that includes comprehensive details for deeper context.
+
+This dual-approach lets LLMs decide the level of detail needed based on query complexity, making it adaptable for diverse applications — from technical documentation to e-commerce product details.
+
+There is already in place a [curated directory](https://directory.llmstxt.cloud/) of products and companies leading the adoption of the `llms.txt` standard. You can use this directory to find examples when creating your own `llms.txt` file.
+
+There are also tools like [firecrawl.dev](https://www.firecrawl.dev/blog/How-to-Create-an-llms-txt-File-for-Any-Website) and [wordlift.io](https://wordlift.io/generate-llms-txt/) that offer generators to create `llms.txt` files. These tools process the site, extract key information, and produce both standard and expanded versions (e.g., `llms.txt` and `llms-full.txt`).
+
+## Adoption
+
+As of March 2025, adoption is still emerging, with tools like [Mintlify](https://docs.anthropic.com/llms-full.txt) adding support for thousands of dev tools' docs, as mentioned [here](https://towardsdatascience.com/llms-txt-414d5121bcb3/).
+
+However, there is controversy around its necessity, with some arguing it's premature given the rapid evolution of LLMs, while others see it as a forward-thinking move. Discussions on [Hacker News](https://news.ycombinator.com/item?id=41439983) reflect mixed sentiments, with concerns about standardization and potential overload of new web files.
+
+Hot or not? We must wait and see.
+
+## Future implications
+
+The future of `llms.txt` is uncertain but promising. It could fundamentally change how LLMs interact with the web, aligning websites with the AI-driven digital landscape. Companies like Ambiscale offer tailored solutions, as seen on [ambiscale.com](https://ambiscale.com/blog/what-is-llms-txt-and-why-does-your-website-need-it-in-the-ai-era/), suggesting a market for professional implementation.
+
+Its evolution will depend on LLM advancements, community adoption, and potential standardization by web authorities. Fingers crossed.

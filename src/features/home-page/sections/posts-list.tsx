@@ -9,7 +9,7 @@ export const PostsList = () => {
 
   return (
     <Section>
-      <h2 className="font-bold">Latests articles</h2>
+      <h2 className="text-muted-foreground">My latests articles</h2>
       {allPosts.slice(0, 5).map((post) => (
         <PostLink key={post.slug} post={post} />
       ))}

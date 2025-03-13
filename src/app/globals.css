@@ -141,6 +141,18 @@
     scroll-behavior: smooth;
   }
 
+  code {
+    @apply bg-muted border m-0;
+    padding: 0.12em 0.25em;
+    border-radius: 0.375rem;
+    line-height: 1.2;
+    font-weight: inherit !important;
+    &:before,
+    &:after {
+      content: "" !important;
+    }
+  }
+
   body {
     @apply bg-background text-foreground px-12;
   }
