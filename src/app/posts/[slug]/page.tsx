@@ -1,13 +1,13 @@
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import { Calendar, Tags } from "lucide-react";
+import { Tags } from "lucide-react";
 
 import { PostMeta, getPostBySlug, getPostsMeta } from "@/lib/posts";
 // import { TableOfContents } from "./components/toc";
 import { NoPost } from "./components/no-post";
 import { Badge } from "@/components/ui/badge";
-import { formatDate } from "@/lib/utils";
-
+import { UpdateDate } from "@/components/ui/update-date";
+import { prose } from "@/app/styles/prose";
 
 export async function generateStaticParams() {
   return getPostsMeta();
@@ -49,10 +49,7 @@ const PostPage = async ({ params }: { params: Promise<PostMeta> }) => {
         <h1 className="text-6xl md:text-7xl mb-4 font-bold">{meta?.title}</h1>
         <p className="text-muted-foreground">{meta?.description}</p>
         <div className="flex gap-8 items-center mt-8">
-          <div className="flex gap-1 items-center" title="Updated date">
-            <Calendar size={20} />
-            <time dateTime={meta?.date}>{formatDate(meta?.date)}</time>
-          </div>
+          <UpdateDate date={meta?.date} />
           <div className="flex gap-1" title="Tags">
             <Tags />
             {meta?.tags.map((tag) => (
@@ -66,9 +63,7 @@ const PostPage = async ({ params }: { params: Promise<PostMeta> }) => {
       </header>
       <div className="flex justify-center">
         <section className="border-t-2 border-t-primary/50 pt-8">
-          <div className="prose prose-lg dark:prose-invert 
-          prose-a:text-blue-400 prose-a:hover:text-blue-300 prose-a:no-underline  prose-a:font-normal"
-          >
+          <div className={prose()}>
             {meta ? <PostContent /> : <NoPost />}
           </div>
         </section>

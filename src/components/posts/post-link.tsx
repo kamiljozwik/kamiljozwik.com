@@ -7,7 +7,7 @@ type PostLinkProps = {
 
 export const PostLink = ({ post }: PostLinkProps) => {
   return (
-    <div className='flex flex-col my-5'>
+    <div className='flex flex-col mb-5'>
       <Link href={`/posts/${post.slug}`} className="text-inherit no-underline">
         <h3 className="text-xl font-bold">{post.title}</h3>
       </Link>

@@ -8,8 +8,7 @@ export const PostsList = () => {
   const allPosts = getPostsMeta();
 
   return (
-    <Section>
-      <h2 className="text-muted-foreground">My latests articles</h2>
+    <Section title="My latests articles">
       {allPosts.slice(0, 5).map((post) => (
         <PostLink key={post.slug} post={post} />
       ))}

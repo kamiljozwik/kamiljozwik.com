@@ -1,0 +1,129 @@
+import { Header } from "../_components/header";
+
+![LLM model logo](/models/gemma/logo.webp)
+
+<Header date="2025-03-25">Gemma LLMs family</Header>
+
+The [Gemma models](https://ai.google.dev/gemma) represent Google's ambitious effort to provide powerful yet lightweight open-source alternatives to their proprietary [Gemini models](https://deepmind.google/technologies/gemini/). Designed with versatility and efficiency in mind, the Gemma family aims to empower developers and researchers by providing state-of-the-art AI capabilities that can run on modest hardware setups like mobile phones, laptops and single-GPU servers.
+
+Unlike the massive, resource-intensive models typically associated with advanced AI, Gemma models try to focus on delivering substantial computational efficiency without sacrificing performance. They are optimized for easy integration, portability, and flexibility, making them particularly suitable for applications where resources or data privacy concerns limit the use of larger, cloud-based models.
+
+### Gemma 1
+
+The Gemma 1 models emerged in early 2024. The [initial release](https://blog.google/technology/developers/gemma-open-models/) included relatively compact model sizes — **2B** and **7B** parameters. These early models were trained primarily on English-language web documents, computer code, and mathematics-related data, providing users with a solid baseline for natural language understanding, programming assistance, and basic quantitative reasoning.
+
+Gemma 1 rapidly gained traction due to its openness. Google freely provided model weights under permissive licenses, encouraging experimentation and fostering broad community involvement from the outset.
+
+### Gemma 2
+
+Building on Gemma 1's foundation, [Gemma 2 arrived](https://blog.google/technology/developers/google-gemma-2/) by mid-2024, marking significant advancements both architecturally and in performance. Gemma 2 introduced larger-scale models with parameter counts expanded to **9B** and **27B**, alongside some architectural enhancements.
+
+Gemma 2 also benefited from an expanded training dataset, including a richer mix of scientific articles and coding repositories. Combined with advanced techniques like knowledge distillation from larger "teacher" models, Gemma 2 delivered impressive performance gains that accelerated community adoption, resulting in over 100 million downloads within its first year. Thousands of community-contributed variants and fine-tunes emerged, showcasing the model family's flexibility and ease of customization.
+
+### Gemma 3
+
+Building upon the substantial successes and rapid community uptake of Gemma 1 and Gemma 2, Google [unveiled Gemma 3](https://blog.google/technology/developers/gemma-3/) in March 2025 as its most advanced open model yet. Gemma 3 not only incorporates the latest research developments from Google's Gemini 2.0 program but also introduces new capabilities, like **multimodal capabilities**, **extended context windows**, and **multilingual support**.
+
+You can find even more information, guides, examples and models cards [in this official repository](https://github.com/google-gemini/gemma-cookbook).
+
+For more advanced users, here is the [technical report on Gemma 3](https://storage.googleapis.com/deepmind-media/gemma/Gemma3Report.pdf), to dive deep into the enhancements.
+
+![LLM model logo](/models/gemma/stats.webp)
+
+This image comes directly from Google's materials. One extra thing worth to mention is hardware requirements. Dots show estimated NVIDIA H100 GPU requirements. Gemma 3 27B ranks highly, **requiring only a single GPU** despite others needing up to 32.
+
+### Timeline
+
+Gemma model's family is quite small (for now), but still, it is worth summing the timeline of their releases and major updates.
+
+| Timeframe      | Model Versions          | Key Technical Breakthroughs                                                                             |
+| -------------- | ----------------------- | ------------------------------------------------------------------------------------------------------- |
+| **Early 2024** | Gemma 1 (2B,7B)         | Initial open models, English-centric                                                                    |
+| **Mid-2024**   | Gemma 2 (9B,27B)        | Architectural improvements, 8K token context                                                            |
+| **Mar 2025**   | Gemma 3 (1B,4B,12B,27B) | Multimodal input, 128K context window, multilingual (140+ languages), quantization and function calling |
+
+## Gemma 3: closer look
+
+At the time of writing (March 2025), Gemma 3 is the [latest and most powerful model](https://www.youtube.com/watch?v=UU13FN2Xpyw) in the Gemma family, so let's take a closer look at its capabilities.
+
+|                           | **1B**                                                | **4B**                                       | **12B**                                       | **27B**                        |
+| ------------------------- | ----------------------------------------------------- | -------------------------------------------- | --------------------------------------------- | ------------------------------ |
+| **Optimized for**         | Ultra-low resource environments (mobile/edge devices) | Balanced performance (laptops, workstations) | Balanced performance with higher capabilities | State-of-the-art performance   |
+| **Hardware requirements** | Mobile phones, IoT devices                            | Single GPU/TPU, laptops                      | Single GPU/TPU, workstations                  | Single modern GPU/TPU          |
+| **Context window**        | 32K tokens                                            | 128K tokens                                  | 128K tokens                                   | 128K tokens                    |
+| **Modality**              | Text-only                                             | Text + Visual (images, videos)               | Text + Visual (images, videos)                | Text + Visual (images, videos) |
+| **Visual capabilities**   | None                                                  | Visual Q&A, image captioning                 | Visual Q&A, image captioning                  | Visual Q&A, image captioning   |
+| **Speed**                 | Fastest (optimized for rapid inference)               | Fast                                         | Moderate                                      | Slowest of the family          |
+| **Multilingual Support**  | English                                               | 140+ languages                               | 140+ languages                                | 140+ languages                 |
+| **Function calling**      | Yes                                                   | Yes                                          | Yes                                           | Yes                            |
+| **Structured output**     | Yes                                                   | Yes                                          | Yes                                           | Yes                            |
+| **Preferred env.**        | Edge devices, mobile apps                             | Edge to mid-range servers                    | Workstations, servers                         | Dedicated GPU/TPU systems      |
+
+### Model sizes & efficiency
+
+Gemma 3 is available in four distinct sizes: **1B**, **4B**, **12B**, and **27B** parameters. Each model is optimized to deliver robust performance even on limited hardware resources.
+
+- **1B**: Highly optimized for ultra-low resource environments such as **mobile** and **edge devices**, capable of rapid inference speeds suitable for lightweight applications.
+- **4B** and **12B**: Strike a balance between computational demands and performance, making them ideal for moderate complexity tasks on laptops, workstations, and single GPU/TPU setups.
+- **27B**: Delivers state-of-the-art performance in its class, outperforming significantly larger models in various human-preference benchmarks. Despite its scale, it remains efficient enough to run on single modern GPU or TPU accelerators.
+
+### Context window
+
+One of Gemma 3’s defining advancements is its expanded context window:
+
+- **128k tokens** for the **4B**, **12B**, and **27B** models (approximately equivalent to processing a 200-page document).
+- **32k tokens** for the **1B** model, still significantly exceeding Gemma 2’s 8k tokens.
+
+### Multimodality & multilingual support
+
+Gemma 3 introduces multimodal capabilities:
+
+- **Multimodal processing:** The **4B**, **12B**, and **27B** models accept both text and visual inputs, including images and short videos, enabling sophisticated tasks such as visual question-answering, image captioning, and integrated multimodal reasoning. It is still not ready to generate images, though. The smaller **1B** model remains text-only.
+- **Multilingual capabilities:** Gemma 3 models (**4B**, **12B**, and **27B**) are pretrained on data spanning over 140 languages, with built-in high-quality support for more than 35 languages out-of-the-box. **1B** models are primarily English-focused.
+
+### Function calling & structured output
+
+Gemma 3 also enhances developer integration capabilities:
+
+- **Function calling APIs:** The model can natively trigger external functions (often called `tools`) by generating structured API calls as outputs. This functionality streamlines agentic workflows, enabling automated interactions with databases, code execution, and external service integrations based on natural language inputs.
+- **Structured outputs:** Gemma 3 can produce outputs in structured formats (e.g., `JSON`), facilitating seamless integration with downstream systems and enhancing workflow automation.
+
+## Get started
+
+As Gemma is open source, you can easily get started with it. Below you can find a few resources where Gemma models are now available.
+
+- [AI Studio](https://aistudio.google.com/prompts/new_chat?model=gemma-3-27b-it) - the fastest and easiest way to test Gemma models in a web interface of Google AI Studio.
+- [Hugging Face](https://huggingface.co/collections/google/gemma-3-release-67c6c6f89c4f76621268bb6d) - all the models are of course also available on the Hugging Face and tightly integrated with its ecosystem.
+- [Ollama](https://ollama.com/library/gemma3) - Ollama is one of the easiest ways to run Gemma models locally on your machine.
+- [Kaggle](https://www.kaggle.com/models/google/gemma-3) - Kaggle is also a great place to find datasets and models. Gemma models are available there as well.
+- [NVIDIA API Catalog](https://build.nvidia.com/google) - Gemma 3 is present on the NVIDIA API Catalog, enabling rapid prototyping with just an API call.
+
+This is just to start - you will find these models in many other LLM providers as well.
+
+## Gemmaverse
+
+The [Gemmaverse](https://ai.google.dev/gemma/gemmaverse) represents an ecosystem surrounding Google's Gemma models, driven by community engagement and innovation. Through contributions, specialized variants, and forward-looking community-led initiatives, the Gemmaverse illustrates the power of open-source collaboration in the field of artificial intelligence.
+
+### Specialized variants
+
+Within the Gemmaverse, a range of specialized Gemma model variants has emerged, each tailored to address specific use cases and industries. You can find the majority of them on [Hugging Face](https://huggingface.co/models?sort=trending&search=gemma).
+
+Here also some examples of specialized Gemma variants built by Google:
+
+- **[CodeGemma](https://ai.google.dev/gemma/docs/codegemma)** - Specifically optimized for software development tasks, CodeGemma supports multiple programming languages and excels in code generation, code completion, debugging assistance, and documentation.
+- **[PaliGemma](https://ai.google.dev/gemma/docs/paligemma)** - Designed for advanced visual data processing tasks, PaliGemma is fine-tunable for various image processing applications, including image captioning, visual question-answering, and multimodal analytics.
+- **[ShieldGemma](https://ai.google.dev/gemma/docs/shieldgemma)** - Focused explicitly on AI safety and moderation, ShieldGemma 2 is dedicated to content moderation across text and multimodal inputs. This variant ensures that Gemma-based applications adhere to robust safety standards, effectively mitigating risks associated with AI-generated content.
+
+### Real-world examples
+
+Gemma models are already being used in various real-world applications, and the list is growing rapidly. Here are some examples of their professional usage:
+
+- [SEA-LION](https://ai.google.dev/gemma/gemmaverse/sealion) - breaks down language barriers and fosters communication across Southeast Asia.
+- [BgGPT](https://ai.google.dev/gemma/gemmaverse/insait) - Bulgarian-first LLM that is used in various applications, including chatbots, content generation, and more.
+- [OmniAudio](https://ai.google.dev/gemma/gemmaverse/omniaudio) - a multimodal on-device AI assistant that brings advanced audio processing capabilities to everyday devices.
+
+## What next?
+
+Gemma models are still relatively new, and the community is rapidly evolving. One thing is sure - the Gemma family is here to stay and will be a great alternative to Gemini (and other LLM) models. The open-source nature of these models encourages experimentation, innovation, and collaboration, making them a valuable asset for developers and researchers alike.
+
+Google, keep up the good work!
