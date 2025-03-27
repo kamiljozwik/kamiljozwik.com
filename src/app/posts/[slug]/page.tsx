@@ -9,7 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { UpdateDate } from "@/components/ui/update-date";
 import { prose } from "@/app/styles/prose";
 
-
 export async function generateStaticParams() {
   return getPostsMeta();
 }
