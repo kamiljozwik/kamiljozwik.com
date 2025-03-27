@@ -1,4 +1,4 @@
-type Family = {
+export type Family = {
   title: string;
   description: string;
   href: string;
@@ -10,6 +10,6 @@ export const modelFamilies: Family[] = [
     title: "Gemma",
     description: "Open source models from Google",
     href: "/models/gemma",
-    img: "/images/gemma.png",
+    img: "/models/gemma/logo.webp",
   },
 ];

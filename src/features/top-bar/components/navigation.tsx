@@ -4,7 +4,7 @@ import {
   NavigationMenuTrigger
 } from "@/components/ui/navigation-menu";
 import { ListItem } from "./list-item";
-import { modelFamilies } from "@/features/model-family/data";
+import { modelFamilies } from "@/data/model-families";
 
 type NavigationItem = {
   trigger: string;
