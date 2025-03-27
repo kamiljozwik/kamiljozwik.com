@@ -4,6 +4,7 @@ import {
   NavigationMenuTrigger
 } from "@/components/ui/navigation-menu";
 import { ListItem } from "./list-item";
+import { modelFamilies } from "@/features/model-family/data";
 
 type NavigationItem = {
   trigger: string;
@@ -17,13 +18,7 @@ type NavigationItem = {
 const navigationItems: NavigationItem[] = [
   {
     trigger: 'Models',
-    content: [
-      {
-        href: "/models/gemma",
-        title: "Gemma",
-        description: "Open source models from Google",
-      }
-    ]
+    content: modelFamilies
   },
   {
     trigger: 'Posts',
