@@ -1,0 +1,181 @@
+export const meta = {
+  title: "Models distillation",
+  description:
+    "Distillation is a technique for creating smaller, faster, and more efficient AI models that inherit the wisdom of their larger counterparts. Why and how to use it?",
+  date: "2025-03-29",
+  tags: ["ai", "llm"],
+};
+
+Large Language Models are revolutionizing software development right in front of our eyes. As a developer, you're likely exploring ways to integrate these models into your applications, unlocking new functionalities and user experiences. However, you've probably also encountered a significant hurdle: the sheer size and resource hunger of state-of-the-art LLMs. Models with billions, even hundreds of billions, of parameters demand substantial computing power, memory, and storage, making them expensive to run and challenging to deploy, especially on everyday devices.
+
+This is where a technique called **Knowledge Distillation** enters the picture. If you've seen terms like `distilled`, `compact`, or `student` model when looking at LLM specifications, you've encountered its results. Knowledge distillation is a method for creating smaller, faster, and more efficient AI models that inherit the wisdom of their larger counterparts.
+
+In this article, we'll demystify the process, explore its benefits and drawbacks, and see how it enables developers (I'm not really into no-code tools) to leverage cutting-edge AI without breaking the bank or requiring supercomputer infrastructure.
+
+## What is knowledge distillation?
+
+Imagine a highly experienced senior developer (the **Teacher Model**) who possesses deep knowledge and intuition built over years. Now picture a promising junior developer (the **Student Model**) who needs to learn those skills but operates with less experience and perhaps fewer resources (like time or access to vast codebases). Knowledge distillation is akin to the senior developer mentoring the junior one, transferring not just the final answers but the _reasoning_ and _nuances_ behind them.
+
+In AI terms:
+
+1.  **The Teacher Model:** This is typically a large, complex, and high-performing neural network (usually an LLM) trained on vast amounts of data. It has learned intricate patterns and relationships, achieving impressive accuracy but at a high computational cost.
+2.  **The Student Model:** This is a smaller, lighter neural network with fewer layers and parameters. Its architecture might be similar to the teacher's or completely different, but the goal is efficiency.
+3.  **The Knowledge Transfer:** The core idea is to train the student model to mimic the teacher's behavior. Crucially, this goes beyond simply training the student on the original dataset. The student learns from the _outputs_ of the teacher model.
+
+This process allows the smaller student model to achieve performance remarkably close to the much larger teacher, but with significantly reduced computational requirements, making advanced AI more practical and accessible.
+
+## Why bother?
+
+Why go through the trouble of training a student model when a powerful teacher already exists? The motivations are compelling and directly address the practical challenges companies face with large LLMs:
+
+1.  **Reduced model size:** This is a primary driver. Large LLMs can occupy terabytes of storage and require massive amounts of RAM. Distillation creates models with significantly fewer parameters, sometimes reducing size by 90% or more. This makes them easier to store, manage, and deploy, especially in environments with limited storage capacity.
+2.  **Faster inference speed:** Smaller models mean fewer calculations. Distilled models process input and generate output much faster than their bulky teachers. This translates to lower latency and quicker response times in applications.
+3.  **Lower computational costs:** Less computation means lower energy consumption. Running distilled models is cheaper, whether you're paying for cloud GPU instances or considering the energy footprint. Deploying smaller models can also reduce the need for expensive high-end hardware, making AI features more economically viable.
+4.  **On-device deployment & accessibility:** Many powerful LLMs are simply too big to run directly on smartphones, laptops, or IoT devices. Distillation makes it feasible to deploy sophisticated AI capabilities _locally_ or on the _edge_. This addresses concerns around privacy (data doesn't need to leave the device), latency (no network round-trip), and offline functionality.
+5.  **Democratization of AI:** Knowledge distillation allows capabilities developed within large, often proprietary, `teacher` models (like GPT-4) to be transferred into smaller, sometimes open-source `student` models (like variants of Llama or Qwen). This lowers the barrier to entry for developers and smaller organizations, enabling broader innovation without hefty licensing fees or reliance on closed ecosystems.
+6.  **Tailoring for niche applications:** While large models are generalists, distilled models can sometimes be more easily fine-tuned or adapted for specific tasks or domains. This allows developers to create highly optimized solutions for niche use cases.
+7.  **Enhancing multilingual capabilities:** Knowledge can be distilled from multiple teacher models (each expert in a different language) into a single student model, potentially creating more efficient and effective multilingual applications.
+8.  **Improving instruction following:** Large teacher models can generate high-quality examples of reasoning or following complex instructions. This data can then be used to train smaller student models to become better at specific tasks, effectively distilling the teacher's alignment and instruction-following abilities (sometimes using techniques like Reinforcement Learning from AI Feedback - `RLAIF`).
+
+## How does it actually work?
+
+The power of distillation lies in **how** the student learns from the teacher. It's not just about matching the final answer.
+
+In traditional training, a model learns from `hard labels` – the single correct answer (e.g., this image is a "cat"). The model adjusts its parameters to predict this label accurately.
+
+Knowledge distillation, however, leverages `soft targets` provided by the teacher model. Instead of just outputting "cat," the teacher provides a _probability distribution_ across all possible classes it knows. For example, it might say: "I'm 80% sure this is a cat, 15% sure it could be a dog, 3% a fox, and 2% something else."
+
+These soft targets are incredibly rich in information:
+
+- They reveal the teacher's confidence level.
+- They show **how** the teacher sees relationships between classes (e.g., a cat is more similar to a dog than a fish).
+- They capture nuances that hard labels completely ignore.
+
+The student model is trained to replicate this probability distribution from the teacher. It learns not just **what** the answer is, but **why** the teacher thinks so, including the alternatives it considered. Think back to the senior developer analogy: they aren't just giving the junior the fixed line of code; they're explaining their debugging process, the alternatives they considered, and **why** the final choice is the best.
+
+### The role of "Temperature"
+
+To help the student learn these nuances, a technique involving a **"temperature"** parameter is often used during distillation. Applying a higher temperature to the teacher's output probabilities "softens" them, making the distribution more uniform. This exaggeration forces the teacher to reveal more about the less likely (but still plausible) options and the subtle relationships it has learned. The student then trains on these softened probabilities, gaining a deeper understanding of the data's structure as perceived by the teacher.
+
+### The dual loss approach
+
+Typically, the student's training involves optimizing a combination of two objectives (loss functions):
+
+1.  **Distillation Loss:** Measures how closely the student's output (specifically, its soft probabilities) matches the teacher's soft targets. This encourages the student to mimic the teacher's "thought process." (Often uses a metric like `Kullback-Leibler` divergence).
+2.  **Standard Loss:** Measures how well the student's final prediction matches the _actual_ correct answer (the hard label) from the original training data. This ensures the student is still grounded in reality and performs well on the underlying task.
+
+By balancing these two losses, the student learns both from the teacher's wisdom and the ground truth data, often achieving a better result than learning from the data alone.
+
+## Distillation strategies
+
+Knowledge distillation isn't a monolithic technique; researchers have developed various approaches based on **what** knowledge is transferred and **how** the training occurs:
+
+**Based on knowledge transferred:**
+
+- **Response-based distillation:** The most common type, where the student learns directly from the final output probabilities (the soft targets) of the teacher.
+- **Feature-based distillation:** The student learns to mimic the intermediate representations or activations within the teacher's hidden layers. This helps the student understand _how_ the teacher processes information internally, which is useful for tasks requiring deep feature understanding.
+- **Relation-based distillation:** Focuses on transferring the relationships _between_ different layers or data points as perceived by the teacher.
+
+**Based on training scheme:**
+
+- **Offline distillation:** The teacher model is pre-trained and frozen. Its knowledge is then transferred to the student in a separate training phase. This is very common, especially when distilling from large, proprietary models.
+- **Online distillation:** The teacher and student models are trained simultaneously, potentially learning from each other.
+- **Self-distillation:** A model learns from itself! This could involve transferring knowledge from deeper layers to shallower layers within the same model, or using an earlier version of the model as the teacher. It can enhance efficiency and robustness without needing a separate, larger teacher.
+
+Understanding these variations isn't critical for everyday use, but knowing they exist helps appreciate the flexibility and ongoing research in the field.
+
+## Advantages revisited
+
+Let's consolidate the key benefits distilled models bring to our potential AI-powered applications:
+
+- **Lighter & faster apps:** Build AI features that run smoothly even on less powerful hardware or mobile devices.
+- **Reduced operational costs:** Lower your cloud bills and energy consumption associated with running AI models.
+- **Improved user experience:** Deliver near-instant responses in interactive applications, leading to happier users. We all like happy users.
+- **Wider reach:** Deploy AI capabilities on edge devices, enabling offline functionality and addressing privacy concerns.
+- **Access to advanced AI:** Leverage the power of state-of-the-art models through efficient, often open-source, distilled versions.
+- **Easier customization:** Potentially fine-tune smaller distilled models more easily for your specific needs.
+
+## Challenges and considerations
+
+While powerful, knowledge distillation isn't a magic bullet. We should be aware of potential drawbacks:
+
+1.  **Accuracy trade-off:** The most common concern. While the goal is to retain performance, the smaller student model might not perfectly capture every nuance of the larger teacher. Expect a potential, usually slight, drop in accuracy or capability compared to the original teacher model. You need to evaluate if this trade-off is acceptable for your application.
+2.  **Teacher quality dependency:** Garbage in, garbage out 💩. If the teacher model is flawed, biased, or poorly trained, these issues can be transferred to the student. Selecting a high-quality teacher is crucial.
+3.  **Complexity of the process:** Implementing and tuning the distillation process itself can be complex. Finding the right hyperparameters (like temperature, loss weights) might require experimentation and some machine learning expertise. Thankfully, often you'll be _using_ pre-distilled models rather than doing the distillation yourself.
+4.  **Potential knowledge loss:** Despite best efforts, some subtle patterns or decision boundaries learned by the teacher might be lost during transfer, leading to slightly different behaviors on certain inputs.
+5.  **Task-specific customization:** The optimal distillation strategy can vary depending on the specific task (e.g., text generation vs. classification) and the model architectures involved.
+6.  **Ethical and legal considerations:** Distilling knowledge from proprietary models can raise questions about licensing, intellectual property, and fair use. Always check the terms of service of the teacher model if you plan to perform distillation yourself or use a distilled model commercially. Is the distilled model considered a derivative work? These are ongoing discussions in the AI community.
+
+## DeepSeek R1 case study
+
+To see distillation in action, let's look at [DeepSeek R1](https://huggingface.co/deepseek-ai/DeepSeek-R1). The original DeepSeek R1 is a massive 671 billion parameter Mixture-of-Experts (MoE) model known for its strong reasoning capabilities, rivaling top models in math, coding, and science benchmarks.
+
+Recognizing the deployment challenges of such a behemoth, DeepSeek AI released a [family of open-source distilled versions](https://ollama.com/library/deepseek-r1). What's fascinating is how they did it:
+
+- They used the powerful DeepSeek R1 (the teacher) to generate high-quality reasoning samples.
+- They used these samples to fine-tune smaller, existing open-source models (the students) based on popular architectures like **Qwen2.5** and **Llama 3**.
+- The result is a range of models from 1.5 billion to 70 billion parameters that inherit much of the reasoning prowess of the original 671B teacher.
+
+These [distilled models](https://github.com/deepseek-ai/DeepSeek-R1?tab=readme-ov-file#deepseek-r1-distill-models) are released under the permissive MIT license, making them freely available. Remarkably, some of these distilled models, like the 32B parameter version based on Qwen2.5, have shown performance exceeding other models of similar size and even approaching or surpassing larger proprietary models like OpenAI's o1-mini on certain benchmarks.
+
+Here’s a summary of the DeepSeek R1 distilled family:
+
+| Model Name                    | Student model          | Size | Hugging Face                                                                |
+| :---------------------------- | :--------------------- | :--- | :-------------------------------------------------------------------------- |
+| DeepSeek-R1-Distill-Qwen-1.5B | Qwen2.5-Math-1.5B      | 1.5B | [🤗 Link](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B) |
+| DeepSeek-R1-Distill-Qwen-7B   | Qwen2.5-Math-7B        | 7B   | [🤗 Link](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B)   |
+| DeepSeek-R1-Distill-Llama-8B  | Llama-3.1-8B           | 8B   | [🤗 Link](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-8B)  |
+| DeepSeek-R1-Distill-Qwen-14B  | Qwen2.5-14B            | 14B  | [🤗 Link](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-14B)  |
+| DeepSeek-R1-Distill-Qwen-32B  | Qwen2.5-32B            | 32B  | [🤗 Link](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B)  |
+| DeepSeek-R1-Distill-Llama-70B | Llama-3.3-70B-Instruct | 70B  | [🤗 Link](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-70B) |
+
+The DeepSeek R1 family clearly illustrates how distillation makes top-tier AI capabilities accessible and practical for developers without needing access to the original massive teacher model.
+
+### Gemma 3
+
+DeepSeek is not the only one to use distillation to create great models. [Gemma 3](/models/gemma) from Google is another example of a distilled model that [has been trained](https://developers.googleblog.com/en/introducing-gemma3/) to be smaller and faster than its predecessors.
+
+> Gemma's pre-training and post-training processes were optimized using a combination of distillation, reinforcement learning, and model merging.
+>
+> For post-training, Gemma 3 uses (...) distillation from a larger instruct model into the Gemma 3 pre-trained checkpoints.
+
+## How can I use it?
+
+Understanding knowledge distillation is one thing; implementing it is another. Fortunately, the AI landscape offers a growing range of services and platforms designed to help developers create smaller, more efficient LLMs. Whether you prefer a fully managed experience or more hands-on control, options exist across major cloud providers and specialized SaaS platforms.
+
+### Cloud providers
+
+#### Amazon Web Services (AWS)
+
+- [Amazon Bedrock Model Distillation](https://aws.amazon.com/bedrock/model-distillation/): Offers a _fully managed, automated workflow_. You select teacher/student models (from Bedrock's catalog), provide prompts (or use invocation logs), and Bedrock handles synthetic data generation and fine-tuning. It aims for significant speed/cost reduction with minimal accuracy loss, simplifying the process considerably. Here is [a short demo](https://www.youtube.com/watch?v=WQUyG34yk3Q) of this process.
+- [Amazon SageMaker](https://aws.amazon.com/sagemaker/): While not a distillation service itself, SageMaker provides _optimized infrastructure_ ([Large Model Inference containers](https://docs.aws.amazon.com/sagemaker/latest/dg/large-model-inference-container-docs.html)) for efficiently deploying and serving _pre-distilled_ models, featuring optimizations like continuous batching and quantization. Check [this AWS blog post](https://aws.amazon.com/blogs/machine-learning/deploy-deepseek-r1-distilled-models-on-amazon-sagemaker-using-a-large-model-inference-container/) to see how you can deploy DeepSeek-R1 distilled models there.
+
+#### Google Cloud Platform (GCP)
+
+- [Vertex AI Model Garden](https://cloud.google.com/model-garden): Serves as a repository providing access to numerous models (including from Hugging Face) that can act as _building blocks_ (e.g., student models) for custom distillation pipelines using other Vertex AI tools. Watch this short [introduction](https://www.youtube.com/watch?v=I7UiSU96CLc) to Vertex AI Model Garden to learn more. For more curious minds, you can also check out [this tutorial](https://colab.research.google.com/github/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/official/generative_ai/distillation.ipynb) on how to use the [distilling Step by Step](https://research.google/blog/distilling-step-by-step-outperforming-larger-language-models-with-less-training-data-and-smaller-model-sizes/) method on the Vertex AI.
+
+#### Microsoft Azure
+
+- [Azure AI Foundry](https://ai.azure.com/): Includes distillation feature ([currently in preview](https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/concept-model-distillation), short [introduction video](https://www.youtube.com/watch?v=6sCuH3GRJ6Q) also available). Users define teacher/student models (supports proprietary and OSS) and guide the process, offering flexibility for those comfortable with code. Looks very promising.
+- [Azure OpenAI Service](https://azure.microsoft.com/en-us/products/ai-services/openai-service): Offers a _streamlined, integrated process_ combining data generation ([stored completions](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/stored-completions)), model evaluation and fine-tuning. Designed to simplify iteration and make distillation more accessible within the Azure OpenAI ecosystem.
+
+### SaaS Platforms
+
+There are also several platforms that focus specifically on or heavily leverage distillation on the market, and here are some of them:
+
+- [Proxis](https://www.proxis.ai/): A _dedicated developer platform_ for LLM distillation and serving, focusing on distilling large open-source models (like Llama) into efficient, fine-tunable versions, emphasizing significant cost and speed reductions.
+- [Humanloop](https://humanloop.com/): Primarily an _LLM evaluation platform_ but crucial for distillation workflows. It provides robust tools for evaluating distilled model performance and integrates with platforms like OpenAI to guide the quality assurance process.
+- [Snorkel AI](https://snorkel.ai): An _AI data development platform_ that uses distillation techniques, particularly leveraging large models to programmatically label data or generate responses for training smaller, task-specific student models. Focuses on accelerating data development.
+- [Domino Data Lab](https://domino.ai/): Discusses and supports distillation as a key technique for creating efficient _Small Language Models (SLMs)_, enabling advanced AI in resource-constrained environments.
+
+There are, of course, other platforms and services that may not be explicitly focused on distillation but offer features or capabilities that can be leveraged for this purpose. The landscape is rapidly evolving, and new tools and services are continually emerging.
+
+### OpenAI
+
+Yes, OpenAI also offers so-called _Model Distillation suite_, which is a set of tools and techniques (using their API) to help developers create smaller, more efficient models.
+
+You can find more details in [this entry](https://openai.com/index/api-model-distillation/) and in this [OpenAI documentation](https://platform.openai.com/docs/guides/distillation/model-distillation).
+
+## What next?
+
+Knowledge distillation is more than just an academic curiosity; it's a vital enabling technology for practical AI development. It is just one of the many techniques that are reshaping the landscape of AI, making it more accessible, efficient, and powerful - and we will explore more of them soon.
