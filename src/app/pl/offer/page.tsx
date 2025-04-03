@@ -6,7 +6,7 @@ import { CtaSection } from './components/CtaSection';
 
 export default function OfferPage() {
   return (
-    <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
+    <div className="container mx-auto">
       <div className="space-y-16 md:space-y-24">
         <HeroSection />
         <ServicesSection />

@@ -1,12 +1,13 @@
 import { Badge } from '@/components/ui/badge';
 import { Section } from './section';
+import Image from 'next/image';
 
 export const ProcessSection = () => {
   const steps = [
     {
       title: 'Planowanie',
       description:
-        'Zaczynam od dogłębnego zrozumienia Twoich celów i wymagań, aby stworzyć solidny plan projektu.',
+        'Zaczynam od  zrozumienia Twoich celów i wymagań, aby stworzyć solidny plan projektu.',
     },
     {
       title: 'Implementacja',
@@ -25,6 +26,8 @@ export const ProcessSection = () => {
     },
   ];
 
+  const brands = ['/offer/brands/bc.webp', '/offer/brands/groupon.webp', '/offer/brands/helion.webp', '/offer/brands/pracuj.webp', '/offer/brands/siemens.webp', '/offer/brands/vitesse.webp']
+
   return (
     <Section id="process">
       <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
@@ -37,8 +40,6 @@ export const ProcessSection = () => {
         </p>
       </div>
       <div className="relative mx-auto max-w-5xl">
-        {/* Optional: Add a visual connector line if desired */}
-        {/* <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2 hidden md:block" /> */}
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, index) => (
             <div key={index} className="flex flex-col items-center text-center">
@@ -56,6 +57,14 @@ export const ProcessSection = () => {
               </p>
             </div>
           ))}
+        </div>
+        <div className="mt-24 text-center">
+          <h3 className="text-muted-foreground text-xl/relaxed">
+            Wybrane marki z którymi miałem przyjemność współpracować.
+          </h3>
+          <div className='flex flex-wrap justify-center items-center gap-x-8 gap-y-4 mt-10'>
+            {brands.map(el => <Image key={el} src={el} width={260} height={100} alt="" loading='lazy' />)}
+          </div>
         </div>
       </div>
     </Section>
