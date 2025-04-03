@@ -1,0 +1,134 @@
+export const meta = {
+  title: " Large Language Models 101",
+  description:
+    "A (not only) software developer's guide to Large Language Models (LLMs).",
+  date: "2025-04-03",
+  tags: ["llm"],
+};
+
+Large Language Models (LLMs) have swiftly transitioned from academic curiosities to tools reshaping software development and our interaction with technology itself. As a developer, gaining a fundamental grasp of LLMs is no longer optional — it's becoming essential for innovation and effective application building.
+
+This guide serves as your **LLM 101**, offering a clear overview tailored for developers, deliberately avoiding deep data science intricacies while providing knowledge needed to move forward confidently.
+
+## What are Large Language Models?
+
+Imagine a highly sophisticated AI system capable of understanding, generating, and interacting through human language — that's the essence of a Large Language Model. At their heart, LLMs function like advanced prediction engines. When presented with a piece of text, known as a **prompt**, the model calculates the most likely next word, then the word after that, and continues this process to construct coherent and contextually relevant sentences, paragraphs, or even extensive documents.
+
+This ability stems from complex [neural networks](https://www.youtube.com/watch?v=jmmW0F0biz0) trained on truly massive datasets comprising text scraped from the internet, digitized books, and various other sources. This training regimen imbues the models with an understanding of grammar, factual knowledge, reasoning capabilities, and the subtle nuances of style embedded within the data they process.
+
+## Neural networks & transformers
+
+While the concept of language models isn't new, the arrival of the [Transformer architecture](https://www.youtube.com/watch?v=ZXiruGOCn9s) in 2017 marked a pivotal moment. Prior approaches, such as Recurrent Neural Networks (`RNNs`), processed text sequentially, word by word. This sequential nature created bottlenecks, making training slow and limiting the model's ability to capture connections between words far apart in the text.
+
+Transformers shattered this limitation with the introduction of the **self-attention mechanism**. This technique allows the model to simultaneously consider and weigh the importance of all words in an input sequence relative to each other, irrespective of their position. This capacity for parallel processing drastically accelerates training and significantly enhances the model's ability to grasp context, even across lengthy passages.
+
+Most cutting-edge LLMs today (like **G**enerative **P**re-trained **T**ransformer) are built upon this transformer foundation. The original architecture featured two distinct components: an **Encoder**, which reads the input text to create a rich numerical representation of its meaning, and a **Decoder**, which uses this representation to generate the output text sequentially. Interestingly, many recent powerful models have adopted a streamlined **decoder-only** architecture, particularly effective for generative tasks as they directly produce output based on the input sequence.
+
+## Tokenization & embeddings
+
+To work with human language, LLMs first need to convert the text into a numerical format they can understand. This involves two very important steps: **tokenization** and **embeddings**.
+
+### Tokenization
+
+Tokenization is the process of breaking down the input text into smaller units called "tokens." Think of it like chopping a sentence into manageable pieces for the model. These tokens aren't always standard words. While simple tokenization might split by spaces, resulting in word tokens, this approach struggles with punctuation, variations like "run," "running," "ran," and completely new or rare words not seen during training.
+
+Therefore, modern LLMs typically use more sophisticated subword tokenization algorithms (like Byte Pair Encoding (BPE) or WordPiece). These methods break words into smaller, commonly occurring sub-units. For instance, a word like "tokenization" might be split into "token" and "ization". This approach cleverly balances vocabulary size (keeping it manageable) with the ability to represent virtually any word, including new ones or variations, by combining known subword tokens. It's much more efficient than trying to have a unique token for every single word in a language.
+
+### Embeddings
+
+Once the text is tokenized, each unique token is mapped to a numerical representation called an [embedding](https://www.youtube.com/watch?v=wgfSDrqYMJ4) (nice video [here as well](https://www.youtube.com/watch?v=vlcQV4j2kTo)). This isn't just a simple ID number; it's a dense vector (a list of numbers) typically having hundreds or even thousands of dimensions. The magic of embeddings lies in their ability to capture the semantic meaning and context of the tokens. Tokens with similar meanings or usage patterns tend to have similar embedding vectors (meaning their numerical representations are "close" in the multi-dimensional space). For example, the embeddings for "dog" and "puppy" would likely be closer to each other than to the embedding for "car."
+
+These embeddings aren't predefined; they are learned by the model during its pre-training phase. As the model processes vast amounts of text, it adjusts the embedding values to optimize its prediction tasks, effectively learning the relationships and nuances of language. Finally, since the order of words is critical to meaning, positional information is usually added to these token embeddings, ensuring the model knows not just what tokens are present, but also where they appear in the sequence.
+
+## Context window
+
+As you interact with an LLM, providing it with instructions (your prompt) and receiving its generated text, the model needs to keep track of the conversation or the document it's working on. The amount of text the model can actively consider at any single point in time is known as its [context window](https://www.youtube.com/watch?v=-QVoIxEpFkM).
+
+We can think of the context window like the model's short-term memory. It encompasses both the input you provide and the output the model generates. This "memory" isn't measured in words or characters, but in tokens – the same units we discussed in the chapter on Tokenization & Embeddings. So, a model with a context window of 4,096 tokens can process and keep track of a combined input and output sequence equivalent to that many tokens.
+
+The size of the context window directly impacts the model's capabilities. A larger context window generally allows the model to handle more complex tasks effectively. It can understand prompts with more intricate instructions, maintain coherence over longer conversations (remembering what was said earlier), refer back to information provided many paragraphs ago, and process larger documents for tasks like summarization or analysis without losing track of the beginning.
+
+However, there are trade-offs. Models with very large context windows typically require significantly more computational resources – specifically memory (RAM or VRAM) and processing power. This can translate to higher operational costs and potentially slower response times compared to models with smaller context windows. Furthermore, even with large windows, some models might struggle to pay equal attention to all parts of the context, sometimes overlooking information presented in the middle of very long inputs (a phenomenon sometimes called the "_lost in the middle_" problem).
+
+## The training process
+
+Creating a capable LLM involves a sophisticated, multi-stage training pipeline that demands substantial computational power. This process typically begins with **pre-training**, also known as **Self-Supervised Learning**. [This stage](https://www.youtube.com/watch?v=lGHjWy_1J3I) involves feeding the model enormous quantities of unlabeled text data. The model learns the fundamental patterns of language (grammar, facts, common-sense reasoning, and context) by performing tasks like predicting masked words within sentences or anticipating the next word in a sequence. This phase lays the groundwork for general language understanding and requires vast datasets and significant computing resources.
+
+Following pre-training, the model possesses broad linguistic knowledge, but may not be adept at following specific instructions or performing desired tasks reliably. This leads to the **fine-tuning** stage, often involving **Supervised Learning** or **Instruction Tuning**. Here, the model is trained on a smaller, carefully curated dataset containing high-quality examples of desired inputs and outputs. These examples are often formatted as instructions paired with ideal responses (e.g., providing a news article and a concise summary). This phase refines the model's capabilities, teaching it to be more helpful, follow instructions accurately, and generate outputs in specific styles or formats.
+
+Lastly, to ensure the model behaves safely, ethically, and helpfully, a process called **Alignment** is often applied, frequently utilizing Reinforcement Learning from Human Feedback (`RLHF`). In this stage, human reviewers evaluate and rank multiple outputs generated by the model for the same input prompt. This human preference data is then used to train a separate "reward model." The reward model subsequently guides the LLM during further training, reinforcing behaviors that lead to outputs similar to those preferred by humans and discouraging the generation of harmful, biased, or nonsensical content. This multi-phase process progressively shapes the LLM from a general text predictor into a capable and aligned AI assistant.
+
+## Capabilities and applications
+
+The sophisticated language understanding and generation capabilities of LLMs unlock a vast array of applications. They exhibit proficiency in **text generation**, enabling the creation of diverse written content, from articles and marketing copy to emails, stories, and even scripts. Another key strength is **summarization**, where LLMs can distill lengthy documents or complex information into concise, easy-to-understand summaries. Their ability extends to **language translation**, facilitating communication across linguistic barriers by translating text accurately between numerous languages.
+
+Furthermore, LLMs serve as tools for **question answering**, capable of providing informative answers based either on context provided within the prompt or by drawing upon their extensive internal (and with tools usage also external) knowledge base.
+
+For developers specifically, they can write code snippets, explain complex algorithms, assist in debugging efforts, and even translate code between different programming languages. This capacity also fuels the development of highly interactive **conversational AI**, powering sophisticated chatbots and virtual assistants that can engage in natural, helpful dialogue. Beyond generation, they are adept at **sentiment analysis**, discerning the emotional tone underlying a piece of text (for example, overall satisfaction of our product based on 1000+ comments), and **data extraction**, efficiently pulling structured information like names, dates, or specific values from unstructured text sources such as emails or reports.
+
+## Choosing the right LLM
+
+Selecting the appropriate LLM for your project requires careful consideration, as no single model is perfect for every scenario. As a developer, begin by clearly defining your project goals and task specificity. What precise function must the LLM perform? A simple customer service chatbot has vastly different requirements than an LLM designed for complex scientific literature analysis or creative story writing. Sometimes, a smaller model specifically trained for your niche task might yield better results than a larger, more general-purpose one.
+
+### Performance
+
+Next, evaluate **performance metrics**. Key factors include the model's accuracy in generating correct and relevant responses, its speed or latency (crucial for real-time applications), the size of its context window (determining how much information it can process simultaneously), and whether it possesses multimodal capabilities to handle inputs beyond text, such as images or audio. Consulting benchmarks and performance reports can aid in comparing different models objectively. Also, weigh the implications of **model size and resource requirements**. While larger models often boast greater capabilities, they invariably demand more significant computational resources, primarily powerful GPUs and ample memory, translating into higher operational costs and potentially more complex deployment strategies.
+
+### Licensing
+
+A final decision also lies between using **open-source** vs. **proprietary models**. Open-source options, like [DeepSeek](https://www.deepseek.com/en) or [Llama](https://www.llama.com/), offer transparency into their architecture, grant the freedom to customize or fine-tune them, potentially lower costs, and allow for self-hosting, which is quite important for maintaining strict data privacy. However, they might necessitate more technical effort for deployment, maintenance, and optimization. Conversely, proprietary models, such as OpenAI's [GPT](https://platform.openai.com/docs/models) series or Anthropic's [Claude](https://docs.anthropic.com/en/docs/about-claude/models/all-models), often represent the state-of-the-art in performance, come with user-friendly APIs, dedicated support, and streamlined integration. The trade-off typically involves usage-based fees or subscriptions, less transparency regarding their inner workings, and reliance on the provider's infrastructure.
+
+### Cost and scalability
+
+Factor in potential API call charges for proprietary models or the hardware and operational expenses associated with hosting open-source alternatives. Ensure your chosen solution can gracefully scale to accommodate your application's anticipated growth in usage. Closely related is **Data privacy and security**; if your application handles sensitive user or corporate data, the ability to self-host an open-source model or utilize an enterprise-grade cloud service with robust privacy guarantees might be non-negotiable.
+
+From a practical development standpoint, consider the **ease of integration**. Look for models that offer comprehensive, well-maintained documentation, provide Software Development Kits (SDKs) compatible with your team's preferred programming languages, and benefit from active community support.
+
+### Ethics and bias
+
+Finally, be mindful of the \*training data and potential bias\*\*. Every LLM reflects the data it was trained on, which can inadvertently include societal biases. Investigate the model provider's commitment to ethical AI practices, including efforts toward bias mitigation and safety alignment, to ensure the model aligns with your application's standards and values.
+
+## Future trends
+
+The landscape of Large Language Models is exceptionally dynamic, with advancements occurring at a incredible pace. Looking toward the near future, several key trends are shaping the evolution of this technology.
+
+### Efficiency
+
+There is a significant push towards **increased efficiency**, focusing on creating models that are smaller, faster, and consume less energy during training and inference, all while striving to maintain or even improve performance levels.
+
+### Specialization
+
+We are also witnessing a rise in **specialization**, with more LLMs being developed and fine-tuned for specific industries like healthcare, finance, or legal services, or tailored for highly specific tasks, potentially offering superior performance within those domains compared to generalist models.
+
+### Multimodality and reasoning
+
+The boundary between text and other data types is blurring thanks to enhanced **multimodality**. Models nowadays increasingly adept at seamlessly processing, understanding, and generating content that integrates text, images, audio, and potentially even video data.
+
+Concurrently, researchers are working hard to bolster the **enhanced reasoning** capabilities of LLMs, aiming to improve their ability to perform complex logical deductions, engage in multi-step planning, and solve intricate problems more reliably.
+
+### Customization and personalization
+
+Making these tools more accessible and adaptable is another major trend, leading to improvements in **customization and personalization**. Expect easier and more effective methods for organizations and individuals to fine-tune pre-trained models or build upon foundational models to suit their unique requirements and data.
+
+### Safety
+
+Alongside these capability enhancements, there's a growing and critical emphasis on **improved safety and ethics**. This involves continued research and development into techniques for mitigating biases inherited from training data, reducing the occurrence of factual inaccuracies or "hallucinations," ensuring greater transparency, and establishing robust ethical frameworks for responsible deployment.
+
+### On-device LLMs
+
+Finally, the development of more capable **on-device LLMs** promises to bring AI features directly to smartphones, laptops, and other edge devices, enhancing user privacy, reducing reliance on cloud connectivity, and enabling lower-latency applications.
+
+## More resources
+
+If you are a video learner, I recommend checking out these two video:
+
+- [How Large Language Models Work](https://www.youtube.com/watch?v=5sLYAQS9sWQ)
+- [What are Large Language Models](https://www.youtube.com/watch?v=iR2O2GPbB0E).
+
+They provide a great overview of the topic and are a good starting point for further exploration.
+
+If you want to dive deeper, there is also this [excellent talk](https://www.youtube.com/watch?v=zjkBMFhNj_g) from Andrej Karpathy, which covers LLM topic in detail yet in an approachable form.
+
+---
+
+Grasping these fundamental concepts and trends provides a solid foundation for navigating the rapidly evolving world of Large Language Models. As developers, continuously learning about and experimenting with these transformative tools will be instrumental in architecting the intelligent, responsive, and helpful applications of the future.
