@@ -1,0 +1,103 @@
+export const meta = {
+  title: "Model Context Protocol (MCP)",
+  description:
+    "Unlocking AI's potential with the Model Context Protocol (MCP).",
+  date: "2025-04-04",
+  tags: ["ai", "llm"],
+};
+
+In the world of artificial intelligence, we're seeing AI assistants and applications become increasingly powerful. But often, they hit a wall – they only know what they were trained on or what you tell them directly in your chat. What if they could securely reach out, access your latest files, check a database, or use a specialized tool _while_ you're interacting with them?
+
+That's the idea behind the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/). It's an open standard designed to be the universal translator, the connective tissue, between AI models and the vast world of external tools and information sources they need to be truly helpful.
+
+We can think of it like giving your AI assistant the ability to politely ask a specialist for help. Instead of just relying on its general knowledge, it can use MCP to say, _"Hey, File Server, can you give me the contents of `report.docx`?"_ or _"Database Tool, what are the latest sales figures?"_. This makes the AI smarter, more current, and much more useful in real-world scenarios.
+
+## Why does MCP matter?
+
+MCP isn't just a technical detail; it fundamentally changes what AI can do for us. Here’s why it’s generating so much buzz right now:
+
+- **Breaking free from time capsules:** AI models are trained on data up to a certain point in time. MCP lets them access live, up-to-the-minute information from external sources, whether it's today's news, the latest code changes, or current project documents.
+- **Boosting accuracy, reducing guesswork:** When an AI can fetch real data from a trusted source (like your company's internal wiki or a specific database) instead of relying solely on its training, it's far less likely to make things up (what we also call _hallucinations_).
+- **Unlocking specialized skills:** Using MCP, AI-powered apps can use your specific software tools, query your custom databases, or access specialized APIs. MCP provides the rails for these connections, allowing AI to leverage specialized knowledge and capabilities far beyond its core training.
+- **Playing nicely together (interoperability):** MCP aims to create a common language. If an application (like an AI chat app or a coding assistant) speaks MCP, and a tool (like a file manager or a database connector) also speaks MCP, they can work together seamlessly. This creates ecosystem where developers can build tools that work with many different AI applications, and vice-versa.
+- **Keeping data local and secure:** A key aspect of MCP is facilitating secure connections, often directly on your local machine. This means your AI assistant can work with your local files or tools without necessarily sending sensitive data over the internet, giving you more control.
+
+## How does it work?
+
+MCP works like a structured conversation between different players:
+
+1.  **The host application:** This is the main AI application you're using – maybe it's an AI chat window like Claude Desktop, [VS Code🎉](https://code.visualstudio.com/docs/copilot/chat/mcp-servers), Cursor, an IDE extension like Cline or Continue, or another AI-powered app.
+2.  **The MCP client:** Living inside the host application, its job is to talk to MCP servers when the application needs outside help.
+3.  **The MCP server:** This is the "specialist." It's a separate piece of software designed to provide a specific capability – access to files, interaction with a database, connection to a web search, etc. It listens for requests from MCP clients.
+
+The flow usually goes something like this:
+
+1.  You ask your AI assistant in the **host application** a question or give it a task.
+2.  The AI realizes it needs external help (e.g., "I need to see the contents of that file the user mentioned").
+3.  The **MCP client** (inside the **host app**) sends a structured request over the MCP "phone line" (protocol) to the appropriate **MCP server** (e.g., the File Server).
+4.  The **MCP server** does its job (finds the file, queries the database, runs the tool).
+5.  The **server** sends the results back to the **client** using the MCP format.
+6.  The **client** gives the information back to the AI model within the **host app**.
+7.  The AI incorporates this fresh information into its response to you.
+
+All of the above is very well presented in this [short video](https://www.youtube.com/watch?v=eur8dUO9mvE) from IBM.
+
+## What can MCP actually do?
+
+MCP defines a few key ways for AI to interact with the outside world.
+
+### Resources - giving AI reading material
+
+This allows servers to offer up information for the AI to "read." Think of it like handing the AI a specific document, a database record, or the content of a webpage. The AI can then use this context to answer your questions more accurately.
+
+### Tools - letting AI take action
+
+This is where things get really powerful. Servers can offer "tools" that the AI can decide to use. This could be anything from running a calculation, searching the web, executing a piece of code, querying a database, or calling an external API. The AI figures out _what_ tool to use and _what_ information to provide based on your request, and the MCP server handles the execution.
+
+### Prompts - reusable instructions
+
+Servers can provide pre-defined prompt templates for common tasks, like slash commands in your chat interface, like `/summarize_file` or `/generate_commit_message`. When you use one, the client asks the relevant MCP server to fill out the template, creating ready-to-use instructions for the AI, saving you typing and ensuring consistency.
+
+### Everyday examples
+
+Let's make this more concrete showcasing how MCP can be used in real-world scenarios:
+
+- **Coding assistant:** You're coding in your IDE with an AI assistant like Cursor. You ask it to _"Refactor the `process_data` function in `main.py` to be more efficient."_ Using MCP, the assistant asks the File Server for the content of `main.py`, analyzes the function, figures out the changes, maybe even asks a Git Server tool about recent related changes, and then suggests the improved code.
+- **Research helper:** You ask your AI chat app, _"What are the latest reviews for Product XYZ?"_ The app uses MCP to talk to a Web Search Server. The server performs the search, gathers recent reviews, and sends them back. The AI then summarizes the findings for you, citing its sources.
+- **Business analyst:** You ask, _"Show me the sales trend for the last quarter from our database."_ The AI application uses MCP to connect to a secure Database Server. The server runs the query (after verifying permissions), gets the data, and returns it. The AI then presents the trend, perhaps even generating a simple chart description.
+- **Meme generator:** Yes, you can use MCP for useful things as well.
+
+## The growing MCP world
+
+MCP isn't just a theory; it's a growing ecosystem. More and more apps are adding MCP support, like [Supabase](https://supabase.com/docs/guides/getting-started/mcp), IDE extensions (Cline went one step further and create the whole [MCP marketplace](https://cline.bot/mcp-marketplace)), and even [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/mcp/).
+
+Developers nowadays are building MCP servers for all sorts of things: accessing Git repositories, querying databases (PostgreSQL, SQLite), interacting with cloud services (GitHub, Cloudflare), searching the web, managing files, and much, much more.
+
+To make it easier to build these clients and servers, there are Software Development Kits (SDKs) available for popular languages like [Python](https://github.com/modelcontextprotocol/python-sdk), [TypeScript](https://github.com/modelcontextprotocol/typescript-sdk), [Java](https://github.com/modelcontextprotocol/java-sdk), [Kotlin](https://github.com/modelcontextprotocol/kotlin-sdk) and [C#](https://github.com/modelcontextprotocol/csharp-sdk).
+
+Before you start creating your own server, explore the expanding list of already created clients and servers. Here are most popular ones:
+
+- [Official repository](https://github.com/modelcontextprotocol/servers) - servers only
+- [Cline marketplace](https://cline.bot/mcp-marketplace) - servers only
+- [Pulse MCP](https://www.pulsemcp.com/) - servers and clients
+- [mcp.so](https://mcp.so/) - servers and clients
+
+## How to build MCP servers?
+
+As I want to keep my articles up-to-date, and some SDKs may change very soon, I usually do not include tutorials here. Instead, I provide links to the best (based on my personal experience) and most recent resources available online.
+
+This way you can always come back to this article and find the most recent and verified information, tutorials and resources.
+
+You can also (of course) ask your AI coding assistant to create server for you. The MCP creators made use of [llms.txt files](/posts/llms-txt) and provide us [the whole documentation](https://modelcontextprotocol.io/llms-full.txt) needed for LLM to get things done.
+
+What a time to build amazing things 🤖
+
+## Recommended resources
+
+The most obvious place to start is the [MCP website](https://modelcontextprotocol.io/). It contains all the necessary documentation, including the protocol specification, SDKs, and a list of available servers.
+
+If you want to quickly see how to build and use (with Claude Code) simple MCP server, watch this [get started with the MCP](https://www.youtube.com/watch?v=MC2BwMGFRx4) 2-minutes long video.
+
+If you are looking for a step-by-step tutorial, Matt again [gets you covered](https://www.aihero.dev/model-context-protocol-tutorial). It is a mix of video and text, so you can choose what works best for you.
+
+There are also more in-depth video tutorials prepared by Jack Herrington and you can watch them [here (introduction)](https://www.youtube.com/watch?v=VChRPFUzJGA) and [here (practical)](https://www.youtube.com/watch?v=eD0uBLr-eP8).
