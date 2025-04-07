@@ -8,6 +8,8 @@ import {
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Section } from './section';
+import { ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 
 const portfolioItems = [
   {
@@ -16,6 +18,7 @@ const portfolioItems = [
       'Nowoczesna platforma edukacyjna oferująca kursy online dla rekruterów w branży IT.',
     imageUrl: '/offer/portfolio/rekrutend.webp',
     projectUrl: 'https://rekrutend.pl',
+    tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS']
   },
   {
     title: 'Frontstack',
@@ -23,6 +26,7 @@ const portfolioItems = [
       'Portal i blog poruszający tematykę web developmentu, z bogatą bazą artykułów i zasobów.',
     imageUrl: '/offer/portfolio/frontstack.webp',
     projectUrl: 'https://frontstack.pl',
+    tags: ['React', 'Gatsby', 'GraphQL', 'Styled Components']
   },
   {
     title: 'Kolektor',
@@ -30,6 +34,7 @@ const portfolioItems = [
       'Aplikacja mobilna pozwalająca na zastąpienie klasycznego kolektora danych aparatem telefonu.',
     imageUrl: '/offer/portfolio/scanner.webp',
     projectUrl: 'https://play.google.com/store/apps/details?id=com.kamiljozwik.collector',
+    tags: ['React Native', 'Expo', 'Firebase']
   },
   {
     title: 'BoomBox',
@@ -37,49 +42,92 @@ const portfolioItems = [
       'Strona marketingowa stworzona na potrzeby promocji nowego produktu "BoomBox".',
     imageUrl: '/offer/portfolio/boombox.webp',
     projectUrl: 'https://boombox-plt.vercel.app/',
+    tags: ['Next.js', 'Framer Motion', 'Tailwind CSS']
   },
 ];
 
 export const PortfolioSection = () => {
   return (
-    <Section id="portfolio">
-      <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+    <Section id="portfolio" muted>
+      <div
+        className="flex flex-col items-center justify-center space-y-4 text-center mb-16"
+
+      >
+        <span className="inline-block py-1 px-3 bg-primary/10 rounded-full text-primary font-medium text-sm">
+          Moje projekty
+        </span>
         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-foreground">
-          Wybrane realizacje
+          Wybrane <span className="text-primary">realizacje</span>
         </h2>
-        <p className="w-2/3 text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed balance">
+        <p className="max-w-3xl text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-balance">
           Portfolio prezentuje jedynie wycinek zrealizowanych projektów. Każdy
           projekt to unikalne wyzwanie i dopasowane rozwiązanie.
         </p>
       </div>
-      <div className="mx-auto grid gap-8 sm:max-w-4xl sm:grid-cols-1 md:gap-12 lg:max-w-5xl lg:grid-cols-2">
+
+      <div
+
+        className="grid gap-8 md:grid-cols-2"
+      >
         {portfolioItems.map((item, index) => (
-          <Card key={index} className="flex flex-col overflow-hidden">
-            {/* <CardHeader className="p-0">
-              <div className="aspect-video bg-muted flex items-center justify-center">
+          <div
+            key={index}
+          >
+            <Card className="overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-300 h-full flex flex-col">
+              <div className="aspect-video relative overflow-hidden group">
                 <Image
-                  src={item.imageUrl}
+                  src={item.imageUrl || '/offer/portfolio/placeholder.jpg'}
                   alt={`Zdjęcie projektu ${item.title}`}
-                  width={400}
-                  height={225}
-                  className="object-cover w-full h-full"
-                // Add placeholder if using Next/Image blurDataURL
+                  width={600}
+                  height={340}
+                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-80 flex items-center justify-center transition-all duration-300">
+                  <Button asChild variant="secondary">
+                    <Link href={item.projectUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                      <span>Zobacz projekt</span>
+                      <ExternalLink className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
               </div>
-            </CardHeader> */}
-            <CardContent className="p-6 flex-grow">
-              <CardTitle className="mb-2">{item.title}</CardTitle>
-              <CardDescription>{item.description}</CardDescription>
-            </CardContent>
-            <CardFooter className="p-4 pt-0 lg:w-1/2">
-              <Button asChild variant="secondary" className="w-full">
-                <Link href={item.projectUrl} target="_blank" rel="noopener noreferrer">
-                  Zobacz projekt
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
+
+              <CardContent className="p-6 flex-grow">
+                <CardTitle className="text-2xl mb-3">{item.title}</CardTitle>
+                <CardDescription className="text-base">{item.description}</CardDescription>
+
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {item.tags.map((tag, tagIndex) => (
+                    <span
+                      key={tagIndex}
+                      className="bg-muted px-3 py-1 rounded-full text-xs font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </CardContent>
+
+              <CardFooter className="p-6 pt-0">
+                <Button asChild variant="outline" className="w-full">
+                  <Link href={item.projectUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                    <span>Odwiedź stronę</span>
+                    <ExternalLink className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
         ))}
+      </div>
+
+      <div className="flex justify-center mt-12">
+        <Button variant="outline" size="lg" asChild>
+          <Link href="#contact" className="flex items-center gap-2">
+            <span>Potrzebujesz podobnego projektu? Porozmawiajmy</span>
+            <ExternalLink className="h-4 w-4" />
+          </Link>
+        </Button>
       </div>
     </Section>
   );

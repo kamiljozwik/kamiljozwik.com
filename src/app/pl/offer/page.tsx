@@ -3,17 +3,23 @@ import { ServicesSection } from './components/ServicesSection';
 import { ProcessSection } from './components/ProcessSection';
 import { PortfolioSection } from './components/PortfolioSection';
 import { CtaSection } from './components/CtaSection';
+import { TestimonialsSection } from './components/TestimonialsSection';
+import { StatsSection } from './components/StatsSection';
+import { FaqSection } from './components/FaqSection';
 
 export default function OfferPage() {
   return (
-    <div className="container mx-auto">
-      <div className="space-y-16 md:space-y-24">
+    <div className="w-full">
+      <main className="space-y-0">
         <HeroSection />
+        <StatsSection />
         <ServicesSection />
         <ProcessSection />
         <PortfolioSection />
+        <TestimonialsSection />
+        <FaqSection />
         <CtaSection />
-      </div>
+      </main>
     </div>
   );
 }
