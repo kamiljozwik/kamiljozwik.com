@@ -1,0 +1,102 @@
+export const meta = {
+  title: "Embeddings and vector stores",
+  description:
+    "Two quite old, but very powerful concepts that are the foundation of modern AI applications.",
+  date: "2025-04-08",
+  tags: ["llm"],
+};
+
+Modern AI applications rarely deal with simple, uniform data. They need to process and understand a rich tapestry of information: text documents, user reviews, images, audio clips, source code, and more. How can a machine make sense of this diverse, often unstructured, "multimodal" data?
+
+Traditional methods often struggle. Keyword matching is brittle, and comparing different data types directly is often impossible. This is where embeddings step in, offering a powerful way to represent diverse data in a unified, meaningful format.
+
+## What are embeddings?
+
+At their core, **embeddings are numerical representations of real-world data** like words, sentences, paragraphs, images, or even more complex entities like users or products. We can think of them as mapping complex items into a multi-dimensional mathematical space (a vector space).
+
+The magic lies in how this mapping is done. AI models, particularly LLMs, are trained to create embeddings such that the distance and direction between vectors in this space represent the semantic relationship between the original items.
+
+- **Similarity = Proximity:** Items with similar meanings or characteristics will have embedding vectors that are close together in the vector space. For example, the embedding for the word "dog" would be closer to "puppy" and "canine" than to "car" or "cloud". Similarly, an image of a dog might have an embedding close to the text "photo of a golden retriever".
+- **Relationships = Directions:** Sometimes, the directions between vectors can capture relationships. A classic example is `vector("King") - vector("Man") + vector("Woman")` resulting in a vector very close to `vector("Queen")`.
+
+This process effectively transforms complex, high-dimensional data (like the vast possibilities of language or the pixels in an image) into relatively low-dimensional, dense vectors (lists of numbers) – often ranging from a few dozen to a few thousand dimensions. This numerical format is something machines can easily process and compare.
+
+Consider latitude and longitude: they embed a location on the 3D Earth onto a 2D map (a vector of two numbers). This embedding allows us to easily calculate distances between places and find nearby points of interest – a concept remarkably similar to how AI uses embeddings to find "semantically nearby" data.
+
+You can also check out to [What are Word Embeddings?](https://www.youtube.com/watch?v=wgfSDrqYMJ4) and [What are text embeddings?](https://www.youtube.com/watch?v=vlcQV4j2kTo) videos to see embeddings in action.
+
+## Embeddings for developers
+
+For software developers, embeddings are not just a theoretical or AI-only related concept; they are practical tools that unlock really powerful capabilities:
+
+1.  **Semantic Understanding:** Move beyond simple keyword matching. Embeddings allow applications to grasp the _meaning_ behind data, enabling smarter search, classification, and analysis.
+2.  **Handling Multimodality:** Embeddings provide a common ground, a shared vector space, where different types of data (text, images, audio) can be represented and compared. Want to find images based on a text description? Embeddings make this possible.
+3.  **Efficient Comparisons:** Calculating the distance between two vectors is computationally much cheaper than comparing raw data objects (like two long documents). Embeddings make similarity calculations fast and scalable.
+4.  **Data Compression:** They act as a form of "lossy compression," capturing the essential semantic essence of data in a much more compact format, aiding efficient storage and processing.
+5.  **Fueling Downstream Tasks:** Embeddings serve as rich, meaningful inputs for other machine learning models, powering tasks like recommendation systems, anomaly detection, clustering, and more.
+
+Nowadays, we all link embeddings with LLMs and AI. It may look as if it is a new concept, but embeddings have been around for a while. Recent AI advancements have just made them more accessible, powerful and recognizable.
+
+If you like to play a bit with embeddings, there is OpenAI Embeddings [documentation](https://platform.openai.com/docs/guides/embeddings) available for you to see how you can generate embeddings using OpenAI models.
+
+OpenAI models are, of course, paid, so if you want to do it for free, you can download them from [Ollama](https://ollama.com/search?c=embedding) and run locally.
+
+## Vector stores
+
+So, we have these powerful embeddings – potentially millions or even billions of them, representing our vast datasets. How do we store and efficiently search through them? If a user provides a query, how do we quickly find the items with the _most similar_ embeddings in our massive collection?
+
+Doing a brute-force comparison of the query embedding against every single embedding in the dataset becomes computationally infeasible very quickly. This is where **Vector Stores** (also known as [Vector Databases](https://www.youtube.com/watch?v=gl1r1XV0SLw)) come in.
+
+A **Vector Store is a specialized type of database designed explicitly for storing, indexing, and querying large quantities of high-dimensional embedding vectors**. They employ sophisticated algorithms, often based on **Approximate Nearest Neighbor** (`ANN`) search, to find vectors similar to a query vector incredibly quickly, even across billions of entries. `ANN` algorithms trade a tiny bit of perfect accuracy for massive gains in search speed.
+
+Vector stores can be simply explained as a highly optimized indexing systems for the geometric relationships defined by embeddings. Here is yet another useful [video explanation](https://www.youtube.com/watch?v=dN0lsF2cvm4).
+
+## Embeddings 💓 vector stores
+
+Embeddings and vector stores are two sides of the same coin. While embeddings provide a way to represent data in a meaningful numerical format, vector stores provide the infrastructure to efficiently store, index, and search through these embeddings.
+
+The typical (simplified) workflow looks like this:
+
+1.  **Embedding generation (indexing):**
+    - Take your source data (documents, product descriptions, images, etc.).
+    - Use a pre-trained embedding model (like those accessible via APIs from model providers, or open-source models) to convert each data item into its corresponding embedding vector.
+    - Store these embedding vectors, along with references back to the original data (and any relevant metadata), in a vector store. The vector store builds specialized indexes for efficient searching.
+2.  **Embedding generation (querying):**
+    - When a user provides a query (e.g., a search term, an image, a document for comparison), use the _same_ embedding model to convert this query into its embedding vector. It's important to use the same model for consistency.
+3.  **Vector search:**
+    - Send the query vector to the vector store / vector database.
+    - The vector store uses its `ANN` index to rapidly find the embedding vectors in its storage that are "closest" (most similar, based on a distance metric like `cosine similarity` or `Euclidean distance`) to the query vector.
+4.  **Result retrieval:**
+    - The vector store returns the identifiers (and potentially metadata) of the most similar items.
+    - Your application can then retrieve the original data corresponding to these identifiers to present to the user (e.g., the relevant documents, recommended products, similar images).
+
+This combination allows applications to perform semantic search, provide recommendations, and power other similarity-based features at scale and with low latency.
+
+## Common use cases
+
+The synergy between embeddings and vector stores enables a wide range of AI applications:
+
+- **Semantic search:** Go beyond keywords. Find documents, products, or images based on conceptual meaning, not just literal text overlap. For example, searching for _"summer vacation clothes"_ retrieves sundresses and shorts, even if they don't contain the exact search terms.
+- **Recommendation systems:** Recommend items (articles, products, movies, music) similar to those a user has previously liked or viewed by finding items with similar embeddings.
+- **Question answering (RAG):** Enhance LLMs with external knowledge. When a user asks a question, use embeddings/vector stores to find relevant documents from a knowledge base. Feed this relevant context into the LLM's prompt (_"Retrieval-Augmented Generation"_ - [RAG](https://www.youtube.com/watch?v=oVtlp72f9NQ)) to generate more factual, up-to-date, and less "hallucinated" answers, often providing sources. I will cover this topic in more detail in another article.
+- **Clustering & anomaly detection:** Group similar items together based on their embedding proximity (e.g., customer segmentation) or identify outliers whose embeddings are far from any group (e.g., fraud detection).
+- **Image/multimodal search:** Search for images using text descriptions, find similar images based on an example image, or even search across combined text/image documents.
+- **Duplicate detection:** Find near-duplicate documents or images based on semantic similarity.
+
+## Vector database considerations
+
+As vector databases grow in popularity, you have many options, ranging from managed cloud services to open-source libraries and databases with vector capabilities bolted on.
+
+Many traditional databases are also [adding vector search](https://github.com/pgvector/pgvector) capabilities, allowing "hybrid" queries that combine semantic relevance with standard filtering (e.g., find documents _semantically similar_ to X, but only those _created in the last month_ and _tagged with 'project Y'_).
+
+AI-powered applications become more and more popular, and we can see a lots of new vector databases popping up. I want this post to cover only topics related to embeddings and vector stores, and prepare a brand-new article dedicated to currently available and recommended vector databases.
+
+Stay tuned!
+
+## Conclusion
+
+The fields of embeddings and vector stores are incredibly dynamic. Embedding models are constantly improving, offering better nuance, efficiency, and handling of multimodality. Vector databases are evolving with more sophisticated indexing, better hybrid search, and easier integration.
+
+For software developers entering the AI space, understanding embeddings and vector stores is no longer optional – it's foundational.
+
+If you like to dig even deeper into these topics, I highly recommend checking out the [Embeddings & Vector Stores](https://www.kaggle.com/whitepaper-embeddings-and-vector-stores) white paper prepared by Google.
