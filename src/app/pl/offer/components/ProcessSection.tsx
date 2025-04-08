@@ -8,7 +8,7 @@ export const ProcessSection = () => {
     {
       title: 'Planowanie',
       description:
-        'Zaczynam od dokładnego zrozumienia Twoich celów biznesowych i wymagań, aby stworzyć precyzyjny plan projektu i strategię jego realizacji.',
+        'Zaczynam od dokładnego zrozumienia Twoich celów biznesowych i wymagań, aby stworzyć precyzyjny plan.',
       icon: '/offer/process/planning.svg',
       details: [
         'Analiza wymagań i potrzeb',
@@ -20,7 +20,7 @@ export const ProcessSection = () => {
     {
       title: 'Implementacja',
       description:
-        'Buduję Twoje rozwiązanie z wykorzystaniem najlepszych praktyk inżynierii oprogramowania i nowoczesnych technologii.',
+        'Buduję Twoje rozwiązanie z wykorzystaniem najlepszych praktyk i nowoczesnych technologii.',
       icon: '/offer/process/development.svg',
       details: [
         'Architektura i projektowanie systemu',
@@ -32,7 +32,7 @@ export const ProcessSection = () => {
     {
       title: 'Wdrożenie',
       description:
-        'Testuję i optymalizuję rozwiązanie, aby zapewnić jego najwyższą jakość, wydajność i niezawodność przed finalnym wdrożeniem.',
+        'Optymalizuję rozwiązanie, aby zapewnić jego najwyższą jakość, wydajność i niezawodność przed finalnym wdrożeniem.',
       icon: '/offer/process/deployment.svg',
       details: [
         'Kompleksowe testy funkcjonalne',
@@ -44,7 +44,7 @@ export const ProcessSection = () => {
     {
       title: 'Utrzymanie',
       description:
-        'Po wdrożeniu zapewniam wsparcie techniczne, monitorowanie wydajności i rozwój Twojego projektu zgodnie z potrzebami.',
+        'Po wdrożeniu zapewniam wsparcie, monitorowanie i rozwój Twojego projektu zgodnie z potrzebami.',
       icon: '/offer/process/support.svg',
       details: [
         'Regularne aktualizacje systemu',
@@ -128,7 +128,7 @@ export const ProcessSection = () => {
           className="mt-28 text-center"
         >
           <div className="relative mb-12">
-            <div className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-muted/50 to-transparent top-1/2 -translate-y-1/2"></div>
+            <div className="absolute left-0 right-0 h-px bg-foreground/30 top-1/2 -translate-y-1/2"></div>
             <h3 className="inline-block relative bg-background px-8 text-muted-foreground text-xl font-medium">
               Zaufali mi
             </h3>
@@ -138,7 +138,7 @@ export const ProcessSection = () => {
             {brands.map((brand, idx) => (
               <div
                 key={idx}
-                className="grayscale hover:grayscale-0 transition-all duration-300"
+              // className="grayscale hover:grayscale-0 transition-all duration-300"
               >
                 <Image
                   src={brand}

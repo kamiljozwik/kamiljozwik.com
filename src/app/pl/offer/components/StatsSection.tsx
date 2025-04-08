@@ -1,9 +1,7 @@
 import { Section } from './section';
 import { CalendarClock, Code2, Users, Zap } from 'lucide-react';
 
-
 export const StatsSection = () => {
-
 
   const stats = [
     {
@@ -31,16 +29,6 @@ export const StatsSection = () => {
       description: "Dostarczonych na czas"
     }
   ];
-
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 }
-    }
-  };
-
 
   return (
     <Section id="stats" muted>

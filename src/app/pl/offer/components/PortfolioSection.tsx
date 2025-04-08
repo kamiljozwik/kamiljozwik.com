@@ -16,33 +16,29 @@ const portfolioItems = [
     title: 'Rekrutend',
     description:
       'Nowoczesna platforma edukacyjna oferująca kursy online dla rekruterów w branży IT.',
-    imageUrl: '/offer/portfolio/rekrutend.webp',
+    imageUrl: '/offer/rekrutend.webp',
     projectUrl: 'https://rekrutend.pl',
-    tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS']
   },
   {
     title: 'Frontstack',
     description:
       'Portal i blog poruszający tematykę web developmentu, z bogatą bazą artykułów i zasobów.',
-    imageUrl: '/offer/portfolio/frontstack.webp',
+    imageUrl: '/offer/frontstack.webp',
     projectUrl: 'https://frontstack.pl',
-    tags: ['React', 'Gatsby', 'GraphQL', 'Styled Components']
   },
   {
     title: 'Kolektor',
     description:
       'Aplikacja mobilna pozwalająca na zastąpienie klasycznego kolektora danych aparatem telefonu.',
-    imageUrl: '/offer/portfolio/scanner.webp',
+    imageUrl: '/offer/scanner.webp',
     projectUrl: 'https://play.google.com/store/apps/details?id=com.kamiljozwik.collector',
-    tags: ['React Native', 'Expo', 'Firebase']
   },
   {
     title: 'BoomBox',
     description:
       'Strona marketingowa stworzona na potrzeby promocji nowego produktu "BoomBox".',
-    imageUrl: '/offer/portfolio/boombox.webp',
+    imageUrl: '/offer/boombox.webp',
     projectUrl: 'https://boombox-plt.vercel.app/',
-    tags: ['Next.js', 'Framer Motion', 'Tailwind CSS']
   },
 ];
 
@@ -54,13 +50,13 @@ export const PortfolioSection = () => {
 
       >
         <span className="inline-block py-1 px-3 bg-primary/10 rounded-full text-primary font-medium text-sm">
-          Moje projekty
+          Przykładowe projekty
         </span>
         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-foreground">
           Wybrane <span className="text-primary">realizacje</span>
         </h2>
         <p className="max-w-3xl text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-balance">
-          Portfolio prezentuje jedynie wycinek zrealizowanych projektów. Każdy
+          Portfolio prezentuje <span className='text-primary/80 font-bold'>jedynie wycinek zrealizowanych projektów</span>. Każdy
           projekt to unikalne wyzwanie i dopasowane rozwiązanie.
         </p>
       </div>
@@ -73,7 +69,7 @@ export const PortfolioSection = () => {
           <div
             key={index}
           >
-            <Card className="overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-300 h-full flex flex-col">
+            <Card className="overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-300 h-full flex flex-col py-0">
               <div className="aspect-video relative overflow-hidden group">
                 <Image
                   src={item.imageUrl || '/offer/portfolio/placeholder.jpg'}
@@ -95,17 +91,6 @@ export const PortfolioSection = () => {
               <CardContent className="p-6 flex-grow">
                 <CardTitle className="text-2xl mb-3">{item.title}</CardTitle>
                 <CardDescription className="text-base">{item.description}</CardDescription>
-
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {item.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="bg-muted px-3 py-1 rounded-full text-xs font-medium"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
               </CardContent>
 
               <CardFooter className="p-6 pt-0">
@@ -124,8 +109,7 @@ export const PortfolioSection = () => {
       <div className="flex justify-center mt-12">
         <Button variant="outline" size="lg" asChild>
           <Link href="#contact" className="flex items-center gap-2">
-            <span>Potrzebujesz podobnego projektu? Porozmawiajmy</span>
-            <ExternalLink className="h-4 w-4" />
+            <span>Potrzebujesz podobnego projektu?</span>
           </Link>
         </Button>
       </div>

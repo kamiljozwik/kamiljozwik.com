@@ -3,51 +3,31 @@ import { Quote } from 'lucide-react';
 import Image from 'next/image';
 
 export const TestimonialsSection = () => {
-
-
   const testimonials = [
     {
-      quote: "Kamil to niezwykle utalentowany developer, który dostarczył aplikację internetową znacznie przekraczającą nasze oczekiwania. Jego umiejętności techniczne, komunikacja i podejście do rozwiązywania problemów były na najwyższym poziomie.",
-      author: "Anna Kowalska",
-      position: "CEO, Digital Marketing Agency",
-      avatar: "/offer/testimonials/avatar1.webp"
+      quote: "Kamil dostarczył aplikację internetową znacznie przekraczającą nasze oczekiwania. Jego umiejętności techniczne, komunikacja i podejście do rozwiązywania problemów były na najwyższym poziomie.",
+      author: "Andrzej Antosik",
+      // position: "CEO, Digital Marketing Agency",
+      avatar: "/offer/avatar3.webp"
     },
     {
       quote: "Współpraca z Kamilem to czysta przyjemność. Jego dokładność, terminowość i umiejętność tłumaczenia złożonych kwestii technicznych w prosty sposób sprawiły, że cały proces rozwoju naszej strony był bezproblemowy.",
-      author: "Marek Nowak",
-      position: "Founder, StartupXYZ",
-      avatar: "/offer/testimonials/avatar2.webp"
+      author: "Tomasz Siwiec",
+      // position: "Founder, StartupXYZ",
+      avatar: "/offer/avatar1.webp"
     },
     {
-      quote: "Dzięki Kamilowi nasza aplikacja mobilna zyskała nowe życie. Jego rozwiązania zwiększyły wydajność o 40% i znacząco poprawiły doświadczenia użytkowników, co przełożyło się na wzrost zaangażowania.",
+      quote: "Dzięki Kamilowi nasza aplikacja mobilna zyskała nowe życie. Jego rozwiązania zwiększyły wydajność i znacząco poprawiły doświadczenia użytkowników, co przełożyło się na wzrost zaangażowania.",
       author: "Karolina Wiśniewska",
-      position: "Product Manager, TechCorp",
-      avatar: "/offer/testimonials/avatar3.webp"
+      // position: "Product Manager, TechCorp",
+      avatar: "/offer/avatar2.webp"
     }
   ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 }
-    }
-  };
 
   return (
     <Section id="testimonials">
       <div
         className="flex flex-col items-center justify-center space-y-4 text-center mb-16"
-
       >
         <span className="inline-block py-1 px-3 bg-primary/10 rounded-full text-primary font-medium text-sm">
           Opinie klientów
@@ -61,7 +41,6 @@ export const TestimonialsSection = () => {
       </div>
 
       <div
-
         className="grid gap-8 md:grid-cols-3"
       >
         {testimonials.map((item, index) => (
@@ -88,7 +67,7 @@ export const TestimonialsSection = () => {
                 </div>
                 <div>
                   <h4 className="font-medium text-foreground">{item.author}</h4>
-                  <p className="text-sm text-muted-foreground">{item.position}</p>
+                  {/* <p className="text-sm text-muted-foreground">{item.position}</p> */}
                 </div>
               </div>
             </div>
@@ -98,7 +77,7 @@ export const TestimonialsSection = () => {
 
       <div className="mt-16 text-center">
         <p className="text-muted-foreground">
-          Dołącz do grona zadowolonych klientów i zrealizuj swój projekt z sukcesem.
+          Dołącz do grona zadowolonych klientów i zrealizuj swój projekt z sukcesem!
         </p>
       </div>
     </Section>

@@ -1,7 +1,5 @@
 import { Section } from './section';
-import { Button } from '@/components/ui/button';
-import { Mail, MessageSquare, Calendar, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { Mail } from 'lucide-react';
 
 const gradientText = "bg-gradient-to-l from-primary to-blue-300 bg-clip-text text-transparent";
 
@@ -11,8 +9,8 @@ export const CtaSection = () => {
     <Section id="contact" className="relative overflow-visible py-24">
       {/* Background gradient effects */}
       <div className="absolute inset-0 overflow-visible">
-        <div className="absolute bottom-1/5 left-1/5 w-40 h-40 bg-primary/20 rounded-full blur-3xl opacity-40 transform -translate-x-1/2 translate-y-1/3"></div>
-        <div className="absolute top-1/5 right-1/5 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl opacity-40 transform translate-x-1/3 -translate-y-1/4"></div>
+        <div className="absolute bottom-1/5 left-1/5 w-40 h-40 dark:bg-primary/20 rounded-full blur-3xl opacity-80 transform -translate-x-1/2 translate-y-1/3"></div>
+        <div className="absolute top-1/5 right-1/5 w-80 h-80 bg-blue-500/30 rounded-full blur-3xl opacity-80 transform translate-x-1/3 -translate-y-1/4"></div>
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto">
@@ -26,7 +24,7 @@ export const CtaSection = () => {
                 Porozmawiajmy o Twoim projekcie
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-foreground">
-                <span className={gradientText}>Gotowy na transformację cyfrową?</span>
+                <span className={gradientText}>Gotowy na cyfrową transformację?</span>
               </h2>
               <p className="text-muted-foreground text-lg max-w-xl">
                 Skontaktuj się ze mną, aby omówić, jak mogę pomóc w realizacji Twojej wizji. Niezależnie od etapu na jakim jesteś - od pomysłu po gotowy produkt wymagający rozwoju.

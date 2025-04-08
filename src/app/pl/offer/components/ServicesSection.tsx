@@ -43,8 +43,8 @@ export const ServicesSection = () => {
       description:
         'Intuicyjne aplikacje na platformy iOS i Android, dostarczające realną wartość użytkownikom w ich codziennym życiu.',
       features: [
-        'Natywne lub hybrydowe rozwiązania',
-        'Synchronizacja danych offline/online',
+        'Sprawdzone rozwiązania',
+        'Synchronizacja danych',
         'Integracja z funkcjami urządzeń',
         'Notyfikacje push i interakcje z użytkownikem'
       ]
@@ -55,7 +55,7 @@ export const ServicesSection = () => {
       description:
         'Optymalizacja procesów biznesowych i usprawnianie decyzji dzięki inteligentnym rozwiązaniom opartym na AI.',
       features: [
-        'Integracja modeli LLM',
+        'Wykorzystanie modeli LLM',
         'Automatyzacja powtarzalnych zadań',
         'Analiza danych i wizualizacja',
         'Chat-boty i wirtualni asystenci'
@@ -75,7 +75,7 @@ export const ServicesSection = () => {
     },
     {
       icon: <Database className="h-12 w-12 text-primary" />,
-      title: 'Konsultacje techniczne',
+      title: 'Konsultacje',
       description:
         'Eksperckie doradztwo w zakresie architektury systemów, wyboru technologii i strategii rozwoju produktu.',
       features: [
@@ -86,28 +86,6 @@ export const ServicesSection = () => {
       ]
     },
   ];
-
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5
-      }
-    }
-  };
 
   return (
     <Section id="services" className="py-20">
@@ -133,7 +111,7 @@ export const ServicesSection = () => {
       >
         {services.map((service, index) => (
           <div key={index} >
-            <Card className="h-full overflow-hidden group border border-border/50 hover:border-primary/30 transition-all duration-300 flex flex-col">
+            <Card className="h-full overflow-hidden group border dark:border-primary/20 light:border-border/50 flex flex-col">
               <CardHeader className="p-6 pb-2">
                 <div className="rounded-full bg-primary/10 p-3 w-16 h-16 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-all">
                   {service.icon}
