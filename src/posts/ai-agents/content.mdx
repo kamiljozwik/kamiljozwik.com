@@ -1,0 +1,114 @@
+import agent from "./agent.webp";
+import chance from "./chance.webp";
+
+export const meta = {
+  title: "AI agents",
+  description:
+    "What are AI agents, how they work, and how they differ from LLMs and workflows?",
+  date: "2025-04-10",
+  tags: ["ai"],
+};
+
+For the past few years, the landscape of artificial intelligence has been dramatically reshaped by the arrival of powerful Large Language Models (LLMs). Now, we stand at the cusp of another significant evolution: the rise of **AI Agents**.
+
+With agents, we can go beyond simply telling an AI what to do in a single turn. Instead, we are able to **assigning it a goal** and empowering it to figure out the steps, interact with the outside world, and work autonomously to achieve that objective.
+
+An AI Agent is **more** than just an LLM; it's a system **orchestrated around** one or more models. It's designed to perceive its environment (which is usually digital – think APIs, databases, websites, etc.), make decisions based on a given goal, and then **take actions** using a set of provided **tools**.
+
+This ability to plan, execute a sequence of actions, use tools, and adapt based on outcomes is what distinguishes an agent. It’s the difference between a calculator and an autonomous accountant tasked with managing your finances.
+
+For us, developers, it opens up possibilities for creating applications that are not just responsive, but truly proactive and goal-oriented.
+
+## Anatomy of an AI agent
+
+Understanding an AI agent requires looking beyond the core LLM and seeing the integrated system it operates within. Think of it like building a robot: the AI model might be the brain, but it needs sensors, effectors, and a control system to function meaningfully. Similarly, an AI agent comprises several essential components working in concert.
+
+At its heart, of course, is the **Model**. This is typically one or more LLMs serving as the central reasoning engine. It interprets the overarching goal, breaks down complex objectives into smaller, manageable steps, decides on the best course of action at each stage, and determines if external help – via tools – is needed. The model's proficiency in instruction following, logical deduction, and planning is paramount to the agent's effectiveness.
+
+However, the model's knowledge is inherently limited by its training data and its inability to interact with the live, ever-changing digital world. This is where **Tools** become indispensable. They act as the agent's hands and senses, granting it capabilities far beyond text generation. Through tools, an agent can query a database for the latest sales figures, use a search engine to find current news, call a third-party API to book a flight or send an email, or even execute a snippet of code to perform a calculation. Tools ground the agent in real-time data and allow it to effect change in other systems.
+
+Coordinating the interplay between the model and its tools is the **Orchestration Layer**. This is the operational hub, the nervous system governing the agent's behavior. It manages a continuous cycle: perceiving new information (like a user request or the output from a tool), prompting the model to **reason about the current situation and plan the next step** (which might involve selecting a tool), executing that action, and then observing the result to inform the next iteration. This loop continues, guided by the agent's reasoning strategy, until the primary goal is met, or the agent determines it cannot proceed further.
+
+Finally, for agents to handle complex, multistep tasks or maintain coherent interactions over time, **Memory** is crucial. This isn't just about recalling the last thing said; it encompasses short-term memory for holding the immediate context of a task or conversation, and potentially long-term memory for storing learned preferences, successful strategies, or key information retrieved earlier. Effective memory management allows the agent to maintain context, learn from interactions, and provide more personalized and consistent assistance. Together, these components transform a static model into a dynamic, goal-seeking agent.
+
+<img src={agent.src} />
+
+If it is still a bit blurry for you, this [AI Agents Explained Like You're 5 ](https://www.youtube.com/watch?v=wazHMMaiDEA) video may help.
+
+## How agents "think"?
+
+An agent doesn't simply react; it operates with a semblance of deliberation, guided by what we call its _cognitive architecture_. This architecture, implemented by the orchestration layer, defines the strategy the agent uses to approach problems, make decisions, and utilize its tools. It's less about the agent having consciousness and more about structuring its operational flow in a way that mimics effective problem-solving.
+
+Consider the popular [ReAct](https://react-lm.github.io/) framework, which stands for "Reason and Act." When using ReAct, the agent doesn't just jump to using a tool or giving an answer. The orchestration layer prompts the model to first articulate its _Thought_ process – "Okay, the user wants to know the weather in Paris. I need to find a reliable weather source. I should use the weather API tool." Then, it formulates the _Action_ – specifying the tool call (e.g., `call_weather_api(location='Paris')`).
+
+After the tool executes, the agent receives the _Observation_ (the weather data). The cycle repeats, with the agent thinking about the observation – "The API returned the current temperature and forecast. Now I can formulate the answer for the user." – before generating the final response. This explicit interleaving of reasoning and action makes the agent's process more transparent and often more robust.
+
+Other strategies exist, like [CoT](https://www.ibm.com/think/topics/chain-of-thoughts) "Chain-of-Thought", where the model is encouraged to "think step-by-step" internally before providing an answer, improving its handling of complex logic. More advanced techniques like [ToT](https://www.ibm.com/think/topics/tree-of-thoughts) "Tree-of-Thoughts" allow the agent to explore multiple potential reasoning paths or plans concurrently, evaluating their promise before committing, which is useful for more complex planning or creative tasks.
+
+The key takeaway is that the orchestration layer uses these structured prompting techniques not just to get an answer from the model, but to guide it through a **process of planning, tool use, and result integration**, enabling the agent to tackle tasks far more complex than a simple question-answering model could handle alone.
+
+## Agents vs. models
+
+It’s easy to confuse the agent with the underlying LLM, but they are distinct concepts. The LLM is a core component, the engine of reasoning and language, but the **agent is the complete system** built around it.
+
+Think of it this way: an LLM, on its own, is like a person locked in a room with only books (its training data). They can answer questions based on what they've read, but they can't check today's news, call a friend, or order a pizza. An AI Agent gives that person a phone (tools), a notepad (memory), and a defined task (goal and orchestration).
+
+Compared to a base LLM, an agent possesses extended capabilities. Its knowledge isn't static; it can access real-time information via tools. It doesn't just perform single predictions; it engages in multi-turn interactions, maintaining context through memory. It natively integrates and utilizes tools as part of its core operation, guided by a cognitive architecture that structures its reasoning and planning. This allows agents to exhibit a degree of autonomy, proactively taking steps towards a defined goal rather than just passively responding to input. Understanding this difference is fundamental – you might use a model directly for simple generation, but you build or use an agent to accomplish tasks in the world.
+
+## Agents vs. workflows
+
+You might be thinking, "Automating multistep processes? Isn't that just a workflow?" It's a fair question, as both agents and traditional workflow automation (like Zapier, IFTTT, or custom-coded business process management systems) aim to automate tasks. However, there's a fundamental difference in **how** they operate.
+
+Traditional workflows are typically **rule-based and deterministic**. You explicitly define a sequence of steps: _"IF trigger A happens, THEN perform action B, IF action B succeeds, THEN perform action C"_, and so on. The path is predefined, and the system executes those exact steps. If an unexpected situation occurs or a step fails in a way not explicitly handled by an error path, the workflow often breaks or stops. It excels at automating predictable, repetitive processes where the steps are known in advance.
+
+AI Agents, on the other hand, are **goal-oriented and adaptive**. You provide the agent with a high-level goal (e.g., _"Book a suitable flight to London for next week's conference"_) and a set of tools (flight search API, calendar API, user profile database). The agent, using its LLM-powered reasoning and planning capabilities, **figures out the steps itself**. It might first check the calendar for conference dates, then query the user profile for preferences (aisle seat, preferred airline), then search for flights, perhaps encountering sold-out options and needing to search again with adjusted parameters, and finally present options or even book the flight.
+
+The key difference lies in flexibility and reasoning. A workflow follows a rigid script. An agent dynamically plans and adapts its strategy based on its goal, tools, and the information it gathers along the way. It can handle ambiguity, recover from unexpected tool outputs (e.g., an API error), and potentially find more creative solutions than a fixed workflow would allow. This makes agents suitable for more complex, less predictable tasks where human-like judgment and planning are beneficial.
+
+## Interacting with the world
+
+Tools are the bridge connecting the agent's reasoning capabilities to the external digital environment. They enable agents to gather information and perform actions, making them vastly more powerful than models operating in isolation. As a developer integrating or building agents, you'll primarily interact with three main types of tool integrations:
+
+### Function calling
+
+In this paradigm, you, the developer, define the specifications of functions your application can perform – perhaps retrieving user data, sending a notification, or interacting with a specific device. You describe these functions to the agent, including their purpose, parameters, and expected format. When the agent determines, through its reasoning process, that invoking one of these functions is the necessary next step to achieve its goal, it **doesn't execute the function itself**. Instead, the LLM generates a structured message (often JSON) indicating _which_ function your application should run and _what arguments_ to use, based on its understanding of the context. **Your application** code then takes this instruction, **executes the actual function logic** (which might involve complex operations or external API calls you manage), and can then feed the result back to the agent. This approach gives you fine-grained control over the execution, keeps sensitive operations or credentials within your application's secure context, and allows the agent to leverage existing code infrastructure.
+
+### Extensions
+
+Extensions are sometimes called managed tools or plugins. Think of these as more self-contained capabilities provided to the agent, often representing direct access to a specific API like a flight booking system or a web search service. An Extension typically bundles the API's definition (perhaps via an OpenAPI specification) along with instructions or examples for the agent. Unlike function calling, when the agent decides to use an extension, the execution of the underlying API call is often handled directly by the agent's runtime environment or platform, rather than being delegated back to your client application. This can simplify setup, especially for common, pre-built tools, and is well-suited for scenarios where the agent needs to directly chain multiple API calls based on intermediate results.
+
+One of the best extensions you can use nowadays are MCP servers - find more information in [this article](/posts/mcp).
+
+### Data stores
+
+Third, and fundamentally important for grounding agents, are data stores, the mechanism behind Retrieval-Augmented Generation (RAG). These tools connect the agent to bodies of external knowledge that weren't part of its original training. This knowledge could reside in documents (like PDFs or Word files), website content, structured databases, or internal wikis. When faced with a query that requires specific, factual, or up-to-date information, the agent utilizes the Data Store tool. This typically involves a process where the query is used to search an indexed representation of the knowledge source (often a vector database) to find the most relevant snippets of text or data. This retrieved information is then provided as context alongside the original query to the LLM, enabling it to generate an answer that is directly informed by, and grounded in, that external knowledge. It is crucial for reducing factual errors (hallucinations) and allowing agents to operate reliably with proprietary or rapidly changing information.
+
+Sophisticated agents often employ a mix of these tool types, leveraging function calling for controlled execution of application logic, extensions for direct access to standard services, and data stores for grounding responses in specific knowledge.
+
+## Where to start?
+
+If you're eager to dive into the world of AI agents, there are several resources and frameworks to get you started.
+
+The most beginner-friendly option is to explore the [Vercel AI SDK](https://sdk.vercel.ai/docs/foundations/agents). It provides a straightforward way to build agents using the Vercel platform, with built-in support for function calling, extensions, and data stores. The SDK abstracts much of the complexity, allowing you to focus on defining your agent's goals and tools. There is also great [tutorial](https://www.aihero.dev/vercel-ai-sdk-tutorial) from Matt Pocock, covering essential concepts and practical examples.
+
+Cloudflare and [its resources](https://developers.cloudflare.com/agents/) is another good place to start. Some of their examples are using Vercel AI SDK.
+
+There are, of course, other frameworks and libraries available for us, but I do not want to make this article too long. Instead, I plan to write a follow-up article where I will compare the most popular ones, by building the same agent with all of them 🤖
+
+Meanwhile, if you like to start building agents on your own, I recommend checking out the following resources from Anthropic - [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) post and [Tips for building AI agents](https://www.youtube.com/watch?v=LP5OCa20Zpg) video.
+
+## Summary
+
+AI Agents represent a significant evolution beyond standalone Large Language Models. They are systems designed to autonomously achieve goals by reasoning, planning, and interacting with the digital world through tools.
+
+TLDR:
+
+- Agents are systems built _around_ LLMs, integrating models with tools, memory, and an orchestration layer.
+- They operate via cognitive architectures (like ReAct) that enable multistep reasoning and tool use.
+- Agents differ fundamentally from static models by possessing access to external tools and the ability to plan and execute actions.
+- They differ from traditional workflows by being goal-oriented and adaptive, rather than following rigid, predefined steps.
+- Understanding the different ways agents use tools (Function Calling, Extensions, Data Stores/RAG) is very important for building or integrating agentic capabilities.
+
+Building with agents requires a shift in thinking – from crafting the perfect prompt for a single response to designing systems that can pursue goals over time. It involves defining objectives, selecting or building appropriate tools, choosing a reasoning strategy, and managing the flow of information. While the field is rapidly evolving, the potential for creating more capable, autonomous, and genuinely helpful AI applications is immense. Start exploring, experimenting, and thinking agentically – the future of intelligent applications depends on it.
+
+<img src={chance.src} />
