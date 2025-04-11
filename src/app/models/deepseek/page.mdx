@@ -1,0 +1,54 @@
+import { Header } from "../_components/header";
+
+<Header model="deepseek">DeepSeek</Header>
+
+[DeepSeek](https://www.deepseek.com/en), a Chinese AI company founded in 2023 and based in Hangzhou, has made significant strides in the LLM space with its cost-effective and high-performing models. DeepSeek has gained [global attention](https://www.youtube.com/watch?v=Nl7aCUsWykg) for models like `DeepSeek-V3` and `DeepSeek-R1`, which are open-source and compete with industry leaders like OpenAI. Their approach, highlighted by a training cost of just $6 million for `DeepSeek-V3` compared to OpenAI’s $100 million 💸 for `GPT-4`, has disrupted traditional AI development paradigms.
+
+This guide will help you understand these models, and how to choose the best fit for your AI-powered projects.
+
+We focus here on the latest models, but if you are interested in a broader overview, you can see this [What is DeepSeek? AI Model Basics Explained](https://www.youtube.com/watch?v=KTonvXhsxpc) video.
+
+## DeepSeek-V3: general-purpose powerhouse
+
+[DeepSeek-V3](https://github.com/deepseek-ai/DeepSeek-V3) is designed for a wide range of tasks, using a Mixture-of-Experts (MoE) architecture with 671 billion parameters, of which 37 billion are active per token.
+
+This model excels in code generation, mathematical reasoning, and natural language processing, outperforming models like GPT-4o on various benchmarks. A significant update, [DeepSeek-V3 0324](https://api-docs.deepseek.com/news/news250325), released in March 2025, enhances reasoning capabilities, achieving even better results. This version, with 685 billion parameters, is MIT-licensed and available on Hugging Face
+[DeepSeek-V3-0324 Hugging Face](https://huggingface.co/deepseek-ai/DeepSeek-V3-0324), offering local deployment options, such as running on a 512 GB MacBook M3 Ultra at 20 tokens/sec via 4-bit quantization.
+
+`DeepSeek-V3` is accessed via the `deepseek-chat` [API](https://api-docs.deepseek.com/api/deepseek-api), it’s ideal for developers building chatbots, content generators, or coding assistants, with very approachable [pricing](https://api-docs.deepseek.com/quick_start/pricing).
+
+## DeepSeek-R1: reasoning specialist
+
+[DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1), released on January 20, 2025, is a reasoning-centric model built upon `DeepSeek-V3`, focusing on logical inference, mathematical problem-solving, and reflection. It uses a 671 billion parameter MoE architecture, with 37 billion activated per forward pass, and is trained using a hybrid approach involving reinforcement learning (RL) and supervised fine-tuning (SFT).
+
+`DeepSeek-R1`’s ability to generate Chain of Thought (CoT) explanations makes it suitable for educational tools and research applications. It performs comparably to OpenAI’s o1 on benchmarks.
+
+Accessed via `deepseek-reasoner`, it offers a really great pricing as for [reasoning model](https://api-docs.deepseek.com/guides/reasoning_model).
+
+## Distilled models
+
+To cater to resource-constrained environments, DeepSeek provides [distilled versions](https://github.com/deepseek-ai/DeepSeek-R1?tab=readme-ov-file#deepseek-r1-distill-models) of `DeepSeek-R1`, with parameter sizes ranging from 1.5B to 70B. You can check out my other article regarding [models distillation](/posts/models-distilation).
+
+These models, fine-tuned using 800k samples curated with `DeepSeek-R1`, are based on architectures like Qwen and Llama, ensuring compatibility with consumer-grade GPUs.
+
+What is great is that these distilled models are available on [Hugging Face](https://huggingface.co/collections/deepseek-ai/deepseek-r1-678e1e131c0169c0bc89728d) and [Ollama](https://ollama.com/library/deepseek-r1), making them accessible for local testing and deployment.
+
+Here are some resources, showcasing how you can run `DeepSeek-R1` on a local machines like [Jetson Orin Nano Super](https://www.youtube.com/watch?v=e-EG3B5Uj78) and even [Raspberry Pi](https://www.youtube.com/watch?v=o1sN1lB76EA).
+
+## Accessing and using DeepSeek models
+
+As already mentioned, DeepSeek models are accessible via APIs, with `deepseek-chat` pointing to `DeepSeek-V3` for general tasks and `deepseek-reasoner` to `DeepSeek-R1` [for reasoning](https://api-docs.deepseek.com/guides/reasoning_model), both compatible with OpenAI’s format for easy integration.
+
+For local deployment, models are available on, but not limited to, [Hugging Face](https://huggingface.co/collections/deepseek-ai/deepseek-r1-678e1e131c0169c0bc89728d) and Ollama ([deepseek-r1](https://ollama.com/library/deepseek-r1), [deepseek-v3](https://ollama.com/library/deepseek-v3)).
+
+The simplest way to give DeepSeek a try is to use the [DeepSeek Chat](https://chat.deepseek.com/), which is a web-based interface similar to ChatGPT, allowing you to interact with the models without any coding.
+
+Additionally, DeepSeek is available as a [mobile app](https://play.google.com/store/apps/details?id=com.deepseek.chat) as well.
+
+## Choosing the right model
+
+Selecting the appropriate DeepSeek model depends on your application’s requirements. For general-purpose tasks like chatbots or content generation, `DeepSeek-V3` is ideal due to its versatility. For reasoning-intensive applications, such as educational tools or math solvers, `DeepSeek-R1` offers superior performance. If computational resources are limited, distilled models provide a balance, with larger ones like `DeepSeek-R1-Distill-Qwen-32B` suitable for moderate needs.
+
+DeepSeek’s innovative models, with their cost-efficiency and open-source ethos, are really transforming AI development. By offering a spectrum of models from general-purpose to reasoning-specialized, and distilled versions for resource constraints, DeepSeek enables us, developers, to build sophisticated AI-powered applications and continue to push boundaries, promising further advancements in the field.
+
+干得好，DeepSeek 的工程师们！

@@ -13,7 +13,7 @@ export const ModelFamily = () => {
             href={family.href}
             className="block py-2 w-full max-w-[200px] rounded-lg overflow-hidden border border-border bg-card transition-all duration-300 hover:shadow-md hover:scale-[1.02] focus-visible:outline-ring"
           >
-            <div className="relative">
+            <div className="relative p-3">
               <Image
                 src={family.img}
                 alt={`${family.title} model family`}
