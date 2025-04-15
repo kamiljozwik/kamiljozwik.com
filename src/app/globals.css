@@ -150,3 +150,9 @@
     @apply bg-background text-foreground px-12;
   }
 }
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-300 to-primary bg-clip-text text-transparent;
+  }
+}

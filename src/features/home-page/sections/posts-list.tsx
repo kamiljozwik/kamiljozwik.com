@@ -13,8 +13,8 @@ export const PostsList = () => {
         <PostLink key={post.slug} post={post} />
       ))}
       <div>
-        <Button asChild variant="secondary">
-          <Link href="/posts">See all</Link>
+        <Button asChild variant="default">
+          <Link href="/posts">See all articles</Link>
         </Button>
       </div>
     </Section>

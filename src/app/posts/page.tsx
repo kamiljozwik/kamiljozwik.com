@@ -14,7 +14,7 @@ const PostsPage = () => {
   return (
     <main>
       <PageHeader>All articles</PageHeader>
-      <div>
+      <div className="flex flex-col gap-3">
         {tag
           ? allPosts
             .filter((post) =>

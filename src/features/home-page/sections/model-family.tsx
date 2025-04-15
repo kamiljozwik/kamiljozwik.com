@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export const ModelFamily = () => {
   return (
-    <Section title="Get to know better the most popular LLM model families">
+    <Section title="Large Language Models">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 justify-items-center">
         {modelFamilies.map((family) => (
           <Link
