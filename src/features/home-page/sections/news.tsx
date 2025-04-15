@@ -9,7 +9,7 @@ export const NewsSection = async (props: NewsProps) => {
       <News {...props} />
       <div className="mt-6">
         <Button asChild variant="default">
-          <Link href="/news/web">See all news</Link>
+          <Link href="/news/webdev">See all news</Link>
         </Button>
       </div>
     </Section>
