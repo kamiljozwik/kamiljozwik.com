@@ -1,0 +1,80 @@
+export const meta = {
+  title: "Base and instruction-tuned models",
+  description:
+    "What is the difference between base and instruction-tuned models?",
+  date: "2025-04-17",
+  tags: ["llm"],
+};
+
+Have you ever run into terms _"base model"_ and _"instruction-tuned model"_ and had no idea what they meant?
+You’re not alone. As a software developer, you might be more focused on building applications than diving deep into the intricacies of LLMs.
+
+This article explains these concepts, providing a clear comparison without diving into the deep complexities of model training.
+
+## Base LLMs
+
+Imagine an incredibly well-read entity that has consumed a vast library of text – books, articles, websites, code repositories – essentially, a significant chunk of the internet and digitized text. This entity learns the patterns, structures, and relationships within that text. Its primary skill? Predicting the next word (or, more accurately, token) in a sequence.
+
+This is the essence of a **base LLM**.
+
+The core objective during the pre-training phase of a base model is **next-token prediction** or similar unsupervised learning tasks (like masked language modeling, where the model fills in blanks). It learns grammar, facts (as represented in the data), reasoning abilities (implicitly), and even coding patterns, all derived from the **massive dataset** it was trained on.
+
+When you prompt a base model, it essentially performs **sophisticated autocompletion**. Given an input like _"The first person on the moon was"_, it's highly likely to complete it with _"Neil Armstrong"_. However, it doesn't inherently understand the _intent_ behind your prompt as an instruction. If you ask it _"Write a Python function to sort a list"_, it might continue the sentence, provide related text about Python, or _sometimes_ generate the function, but it's not explicitly trained to follow commands reliably. Its output is statistically likely based on its training data, not necessarily helpful or instruction-following in a conversational sense.
+
+Base models are the **raw, powerful foundation** upon which more specialized models are built. They excel at understanding and generating human-like text but lack the specific tuning required for direct, reliable instruction following.
+
+## Instruction tuning
+
+While base models are impressive feats of engineering, they often aren't directly useful for the conversational or task-oriented applications developers want to build. We usually want a model that doesn't just _complete_ our text but _acts_ on our instructions.
+
+This is where **instruction tuning** comes in.
+
+Instruction tuning is a **secondary training phase** (a type of fine-tuning) applied _after_ the initial pre-training of a base model. In this phase, the model is trained on a curated dataset of examples specifically formatted as instructions and desired outputs.
+
+These examples might look like:
+
+- Instruction: "Summarize this article: [article text]" -> Output: "[concise summary]"
+- Instruction: "Translate 'hello' to French" -> Output: "Bonjour"
+- Instruction: "Write a short poem about rain" -> Output: "[poem text]"
+- Instruction: "Explain the concept of recursion simply" -> Output: "[clear explanation]"
+
+The aim is explicitly to teach the model how to **understand and follow human instructions**, performing the requested task accurately and appropriately. This often involves techniques like supervised fine-tuning (`SFT`) on instruction-output pairs and sometimes Reinforcement Learning from Human Feedback (`RLHF`), where human preferences are used to further refine the model's responses to be more helpful, honest, and harmless.
+
+An instruction-tuned model is **designed to be helpful**. When you give it a prompt like _"Write a Python function to sort a list"_, it understands this as a command and attempts to generate the requested function. It's geared towards conversational interaction, question answering, summarization, translation, content creation based on prompts, and other directed tasks.
+
+Instruction-tuned models are generally what people interact with when using popular AI chatbots and assistants, like ChatGPT or Gemini.
+
+## Comparison
+
+| Feature           | base LLM                                     | Instruction-tuned LLM                              |
+| :---------------- | :------------------------------------------- | :------------------------------------------------- |
+| **Goal**          | Predict next token, learn patterns from data | Follow instructions, be helpful and conversational |
+| **Training data** | Massive, general text & code corpora         | Curated instruction-output pairs                   |
+| **Interaction**   | Primarily text completion                    | Primarily instruction following, Q&A, dialogue     |
+| **Usefulness**    | Foundation for tuning, specialized tasks     | General-purpose assistance, chatbots, content gen  |
+| **Alignment**     | Lower (may generate undesirable content)     | Higher (tuned for helpfulness & safety)            |
+| **Ease of use**   | Requires careful prompting/fine-tuning       | Generally easier for direct task execution         |
+
+## Choosing the right model
+
+As a developer, which type should you lean towards? Here are some guidelines:
+
+### Choose an instruction-tuned model if:
+
+- You are building applications requiring conversational interaction (chatbots, virtual assistants).
+- Your application needs the LLM to follow specific user commands reliably (e.g., "summarize this text," "generate code for X," "translate this").
+- You prioritize ease of use and getting started quickly with common tasks.
+- Safety and alignment (producing helpful, harmless content) are key concerns out-of-the-box. Most general-purpose AI features fall into this category.
+
+### Consider a base model if:
+
+- You have a very specific, narrow task that differs significantly from general instruction following.
+- You plan to perform extensive fine-tuning yourself on a proprietary dataset to teach the model a unique skill or imbue it with specific knowledge not covered by general instruction tuning.
+- You need maximum control over the model's output style and are willing to invest in sophisticated prompt engineering or fine-tuning techniques.
+- You are researching core AI capabilities or building highly specialized generation tools where instruction-following behavior might interfere.
+
+For most developers building AI-powered features into applications, **instruction-tuned models provide a much more practical and efficient starting point.** They behave more predictably in response to direct commands and require less intricate prompt engineering to achieve desired results for common tasks.
+
+Which one to choose ultimately depends on your specific use case, the level of control you need, and how much time you're willing to invest in tuning and training. As always, it's a balance between performance, ease of use, and the specific requirements of your application.
+
+Choose wisely.

@@ -1,4 +1,5 @@
 import { Header } from "../_components/header";
+import { Check } from "lucide-react";
 
 <Header model="deepseek">DeepSeek</Header>
 
@@ -24,6 +25,18 @@ This model excels in code generation, mathematical reasoning, and natural langua
 `DeepSeek-R1`’s ability to generate Chain of Thought (CoT) explanations makes it suitable for educational tools and research applications. It performs comparably to OpenAI’s o1 on benchmarks.
 
 Accessed via `deepseek-reasoner`, it offers a really great pricing as for [reasoning model](https://api-docs.deepseek.com/guides/reasoning_model).
+
+## Comparison
+
+| **Feature**                                                                              | **DeepSeek-V3**       | **DeepSeek-V3-0324**  | **DeepSeek-R1**         |
+| ---------------------------------------------------------------------------------------- | --------------------- | --------------------- | ----------------------- |
+| **Parameters**                                                                           | 671B (37B activated)  | 685B (37B activated)  | 671B (37B activated)    |
+| **Context Window**                                                                       | 128K tokens           | 128K tokens           | 128K tokens             |
+| **Multimodality** (see [Janus](https://huggingface.co/deepseek-ai/Janus-Pro-7B))         | Text-only             | Text-only             | Text-only               |
+| **Multilingual**                                                                         | <Check />             | <Check />             | <Check />               |
+| **[Function Calling](https://api-docs.deepseek.com/guides/function_calling)**            | <Check />             | <Check />             | <Check />               |
+| **Knowledge cutoff [[1](https://www.knostic.ai/blog/exposing-deepseek-system-prompts)]** | July 2024             | July 2024             | July 2024               |
+| **Key Strengths**                                                                        | General-purpose tasks | General-purpose tasks | Reasoning, math, coding |
 
 ## Distilled models
 

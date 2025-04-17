@@ -1,0 +1,92 @@
+export const meta = {
+  title: "Understand parameters in LLM",
+  description:
+    "Parameters is a key concept in LLMs. This article explains the difference between total and activated parameters.",
+  date: "2025-04-16",
+  tags: ["llm"],
+};
+
+You're building the next great AI-powered application. You dive into researching Large Language Models (LLMs), comparing options like GPT-4, Llama, Qwen and others. Suddenly, you hit specifications like _"405 billion parameters"_ for one model, and _"671 billion total parameters, 37 billion activated parameters"_ for another (looking at you, `DeepSeek-V3`). What does this mean? Why the two numbers? And how does it impact your choice of model?
+
+As a software developer, you don't need a Ph.D. in machine learning, but understanding LLM parameters is very useful for making informed decisions. This guide breaks down the concepts of total and activated parameters, explaining _why_ they matter for your development process.
+
+## What exactly are parameters?
+
+You can think of an LLM as a complex machine designed to understand and generate human-like text. Parameters are the internal "knobs," "dials," or configuration settings that the model learns during its training phase. Technically, they are the `weights` and `biases` within the neural network architecture. This is why we prefer to use term _open weights_, not _open source_ when talking about free models.
+
+These parameters are adjusted millions or billions of times as the model processes vast amounts of training data. The goal of training is to tune these parameters so the model becomes proficient at predicting the next word (or token) in a sequence, given the preceding ones.
+
+It's not that any single parameter holds a specific piece of knowledge like _"Paris is the capital of France"_. Instead, the `collective values` and interactions of billions of these parameters allow the model to capture the nuances, patterns, grammar, context, and even reasoning abilities inherent in the training data. They define how the model processes input and formulates output.
+
+## Why does the parameter count matter?
+
+Historically, the number of parameters was often used as a rough proxy for a model's potential capability. Generally speaking:
+
+- **More parameters, more potential:** a higher parameter count _can_ mean the model has a greater capacity to learn complex patterns, absorb more knowledge from the training data, and handle nuanced tasks (like intricate reasoning, creative writing, or specialized coding).
+
+- **The trade-offs:** This potential capability comes at a cost. Models with more parameters typically require:
+  - **More computational power** for training and inference (running predictions).
+  - **More memory (VRAM)** to load and operate.
+  - **Higher operational costs** (cloud compute bills, energy consumption).
+  - **Potentially slower inference speeds** compared to smaller models.
+
+So, while a model with hundreds of billions of parameters might sound impressive, it might be overkill, too slow, or too expensive for certain applications compared to a smaller, more efficient model.
+
+## Total vs. activated parameters
+
+This brings us to the distinction you encountered: **total parameters** vs. **activated parameters**. This difference primarily arises from an increasingly popular architectural technique called [Mixture-of-Experts](https://www.youtube.com/watch?v=sYDlVVyJYn4) (`MoE`).
+
+- **Total parameters:** This is the number you traditionally hear about. It represents the _entire_ set of learnable weights and biases within the model's architecture. In a classic "dense" model, _all_ these parameters are potentially involved in processing every single piece of input.
+
+- **Activated parameters:** This figure is specific to models using techniques like `MoE`. Instead of one massive network, an `MoE` model consists of numerous smaller "expert" sub-networks (often specialized feed-forward layers). For any given input token, a "gating network" or "router" dynamically selects only a small subset of these experts to process it. The activated parameters count refers to the number of parameters within the experts that are actually used _during inference_ for a specific input token.
+
+**Think of it like this:**
+
+- A **dense model** is like a single, giant, all-knowing expert who uses their entire brain for every question.
+- An **MoE model** is like a large committee of specialized experts. When a question comes in, only the 2-3 most relevant experts are called upon to contribute their knowledge. The _total_ knowledge of the committee is vast (total parameters), but the effort required for any single question is much smaller (activated parameters).
+
+### Why Use MoE?
+
+The `MoE` approach allows designers to build models with enormous total parameter counts (granting them the potential knowledge capacity of a massive model) while keeping the _computational cost_ of inference much lower. Since only a fraction of the parameters are activated per token, inference is significantly faster and requires less computational horsepower (`FLOPs`) compared to a dense model of the same _total_ size.
+
+Using [DeepSeek-V3](/models/deepseek) as the example:
+
+- it has **671 billion total parameters** (the size of the entire "committee").
+- but only **37 billion activated parameters** are used for any given token during inference (the size of the active expert group).
+
+This makes it computationally comparable _during inference_ to a much smaller 37B dense model, while potentially benefiting from the knowledge embedded within its larger 671B total parameter space.
+
+## It is your choice
+
+Understanding this distinction directly impacts your choices when selecting models for your applications. Here are some key takeaways:
+
+### Model selection
+
+    - Don't just look at the total parameter count. For `MoE` models, the activated parameter count gives a better idea of the _inference_ compute cost and speed.
+    - A model with high total parameters but low activated parameters (like many MoE models) might offer a good balance between capability and performance/cost for real-time applications.
+    - Dense models (where total = activated) might be simpler conceptually but could be slower or more expensive to run if the parameter count is very high.
+
+### Performance & cost
+
+    - **Inference speed/cost:** Primarily driven by the _activated_ parameter count (and model architecture). `MoE` models are generally faster and cheaper to run _for inference_ than dense models with the same _total_ parameters.
+    - **Memory (VRAM) requirements:** Often dictated by the _total_ parameter count. Even in `MoE` models, typically _all_ parameters need to be loaded into memory (e.g., GPU VRAM), even if only a fraction are used at any given moment. This is important consideration for deployment hardware. Running a 671B total parameter model still requires significant VRAM, even if only 37B are active per token.
+
+### Capabilities
+
+While activated parameters dictate inference compute, the total parameters (and the diversity of experts in `MoE`) contribute to the model's overall potential knowledge and ability to handle diverse tasks. However, parameter count isn't everything – training data quality, architecture specifics, and fine-tuning are also important.
+
+## Quick reference table
+
+| Feature            | Total Parameters                                   | Activated Parameters                                  |
+| :----------------- | :------------------------------------------------- | :---------------------------------------------------- |
+| **Definition**     | All learnable weights/biases in the model.         | Subset of parameters used for a specific input token. |
+| **Represents**     | Overall potential model capacity / knowledge base. | Computational load during inference per token.        |
+| **Primary impact** | Memory (VRAM) requirements, potential capability.  | Inference speed, inference compute cost (FLOPs).      |
+| **Analogy (MoE)**  | Size of the entire expert committee.               | Size of the small group of experts handling one task. |
+| **Relevance**      | All LLMs have a total count.                       | Primarily relevant for MoE / sparse architectures.    |
+
+## Conclusion
+
+Parameters are fundamental to how LLMs work, representing the distilled knowledge learned during training. As models evolve, architectures like Mixture-of-Experts introduce distinction between the vast _total_ knowledge potentially stored (total parameters) and the efficient computational path taken during inference (activated parameters).
+
+For us, developers, understanding this difference helps looking beyond simple parameter counts to choose models that balance capability, inference speed, deployment cost, and hardware requirements for our specific application needs. Remember, while parameters are important, they are just one piece of the puzzle alongside training data, architecture, and alignment techniques that collectively determine an LLM's true power and suitability for your project.

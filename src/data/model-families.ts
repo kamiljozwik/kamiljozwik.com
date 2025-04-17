@@ -21,4 +21,11 @@ export const modelFamilies: Family[] = [
     href: "/models/deepseek",
     img: "/models/deepseek-logo.webp",
   },
-];
+  {
+    title: "Qwen",
+    description: "Revolutionary models for every budget",
+    date: "2025-04-16",
+    href: "/models/qwen",
+    img: "/models/qwen-logo.webp",
+  },
+] as const;
