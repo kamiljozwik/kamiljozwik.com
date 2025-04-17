@@ -1,3 +1,5 @@
+import band from "./band.webp";
+
 export const meta = {
   title: "Understand parameters in LLM",
   description:
@@ -44,6 +46,8 @@ This brings us to the distinction you encountered: **total parameters** vs. **ac
 
 - A **dense model** is like a single, giant, all-knowing expert who uses their entire brain for every question.
 - An **MoE model** is like a large committee of specialized experts. When a question comes in, only the 2-3 most relevant experts are called upon to contribute their knowledge. The _total_ knowledge of the committee is vast (total parameters), but the effort required for any single question is much smaller (activated parameters).
+
+<img className="mx-auto w-full" src={band.src} />
 
 ### Why Use MoE?
 
