@@ -6,7 +6,7 @@ export const meta = {
   tags: ["llm"],
 };
 
-Have you ever run into terms _"base model"_ and _"instruction-tuned model"_ and had no idea what they meant?
+Have you ever run into the terms _"base model"_ and _"instruction-tuned model"_ and had no idea what they meant?
 You’re not alone. As a software developer, you might be more focused on building applications than diving deep into the intricacies of LLMs.
 
 This article explains these concepts, providing a clear comparison without diving into the deep complexities of model training.
@@ -21,7 +21,7 @@ The core objective during the pre-training phase of a base model is **next-token
 
 When you prompt a base model, it essentially performs **sophisticated autocompletion**. Given an input like _"The first person on the moon was"_, it's highly likely to complete it with _"Neil Armstrong"_. However, it doesn't inherently understand the _intent_ behind your prompt as an instruction. If you ask it _"Write a Python function to sort a list"_, it might continue the sentence, provide related text about Python, or _sometimes_ generate the function, but it's not explicitly trained to follow commands reliably. Its output is statistically likely based on its training data, not necessarily helpful or instruction-following in a conversational sense.
 
-Base models are the **raw, powerful foundation** upon which more specialized models are built. They excel at understanding and generating human-like text but lack the specific tuning required for direct, reliable instruction following.
+Base models are the **raw, powerful foundation** upon which more specialized models are built. They excel at understanding and generating human-like text, but lack the specific tuning required for direct, reliable instruction following.
 
 ## Instruction tuning
 
@@ -68,7 +68,7 @@ As a developer, which type should you lean towards? Here are some guidelines:
 
 ### Consider a base model if:
 
-- You have a very specific, narrow task that differs significantly from general instruction following.
+- You have a very specific, narrow task that differs significantly from the general instructions following.
 - You plan to perform extensive fine-tuning yourself on a proprietary dataset to teach the model a unique skill or imbue it with specific knowledge not covered by general instruction tuning.
 - You need maximum control over the model's output style and are willing to invest in sophisticated prompt engineering or fine-tuning techniques.
 - You are researching core AI capabilities or building highly specialized generation tools where instruction-following behavior might interfere.

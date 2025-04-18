@@ -4,9 +4,9 @@ import { Header } from "../_components/header";
 
 Qwen represents Alibaba Cloud's foundational AI model initiative. Launched initially in April 2023, Qwen isn't a single model but a comprehensive suite of LLMs designed to tackle a diverse range of tasks, from natural language understanding and generation to code creation and even processing visual and auditory information.
 
-Built upon the proven [transformer architecture](https://www.youtube.com/watch?v=ZXiruGOCn9s), majority of Qwen models are released under the permissive **Apache 2.0 license**, readily available on platforms like [Hugging Face](https://huggingface.co/Qwen). This open approach allows us to experiment, customize, and deploy these models locally or within our own infrastructure, complementing the API access provided via [Alibaba Cloud](https://www.alibabacloud.com/).
+Built upon the proven [transformer architecture](https://www.youtube.com/watch?v=ZXiruGOCn9s), the majority of Qwen models are released under the permissive **Apache 2.0 license**, readily available on platforms like [Hugging Face](https://huggingface.co/Qwen). This open approach allows us to experiment, customize, and deploy these models locally or within our own infrastructure, complementing the API access provided via [Alibaba Cloud](https://www.alibabacloud.com/).
 
-We are all familiar with models like GPT, Claude, and Gemini, but Qwen looks like an underrated gem in the LLM landscape. So let's have a look at it.
+We are all familiar with models like GPT, Claude, and Gemini, but Qwen looks like an underrated gem in the LLM landscape. So let's take a look at it.
 
 ## `Qwen2.5` - the foundation
 
@@ -14,33 +14,33 @@ At the heart of the family lies [Qwen2.5](https://github.com/QwenLM/Qwen2.5), a 
 
 Here are some key features of `Qwen2.5`:
 
-- Models come in a wide array of sizes: **0.5B, 1.5B, 3B, 7B, 14B, 32B**, and **72B** parameters. You can find them on a [HuggingFace](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e).
-- **Context window** is supporting up to **128k tokens** for input and generating outputs up to **8k tokens**.
+- Models come in a wide array of sizes: **0.5B, 1.5B, 3B, 7B, 14B, 32B**, and **72B** parameters. You can find them on [HuggingFace](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e).
+- **Context window** supports up to **128k tokens** for input and generating outputs up to **8k tokens**.
 - **Modality:** These are **text-only** models, adept at understanding and generating natural language, code, and structured text formats.
 - **Multilingual support:** Pretrained on a massive dataset (~18 trillion tokens), `Qwen2.5` boasts strong capabilities in **29+ languages**, including English, Chinese, French, Spanish, Arabic, and many others.
-- **Function calling / tool use:** While not featuring a built-in API calling mechanism, `Qwen2.5` can be used with agent frameworks, follow instructions and generating **structured outputs**, particularly `JSON`.
+- **Function calling / tool use:** While not featuring a built-in API calling mechanism, `Qwen2.5` can be used with agent frameworks, follow instructions and generate **structured outputs**, particularly `JSON`.
 - **Use cases:** Ideal for chatbots, content generation, question answering, summarization, translation, and knowledge assistants.
 
 ## `Coder` and `Math` - specialized experts
 
 Building on the `Qwen2.5` foundation, Alibaba has released specialized models fine-tuned for [coding](https://huggingface.co/collections/Qwen/qwen25-coder-66eaa22e6f99801bf65b0c2f) and [mathematics](https://huggingface.co/collections/Qwen/qwen25-math-66eaa240a1b7d5ee65f1da3e).
 
-Below you ca find key details about these models.
+Below you can find key details about these models.
 
 ### `Qwen2.5-Coder`
 
-- Optimized for (no surprise here) programming tasks – code generation, completion, explanation etc.
+- Optimized for (no surprise here) programming tasks – code generation, completion, explanation, etc.
 - Available in **0.5B**, **1.5B**, **3B**, **7B**, **14B** and **32B** parameter versions.
-- **Context window** is **128k** tokens.
+- **Context window** has **128k** tokens.
 - **Multilingual:** Supports numerous _programming_ languages, covering mainstream ones like Python, Java, C++, JavaScript, etc. Natural language prompts are best handled in English and Chinese.
-- **Tool use:** Does not have an explicit tool API, but acts as a coding assistant. Can be integrated into IDEs for autocompletion or used by agents to generate functions, fix errors, or create test cases based on instructions.
+- **Tool use:** Does not have an explicit tool API but acts as a coding assistant. It can be integrated into IDEs for autocompletion or used by agents to generate functions, fix errors, or create test cases based on instructions.
 - **Use cases:** Code auto-completion, function/class generation, code explanation, debugging assistance, cross-language code translation, AI pair programming tools.
 
 ### `Qwen2.5-Math`
 
 - Designed for solving mathematical problems, from basic arithmetic to complex algebra and word problems.
 - Offered in **1.5B**, **7B**, and **72B** parameters, plus a **72B** [reward model](https://huggingface.co/Qwen/Qwen2.5-Math-RM-72B) used for training.
-- **Context window** is **128k** tokens.
+- **Context window** has **128k** tokens.
 - **Multilingual:** Optimized for mathematical problems posed in **English and Chinese** (with LaTeX or Unicode math symbols). It can likely tackle math problems posed in other languages to some extent (due to the multilingual nature of base `Qwen2.5`), but it’s optimized for the two above.
 - **Tool use:** Features **Tool-Integrated Reasoning** (`TIR`). The model can decide to invoke external tools (like a calculator or symbolic solver) during its reasoning process, incorporating the results to improve accuracy.
 - **Use cases:** Math homework assistance (showing steps), solving competition math problems, automated theorem proving support, applications requiring high-confidence mathematical reasoning (engineering, finance).
@@ -54,13 +54,13 @@ Qwen extends beyond text, offering models that can understand and interact with 
 `Qwen2.5-VL` is a vision-language model series that extends `Qwen2.5` with visual understanding, enabling image and video comprehension alongside text generation. This model excels at analyzing visual content and describing or reasoning about it in text form.
 
 - Available in **3B**, **7B**, **32B**, and **72B** parameter versions.
-- **Context window:** Capable of analyzing **long videos (over an hour)** by sampling frames. Supports large textual context alongside visual input. Additionally, it can process multiple images in one query or lengthy documents scanned into images, outputting consolidated results..
+- **Context window:** Capable of analyzing **long videos (over an hour)** by sampling frames. Supports large textual context alongside visual input. Additionally, it can process multiple images in one query or lengthy documents scanned into images, outputting consolidated results.
 - **Modality:** Accepts **images and videos** (plus text prompts) as input, producing **text** outputs. Can generate structured data like bounding box coordinates (`JSON`) for objects.
 - **Multilingual:** Can describe visuals or answer questions about them in English, Chinese, and potentially other languages inherited from the base model.
 - **Tool use:** Acts as a **"visual agent"**. Can reason about visual content to invoke tools or APIs (e.g., interpreting a UI screenshot to suggest actions). Natively outputs structured vision task results.
 - **Use cases:** Image captioning, visual question answering (`VQA`), Optical Character Recognition (`OCR`), document/chart analysis, video content analysis, multimedia chatbots.
 
-`Qwen2.5-VL` is [open-weight](https://huggingface.co/collections/Qwen/qwen25-vl-6795ffac22b334a837c0f9a5) model, but there are also two proprietary models available via [Alibaba API](https://www.alibabacloud.com/help/en/model-studio) - `qwen-vl-max` (_enhanced capabilities of visual reasoning and instruction following compared with qwen-vl-plus. Best for complex tasks._) and `qwen-vl-plus` (_Enhanced detail and text recognition capabilities, supporting images with over one million pixel resolution and any aspect ratio. Exceptional performance for various visual tasks._)
+`Qwen2.5-VL` is an [open-weight](https://huggingface.co/collections/Qwen/qwen25-vl-6795ffac22b334a837c0f9a5) model, but there are also two proprietary models available via [Alibaba API](https://www.alibabacloud.com/help/en/model-studio) - `qwen-vl-max` (_enhanced capabilities of visual reasoning and instruction following compared with qwen-vl-plus. Best for complex tasks._) and `qwen-vl-plus` (_Enhanced detail and text recognition capabilities, supporting images with over one million pixel resolution and any aspect ratio. Exceptional performance for various visual tasks._)
 
 ### `Qwen2.5-Omni`: real-time multimodal interaction
 
@@ -68,7 +68,7 @@ Qwen extends beyond text, offering models that can understand and interact with 
 
 - Available only in **7B** parameters, based on the `Qwen2.5-7B` backbone.
 - **Context window:** designed for **streaming interaction** rather than a fixed token limit, enabling continuous, real-time conversation. Inherits large text context capability.
-- **Modality:** Accepts **text, images, audio, and video** inputs. Outputs both **text and synthesized speech** (with selectable English voice personas like "Chelsie" or "Ethan", and likely Chinese). Enables real-time voice/video chat.
+- **Modality:** Accepts **text, images, audio, and video** inputs. Outputs both **text and synthesized speech** (with selectable English voice personas like "Chelsie" or "Ethan" and likely Chinese). Enables real-time voice/video chat.
 - **Multilingual:** Understands/generates text in multiple languages. Speech synthesis currently supports English and likely Chinese.
 - **Tool use:** Focuses on direct multimodal interaction rather than third-party tools. Can act on spoken instructions within an assistant framework.
 - **Use Cases:** Multimodal virtual assistants, interactive robots, customer service avatars, video conferencing assistants, applications requiring simultaneous audiovisual understanding and spoken dialogue.
@@ -83,7 +83,7 @@ Beyond standard multimodal capabilities, Qwen offers models specifically enhance
 
 QVQ is a vision-language model series focused on **Visual Question Answering and reasoning with visual evidence**. It builds upon `Qwen2.5-VL` but emphasizes reasoning steps (`thinking`) about images and videos. The initial release was [QVQ-72B-Preview](https://huggingface.co/collections/Qwen/qvq-676448c820912236342b9888), demonstrating the concept of a model that can not only describe an image but also reason about it to solve complex tasks.
 
-`QVQ-Max` is the successor to the `QVQ-Preview`, and is accessible via API only.
+`QVQ-Max` is the successor to the `QVQ-Preview` and is accessible via API only.
 
 - Based on the **72B** `Qwen2.5-VL`. `QVQ-Max`employs optimizations like `MoE` for enhanced scalability and efficiency.
 - Extended capacity for processing multiple images/long videos and maintaining very long reasoning chains or dialogues about visual content.
@@ -114,16 +114,16 @@ Here is another [demo](https://www.youtube.com/watch?v=tvVD3-BaYPc) prepared by 
 - **Mixture-of-Experts (MoE)** architecture. Activates only a subset of "expert" sub-models per token, significantly improving inference efficiency (reportedly 40-60% fewer GPU resources than a dense model of similar size). Pretrained on over 20 trillion tokens.
 - Supports a **32k** context length.
 - **Modality:** text-only, excelling across a wide range of text tasks from knowledge retrieval to coding and creative writing.
-- **Multilingual:** Strong capabilities in English, Chinese, and numerous other languages, benefiting from the vast training data. All interface and documentation point to it being at least as capable as Qwen2.5 in the 29+ supported languages.
+- **Multilingual:** Strong capabilities in English, Chinese, and numerous other languages, benefiting from the vast training data. Documentation point to it being at least as capable as Qwen2.5 in the 29+ supported languages.
 - **Tool use:** Inherits strong instruction-following and structured output capabilities. While there isn’t a separate function-calling interface exposed, its strong reasoning means it can be integrated as the brain of an AI agent.
 - **Proprietary** ([API access](https://www.alibabacloud.com/help/en/model-studio/model-api-reference) via Alibaba Cloud). The model weights are [not publicly released](https://qwenlm.github.io/blog/qwen2.5-max/).
 - **Use cases:** Enterprise-grade AI applications, complex decision support systems, deep knowledge Q&A, large-scale code generation and analysis, business analytics on extensive reports, advanced chatbots requiring domain expertise.
 
 ## `Qwen-Plus` and `Qwen-Turbo`
 
-On the Alibaba [Cloud Model Studio](https://www.alibabacloud.com/help/en/model-studio/models) we can find two more _flagship_ models - `Qwen-Plus` and `Qwen-Turbo`. There is not much information available about them, but they are positioned as lighter and faster variants of the `Qwen2.5-Max` model and both are available via API only. You can find them on OpenRouter as well: [Qwen-Plus](https://openrouter.ai/qwen/qwen-plus), [Qwen-Turbo](https://openrouter.ai/qwen/qwen-turbo).
+On the Alibaba [Cloud Model Studio](https://www.alibabacloud.com/help/en/model-studio/models) we can find two more _flagship_ models - `Qwen-Plus` and `Qwen-Turbo`. There is not much information available about them, but they are positioned as lighter and faster variants of the `Qwen2.5-Max` model, and both are available via API only. You can find them on OpenRouter as well: [Qwen-Plus](https://openrouter.ai/qwen/qwen-plus), [Qwen-Turbo](https://openrouter.ai/qwen/qwen-turbo).
 
-Here are some key available information about them:
+Here is some key available information about them:
 
 ### `Qwen-Plus`
 
@@ -131,7 +131,7 @@ Here are some key available information about them:
 - Provides a balanced combination of performance, speed, and cost.
 - Based on the `Qwen2.5` base model
 - **Context Window**: around **130k** tokens. Max output length is **8k** tokens.
-- **Speed**: Slower than Turbo but offers higher accuracy and capability for complex tasks.
+- **Speed**: Slower than Turbo, but offers higher accuracy and capability for complex tasks.
 - **Cost**: Mid-range pricing, balancing performance and cost.
 - **Multilingual Support**: Likely supports multiple languages, but explicit details are not provided.
 - **Multimodality**: Text-only.
@@ -175,4 +175,4 @@ If you want to try out the models locally, you can find them on [Hugging Face](h
 
 ## Conclusion
 
-The Qwen family from Alibaba Cloud presents a compelling and versatile suite of large language models. With a strong emphasis on open-source releases for many core and specialized models, we have access to really powerful AI capabilities. From the foundational `Qwen2.5` suitable for general tasks, to specialized `Coder` and `Math` variants, advanced multimodal `Omni` and `VL` models, deep reasoning `QVQ` and `QwQ` models, and the enterprise-scale `Qwen2.5-Max`, there is likely a Qwen model well-suited for your application needs 🤞
+The Qwen family from Alibaba Cloud presents a compelling and versatile suite of large language models. With a strong emphasis on open-source releases for many core and specialized models, we have access to really powerful AI capabilities. From the foundational `Qwen2.5` suitable for general tasks to specialized `Coder` and `Math` variants, advanced multimodal `Omni` and `VL` models, deep reasoning `QVQ` and `QwQ` models, and the enterprise-scale `Qwen2.5-Max`, there is likely a Qwen model well-suited for your application needs 🤞
