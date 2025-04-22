@@ -30,6 +30,16 @@ const navigationItems: NavigationItem[] = [
       }
     ]
   },
+  {
+    trigger: 'News',
+    content: [
+      {
+        href: "/news/webdev",
+        title: "Web Development",
+        description: "WebDev news",
+      }
+    ]
+  },
 ];
 
 

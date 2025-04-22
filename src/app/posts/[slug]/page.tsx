@@ -45,8 +45,8 @@ const PostPage = async ({ params }: { params: Promise<PostMeta> }) => {
 
   return (
     <main className="flex flex-col items-center">
-      <header className="mb-20 w-[700px] max-w-[700px]">
-        <h1 className="text-6xl md:text-7xl mb-4 font-bold gradient-text pb-3">{meta?.title}</h1>
+      <header className="mb-20 md:w-[700px] md:max-w-[700px]">
+        <h1 className="text-5xl md:text-7xl mb-4 font-bold gradient-text pb-3">{meta?.title}</h1>
         <p className="text-muted-foreground">{meta?.description}</p>
         <div className="flex gap-8 items-center mt-8">
           <UpdateDate date={meta?.date} />
