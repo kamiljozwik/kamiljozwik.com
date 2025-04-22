@@ -1,0 +1,131 @@
+export const meta = {
+  title: "Understand LLM benchmarks",
+  description:
+    "A practical guide to finally understanding most popular LLM benchmarks",
+  date: "2025-04-22",
+  tags: ["llm"],
+};
+
+The world of AI is full of Large Language Models (LLMs). As new models emerge almost weekly (greetings JavaScript), a question arises: how do we know how good they are, and how do they compare? This is where **LLM benchmarks** come into play.
+
+This article provides a clear overview of LLM benchmarks, explaining what they are, why they matter, exploring some examples in more detail, and guiding you on how to interpret their results — all without requiring a deep ML background.
+
+## Why do we need benchmarks?
+
+In a field characterized by such rapid innovation and frequent releases, having a consistent and objective way to evaluate LLMs is a must. Benchmarks provide a **standardized evaluation** framework. They present each model with the same set of tests and linguistic challenges, creating a level playing field for assessment.
+
+This standardization facilitates **objective comparison**, allowing researchers, developers, and users to gauge the capabilities of various models on specific tasks, moving beyond anecdotal evidence or marketing claims. Furthermore, benchmarks are instrumental in **tracking progress**. They help the AI community monitor advancements over time, identify areas where models excel, and pinpoint weaknesses that require further research and development efforts.
+
+Finally, for businesses and individuals looking to leverage LLMs, benchmarks offer valuable **guidance for model selection**. They provide objective performance indicators, helping users and developers choose the most suitable model for specific applications, whether it's coding assistance, creative writing, customer service, or complex reasoning tasks.
+
+## Key LLM benchmarks
+
+Numerous benchmarks exist, each meticulously designed to probe different facets of an LLM's abilities. Let's delve deeper into some of the examples, understanding their specific focus and evaluation approach.
+
+### General knowledge and reasoning
+
+#### MMLU (Massive Multitask Language Understanding)
+
+Consider MMLU as a broad **academic exam for LLMs**. Its purpose is to evaluate general knowledge and language understanding across a vast spectrum of 57 diverse subjects, including STEM fields, humanities, social sciences, and more, with questions ranging from elementary to professional difficulty. Models are typically tested in zero-shot or few-shot scenarios, meaning they must answer multiple-choice questions based on their pre-trained knowledge without specific task examples. A high accuracy score across these varied domains suggests the LLM possesses extensive world knowledge and strong problem-solving abilities, reflecting the effectiveness of its initial training.
+
+#### GPQA (Graduate-Level Google-Proof Q&A)
+
+This benchmark significantly raises the bar, testing an LLM's capacity for **deep scientific reasoning** at a graduate level in biology, physics, and chemistry. Its questions are intentionally designed to be **Google-proof**, requiring profound understanding and analytical skills that go beyond simple information retrieval from the web. Developed by field experts, these challenging multiple-choice questions push models to demonstrate genuine comprehension. High accuracy on GPQA, particularly on its demanding _Diamond_ subset, indicates exceptional scientific reasoning capabilities, nearing or sometimes exceeding domain expert performance.
+
+#### ARC (AI2 Reasoning Challenge)
+
+ARC focuses specifically on the **reasoning required to answer science questions** typically aimed at students from grades 3 through 9. It moves beyond simple fact recall, presenting multiple-choice questions where the answer often requires integrating information from multiple sentences and applying commonsense or logical reasoning. The dataset includes an _Easy Set_ and a more demanding _Challenge Set_ containing questions that simpler algorithms failed to answer. Achieving high accuracy, especially on the _Challenge Set_, signals strong reasoning and knowledge integration skills within the scientific domain.
+
+### Mathematical reasoning
+
+#### AIME 2024
+
+Drawing from the prestigious American Invitational Mathematics Examination, AIME 2024 serves as a rigorous **test of advanced mathematical reasoning for LLMs**, mirroring the challenges faced by top high school competitors. The benchmark involves solving intricate problems spanning algebra, geometry, number theory, probability, and combinatorics, each demanding a precise integer answer between 0 and 999. Successfully solving these problems often requires multi-step logical deduction and adept application of mathematical principles. A high percentage score reflects a strong aptitude for tackling complex, competition-level mathematics.
+
+#### MATH 500
+
+This benchmark offers a focused evaluation using 500 challenging problems selected from the much larger MATH dataset, which itself contains thousands of competition-level mathematics questions. MATH 500 assesses **problem-solving skills across various mathematical disciplines** like algebra, geometry, and calculus, sourced from demanding high school competitions. The problems require sophisticated reasoning and calculation, testing proficiency beyond standard curricula. High accuracy on MATH 500 indicates a robust capability in advanced mathematical reasoning and problem-solving.
+
+### Coding and software engineering
+
+#### HumanEval
+
+Developed by OpenAI, [HumanEval](https://github.com/openai/human-eval) specifically targets the functional correctness of code generated by LLMs, primarily in Python. It presents models with 164 programming problems, each defined by a function signature and a `docstring` describing the task, similar to simple coding interview questions. The LLM must generate the function's body, and its correctness is verified by running predefined unit tests. Performance is measured using `pass@k`, indicating the probability that at least one of the top _k_ generated code solutions passes all tests, emphasizing practical code utility.
+
+#### SWE Bench (Software Engineering Benchmark)
+
+[SWE Bench](https://www.swebench.com/) takes coding evaluation a step further into real-world software development scenarios. It assesses an LLM's ability to comprehend and resolve actual software issues documented in GitHub repositories by [generating code patches](https://github.com/SWE-agent/SWE-agent). This requires understanding existing codebases, potentially modifying multiple files, and interacting with testing environments. Performance is measured by the percentage of issues successfully resolved, meaning the generated patch passes the relevant unit tests. Different versions like `Lite`, `Verified`, `Full`, and `Multimodal` cater to various evaluation needs, from quick checks to complex, vision-involved tasks.
+
+#### WebDev Arena
+
+This [benchmark](https://web.lmarena.ai/) provides a dynamic evaluation of web development skills through a real-time AI coding competition. Users submit prompts describing a web application, and two competing LLMs generate the app (currently focusing on React, TypeScript, Tailwind CSS). The community interacts with the resulting applications and votes for the better one based on functionality and adherence to the prompt. These votes contribute to a leaderboard using a `Bradley-Terry` model, where higher scores indicate superior perceived ability in generating functional web applications.
+
+#### Aider polyglot
+
+This [benchmark](https://aider.chat/docs/leaderboards/) uniquely evaluates an LLM's code _editing_ and _integration_ skills autonomously across multiple programming languages (C++, Go, Java, JavaScript, Python, Rust). Using challenging exercises sourced from Exercism, the LLM, paired with the [Aider](https://github.com/Aider-AI/aider) tool, must translate natural language requests into code modifications applied directly to existing source files, all without human intervention. Success is measured by the pass rate – the percentage of exercises where all tests pass after the AI's attempt. A high pass rate signifies strong autonomous coding, reasoning, and execution capabilities across diverse languages.
+
+_As a side note, I can say that based on my experience, `Aider polyglot` benchmark most accurately reflects my experience with various LLM models._
+
+### Conversational ability & human preference
+
+#### Chatbot Arena
+
+Previously `LMSYS`, [Chatbot Arena](https://lmarena.ai/) offers a unique, crowd-sourced approach to evaluating LLMs based on **human judgment in live conversations**. Users chat simultaneously with two anonymous models and then vote for the response they find better in terms of quality, helpfulness, or overall preference. These pairwise comparisons are used to calculate an `Elo` rating for each model, similar to rankings in competitive games. A higher `Elo` rating indicates that a model is more frequently preferred by human users in open-ended interactions, reflecting strong general conversational ability.
+
+### Specialized Capabilities
+
+#### BFCL (Berkeley Function Calling Leaderboard)
+
+As LLMs are increasingly used to interact with external systems, BFCL evaluates their ability to accurately **use tools or call functions** (APIs). It tests this across multiple programming languages (Python, Java, JS, SQL) and interaction patterns, including single calls, sequences of calls (multi-turn), and parallel calls. The benchmark measures the accuracy of these function calls and also assesses the model's ability to determine if a function call is even relevant, aiming to detect hallucinated or incorrect calls. Higher accuracy signifies proficiency in leveraging external tools effectively.
+
+#### GRIND
+
+Moving beyond rote knowledge, GRIND assesses an LLM's **adaptive reasoning**. Independently conducted by Vellum AI, it evaluates how well a model can generalize and respond effectively in novel situations it hasn't encountered before, rather than just recalling memorized patterns. Tasks involve new scenarios, demanding reasoning application in unfamiliar contexts. Performance is measured by accuracy in adapting to these novel situations, with higher scores indicating greater fluid intelligence and the ability to generalize – key traits for real-world adaptability.
+
+#### LiveBench
+
+Tackling the persistent issue of test set contamination (where models might be trained on benchmark data), [LiveBench](https://livebench.ai) uses frequently updated questions sourced from **recent real-world information** like news, scientific papers, and math competitions. This ensures models are evaluated on genuinely novel data. It covers diverse tasks (math, coding, reasoning, language, data analysis) and uses objective, verifiable ground-truth answers for automated scoring, eliminating potential judge bias. High scores reflect strong performance on current, real-world tasks with reduced risk of score inflation due to data leakage.
+
+## Benchmarks compared
+
+| Benchmark          | Summary                                                                                                                   |
+| :----------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| **MMLU**           | Evaluates broad academic knowledge and language understanding across 57 diverse subjects.                                 |
+| **GPQA**           | Tests deep scientific reasoning at a graduate level using difficult, Google-proof questions.                              |
+| **ARC**            | Focuses on the reasoning needed to answer science questions typically aimed at grades 3-9.                                |
+| **AIME 2024**      | Assesses advanced mathematical reasoning using complex problems from the prestigious AIME competition.                    |
+| **MATH 500**       | Evaluates mathematical problem-solving skills using 500 challenging high school competition problems.                     |
+| **HumanEval**      | Measures the functional correctness of LLM-generated Python code for programming problems using unit tests.               |
+| **SWE Bench**      | Assesses the ability to resolve actual GitHub software issues by generating and testing code patches.                     |
+| **WebDev Arena**   | Evaluates web development skills through community voting on AI-generated web applications in a competitive setting.      |
+| **Aider polyglot** | Tests autonomous code editing and integration skills across multiple programming languages using Exercism challenges.     |
+| **Chatbot Arena**  | Ranks models on conversational ability based on crowd-sourced human preferences in pairwise comparisons.                  |
+| **BFCL**           | Evaluates the ability to accurately use tools or call functions (APIs) across various languages and interaction patterns. |
+| **GRIND**          | Assesses an LLM's adaptive reasoning and ability to generalize effectively in novel, unfamiliar situations.               |
+| **LiveBench**      | Measures performance on current, real-world tasks using frequently updated questions to minimize test set contamination.  |
+
+I highly recommend checking out the [Vellum LLM Leaderboard](https://www.vellum.ai/llm-leaderboard) for the most recent (at least for now 🤞) and comprehensive information on LLM benchmarks scores.
+
+## Making sense of benchmark results
+
+Understanding benchmark scores requires a nuanced approach. It's not just about the numbers, but what they represent. Different benchmarks employ various **metrics** – accuracy percentages (like in `MMLU` or `GPQA`) show the proportion of correct answers, `pass@k` (used in `HumanEval`) reflects the probability of generating working code within _k_ tries, and `Elo` ratings (from Chatbot Arena) provide a relative ranking based on human preference. Recognizing what each of the metric measures is the first step.
+
+**Direct comparisons across different benchmarks are often misleading**. A model's accuracy score on `MMLU` doesn't equate to its `pass@k` score on `HumanEval` because the tasks and success criteria are fundamentally different. Instead, focus on comparing the performance of _different models within the same benchmark_. This allows for a meaningful understanding of their relative strengths and weaknesses concerning that specific skill set.
+
+Perhaps the most vital factor is the **intended use case**. A model scoring exceptionally high on coding benchmarks like `SWE Bench` might not be the best fit for a customer service chatbot application, where user preference indicated by `Chatbot Arena` is paramount.
+
+Therefore, always align the benchmarks you prioritize with the specific capabilities required for your application. Remember, no single benchmark provides a complete picture; a holistic evaluation often involves considering performance across multiple relevant benchmarks.
+
+## Limitations
+
+While benchmarks are invaluable, it's essential to be aware of their inherent limitations and avoid treating them as absolute measures of an LLM's worth. One significant concern is **data contamination**. If a model has been trained, [intentionally or accidentally](https://techcrunch.com/2025/04/07/meta-exec-denies-the-company-artificially-boosted-llama-4s-benchmark-scores/), on the data used in a benchmark, its score might be inflated, not truly reflecting its ability to generalize to unseen problems. Benchmarks like `LiveBench` actively try to combat this, but it remains a challenge.
+
+Many benchmarks also have a **narrow focus**, targeting specific skills in isolation. Real-world tasks, however, often demand a complex interplay of various capabilities, which standardized tests might not fully capture. This leads to the potential **disconnect between benchmark performance and real-world utility**. A model might excel in a controlled test environment but struggle with the nuances and complexities of practical applications or user interactions.
+
+Furthermore, as LLMs rapidly improve, they can **saturate** existing benchmarks, achieving near-perfect scores. When this happens, the benchmark loses its power to differentiate between top-performing models and measure ongoing progress.
+
+## Use benchmarks wisely
+
+LLM benchmarks are indispensable tools for navigating the complex and rapidly evolving world of large language models. They provide standardized methods to measure capabilities across diverse tasks.
+
+However, interpreting results requires critical thinking. Prioritize comparisons _within_ a benchmark, align your evaluation with your specific _use case_, and always be mindful of the inherent _limitations_, such as potential data contamination or the gap between test scores and real-world effectiveness. Benchmarks are powerful guides, but they don't tell the whole story.
