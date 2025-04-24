@@ -1,3 +1,4 @@
+import { ExternalLinkIcon } from "lucide-react"
 import { groupNewsByMonth } from "./group-news"
 import { ExternalLink } from '@/components/ui/external-link'
 import { cn } from '@/lib/utils'
@@ -39,8 +40,9 @@ export const News = async ({ limit = 5, offset = 0, showMonths = true }: NewsPro
                 href={item.link}
                 className={cn("block", { 'px-4 py-2 ': showMonths })}
               >
-                <h3 className="text-xl font-bold">
-                  {item.title}
+                <h3 className="text-xl font-bold flex gap-2 items-center">
+                  <span>{item.title}</span>
+                  <ExternalLinkIcon size={16} />
                 </h3>
                 <p className="text-muted-foreground">
                   {item.description}
