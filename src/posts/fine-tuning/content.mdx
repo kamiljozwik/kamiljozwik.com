@@ -1,0 +1,256 @@
+export const meta = {
+  title: "Fine tuning LLMs",
+  description:
+    "Fine-tuning allows to adapt generalist models into specialists, boosting their effectiveness for our unique needs. But is it always the best approach?",
+  date: "2025-04-25",
+  tags: ["llm"],
+};
+
+When we are building AI-powered applications, we are likely leveraging capabilities of Large Language Models. While pre-trained models offer general language understanding, we might find ourselves needing better performance on a specific task, adherence to a particular style, or expertise in a niche domain. This is where **fine-tuning** comes in.
+
+Fine-tuning is a technique that allows us to adapt these generalist models into specialists, boosting their effectiveness for our unique application needs.
+
+This guide will walk you through everything you need to know about fine-tuning, from the core concepts to practical considerations, all from a developer's perspective without getting lost in complex machine learning theory.
+
+## What exactly is fine-tuning?
+
+At its heart, fine-tuning is a process of taking a pre-trained LLM – one that has already learned general language patterns from vast amounts of text (like `Llama`, `DeepSeek`, `Gemma` etc.) – and **training it a bit more on your own, smaller, task-specific dataset**.
+
+This process adjusts the model's internal parameters, often called its `weights` to better suit your specific application or domain. You're transferring the broad language understanding of the base model and refining it for a niche purpose.
+
+Why not train a model from scratch? Because LLMs are enormous and require colossal amounts of data and computational power for their initial training. Fine-tuning leverages the massive investment already made in the pre-trained model. Since the base model already understands grammar, context, and a wide range of concepts, you typically need significantly less data (perhaps thousands of examples instead of billions) and less computation to specialize it.
+
+The outcome is a model that **retains the language capabilities of the original LLM** but becomes **more tailored and effective for your specific needs**. It learns the nuances, terminology, style, or format relevant to your task by studying the examples you provide, effectively becoming an expert in that area.
+
+## Benefits
+
+Fine-tuning isn't just an academic exercise; it offers real advantages for developers building real-world applications. Here is a breakdown of the key benefits and common use cases:
+
+1.  **Improved task performance:** This is the primary driver. A fine-tuned model almost always outperforms a generic model on the specific task it was trained for. By learning from examples, it achieves higher accuracy, generates more relevant outputs, and better understands your domain's specific terminology, style, and nuances. A generic model might answer a legal question reasonably well; a model fine-tuned on legal Q&A will likely provide a more precise, appropriately phrased answer.
+
+2.  **Enhanced customization and control:** Fine-tuning allows you to steer the model's behavior more deeply than prompting alone. While prompts provide instructions at runtime, fine-tuning bakes the desired behavior directly into the model. You can train it to consistently adopt a specific tone (e.g., formal, casual, empathetic), match your brand voice, or reliably output structured data like JSON or SQL queries without complex, brittle prompt engineering for every request. It transforms the generalist LLM into a specialist perfectly suited for your requirements.
+
+3.  **Reduced need for long prompts (and lower costs/latency):** Once a model has been fine-tuned, it inherently understands the desired task or style. This often means you can use much shorter, simpler prompts during inference. Instead of providing lengthy instructions or multiple examples (few-shot learning) in every API call – which consumes tokens and increases costs and response times – you send a concise query, and the model knows what to do. This can lead to significant savings in API usage fees and faster application responses, especially at scale.
+
+4.  **Better handling of edge cases and personalization:** Base models might struggle with niche scenarios or specific jargon unique to your application. Fine-tuning allows you to explicitly train the model on these tricky examples, improving its reliability and robustness. It also enables deeper personalization. A customer support bot fine-tuned on a company's internal knowledge base and preferred communication style will provide more accurate, on-brand responses than a generic chatbot.
+
+5.  **Efficiency through smaller models:** Fine-tuning can enable smaller, more efficient models to achieve performance comparable to much larger, general-purpose models on specific tasks. You might fine-tune a 7-billion parameter open-source model to excel at your particular job, allowing you to host it yourself more cheaply and with lower latency than making API calls to a 175-billion parameter proprietary model. This "specialize a smaller model" strategy is increasingly popular, especially with the rise of capable open-source LLMs.
+
+## Limitations and challenges
+
+While powerful, fine-tuning isn't a magic wand. It comes with significant requirements and potential drawbacks that might make it unsuitable or less ideal than other approaches in certain situations:
+
+1.  **Data requirements:** Fine-tuning needs data – specifically, high-quality, labeled examples relevant to your task. While less than training from scratch, you still often need hundreds or thousands of well-crafted examples (e.g., prompt-completion pairs). Creating, collecting, and cleaning this dataset can be a substantial, time-consuming effort. If you only have a handful of examples, fine-tuning might lead to _overfitting_ (the model memorizes the examples but fails on new inputs) or simply not yield meaningful improvements. Poor data quality leads to poor results: _garbage in, garbage out_ 💩.
+
+2.  **Computational cost and time:** Fine-tuning is resource-intensive. It requires powerful hardware, typically GPUs (or TPUs), often for extended periods (hours to days, depending on model and data size). Large models demand significant GPU memory (VRAM), potentially requiring multiple GPUs or specialized hardware. This translates to costs, whether for purchasing hardware or renting cloud instances. It's not an instant process like prompt engineering; it involves a development cycle with potentially significant time and financial investment.
+
+3.  **Requires ML expertise (complexity):** While tools are improving, effective fine-tuning still demands some understanding of machine learning concepts. Sometimes, you'll need to manage the training process, select appropriate hyperparameters (like "learning rate", "batch size", "epochs"), monitor for issues like "overfitting", and potentially debug training problems. For software developers without an ML background, this represents a learning curve and added complexity compared to simply using an API or crafting prompts.
+
+4.  **Risk of overfitting and catastrophic forgetting:** There's a delicate balance in fine-tuning. Train too much or on narrow data, and the model might _overfit_, becoming brittle and failing on inputs slightly different from the training set. Conversely, focusing too heavily on the new task can cause _catastrophic forgetting_, where the model loses some of its valuable general knowledge acquired during pre-training. A model fine-tuned exclusively on coding tasks might become worse at casual conversation. Mitigating these require careful monitoring and potentially advanced techniques.
+
+5.  A common **misconception is that fine-tuning is the best way to teach an LLM new facts or keep it updated with recent information**. While the model might memorize some facts from the training data, **fine-tuning is generally inefficient and unreliable for incorporating large amounts of factual knowledge**, especially dynamic data. Models can still _hallucinate_ (make things up), and fine-tuning doesn't guarantee factual recall from the training set. Retrieval-Augmented Generation (`RAG`) is typically a much better approach for grounding models in specific, up-to-date information.
+
+6.  **Static nature and inflexibility:** Once a model is fine-tuned, its specialized behavior is baked in based on the training data snapshot. If your requirements change frequently, you'll need to repeat the potentially lengthy and costly fine-tuning process. It's also less suitable for goals that are subjective or hard to capture in a fixed dataset (e.g., "be generally helpful but concise"). Fine-tuning creates a specialist; if you need dynamic adaptation or nuanced alignment, other methods might be better or need to be combined.
+
+### So, when might you skip fine-tuning?
+
+- If you have very little or no labeled data for your task.
+- If your primary goal is to provide the model with access to fresh or proprietary knowledge (use `RAG` instead).
+- If the base model already performs adequately with good prompt engineering.
+- If you need a solution very quickly or have limited computational resources/budget.
+- If your requirements are constantly changing or highly subjective.
+
+Always consider if simpler methods can achieve your goals before committing to the investment required for fine-tuning.
+
+## Alternatives: other ways to adapt LLMs
+
+Fine-tuning is just one tool in the LLM adaptation toolbox. Often, other techniques can achieve similar results more easily, cheaply, or effectively, depending on the specific problem:
+
+1.  **Prompt engineering:** This is the most accessible method. You carefully craft the input prompt given to the LLM, including instructions, context, and sometimes examples (few-shot learning), to guide its output. No model weights are changed.
+
+    - _Pros:_ Fast, cheap (only inference cost), highly flexible, requires no ML expertise or special hardware.
+    - _Cons:_ Can be brittle (small prompt changes have big effects), requires trial-and-error, limited control over deep model behavior, can lead to very long prompts (costly tokens).
+    - _Best for:_ Simple tasks, rapid prototyping, when base model capability is sufficient, low data scenarios.
+
+2.  **Retrieval-Augmented Generation ([RAG](https://www.youtube.com/watch?v=T-D1OfcDW1M)):** This technique connects the LLM to an external knowledge source (like a database or document collection) at runtime. When a query comes in, relevant information is retrieved from the source and provided to the LLM as context within the prompt, enabling it to generate answers grounded in that specific data.
+
+    - _Pros:_ Excellent for knowledge-intensive tasks, ensures factual grounding and source citation, allows easy updates to the knowledge base without retraining, reduces hallucinations.
+    - _Cons:_ Requires setting up and maintaining a retrieval system (e.g., [vector database](/posts/embeddings-vector-stores)), performance depends on retrieval quality, doesn't change the model's core behavior or style.
+    - _Best for:_ Q&A over specific documents, accessing up-to-date information, applications needing verifiable sources.
+
+3.  **Parameter-Efficient Fine-Tuning (PEFT) / Adapters / LoRA:** These are _more efficient ways to perform fine-tuning_, not entirely separate alternatives in purpose. Instead of updating all the billions of parameters in an LLM, PEFT methods update only a small fraction of them or add tiny new "adapter" modules. Techniques like LoRA (Low-Rank Adaptation) and its optimized versions (like QLoRA, using quantization) drastically reduce the memory and compute needed for fine-tuning.
+
+    - _Pros:_ Achieves performance very close to full fine-tuning, requires significantly less GPU memory and compute, faster training, allows multiple specialized adapters for one base model.
+    - _Cons:_ Slightly more complex setup than using a basic Trainer, managing base model + adapter weights.
+    - _Best for:_ Making fine-tuning feasible on limited hardware (even consumer GPUs), reducing training costs, scenarios where full fine-tuning is overkill. _In practice, most modern open-source fine-tuning now uses PEFT methods._
+
+4.  **Reinforcement Learning from Human Feedback ([RLHF](https://www.youtube.com/watch?v=T_X4XFwKX8k)):** This advanced technique aligns models with complex human preferences (like helpfulness, harmlessness, or tone) that are hard to capture with simple input-output examples. It involves training a "reward model" based on human rankings of different LLM outputs and then using reinforcement learning to optimize the LLM to generate outputs that score highly on this reward model.
+
+    - _Pros:_ Effective for tuning subjective qualities, key to creating well-behaved conversational agents (like ChatGPT).
+    - _Cons:_ Very complex, data-intensive (requires human preference data), computationally expensive, generally beyond the scope of typical application developers to implement from scratch.
+    - _Best for:_ Aligning models to be generally helpful, follow instructions faithfully, and adhere to safety guidelines. Often performed by model providers.
+
+5.  **Few-Shot Learning (via Prompting):** As mentioned under prompt engineering, this involves providing just a few examples of the desired input-output behavior directly within the prompt at inference time. Modern LLMs are surprisingly good at learning from these in-context examples without any weight updates.
+
+    - _Pros:_ Simple, no training required, leverages model's existing capabilities.
+    - _Cons:_ Performance varies, limited by prompt length (context window size), can be less reliable than fine-tuning for complex patterns.
+    - _Best for:_ Tasks where only a few examples are needed to clarify the pattern, quick experiments.
+
+6.  **[Model Distillation](/posts/models-distilation):** A technique to train a smaller "student" model to mimic the behavior of a larger, more capable "teacher" model (which might itself be fine-tuned). The goal is to compress the knowledge into a smaller, faster model for deployment.
+    - _Pros:_ Can result in much smaller/faster models for deployment, useful for edge devices or low-latency needs.
+    - _Cons:_ Often involves some loss in performance compared to the teacher, complex to set up the distillation process.
+    - _Best for:_ Optimizing deployment constraints (size, speed) after achieving desired behavior in a larger model.
+
+**Combining Approaches:** Importantly, these techniques are not mutually exclusive. A common strategy is to combine them. For example:
+
+- Use **RAG** to provide factual context _and_ **fine-tuning** (perhaps PEFT) to teach the model a specific response style or format.
+- Use **prompt engineering** to set the stage for a query _sent to a fine-tuned model_.
+- Use a base model that has already undergone **RLHF** by the provider, then **fine-tune** it further on your specific task data.
+
+The best approach often follows a "start simple" philosophy: try prompt engineering first. If that's insufficient, consider RAG (if knowledge is the issue) or fine-tuning (if behavior/style/task-performance is the issue), likely using PEFT for efficiency.
+
+## A head-to-head comparison
+
+Choosing the right adaptation technique requires understanding the trade-offs. Let's compare fine-tuning directly against the most common alternatives:
+
+| Feature               | Fine-Tuning (Full or PEFT)                                       | Prompt Engineering (inc. Few-Shot)            | Retrieval-Augmented Generation (RAG)                     |
+| :-------------------- | :--------------------------------------------------------------- | :-------------------------------------------- | :------------------------------------------------------- |
+| **Primary Goal**      | Adapt model behavior/style/task skill                            | Guide model output via input                  | Provide external knowledge                               |
+| **Model Change**      | Yes (weights modified)                                           | No (model unchanged)                          | No (model unchanged)                                     |
+| **Data Needs**        | Labeled dataset (hundreds/thousands)                             | Minimal (instructions, few examples)          | Knowledge base (documents, data)                         |
+| **ML Expertise**      | Moderate (for setup, tuning)                                     | Low                                           | Low (for LLM part), Moderate (for retrieval setup)       |
+| **Compute Cost**      | High (training), Low/Moderate (inference)                        | Low (inference only, but prompts can be long) | Moderate (inference + retrieval)                         |
+| **Time Investment**   | High (data prep, training)                                       | Low (prompt iteration)                        | Moderate (retrieval setup)                               |
+| **Control Level**     | High (deep behavior change)                                      | Moderate (indirect guidance)                  | Low (influences content, not style)                      |
+| **Knowledge Update**  | Static (at time of training)                                     | N/A                                           | Dynamic (via knowledge base)                             |
+| **Factual Grounding** | Low (can still hallucinate)                                      | Low                                           | High (if retrieval works well)                           |
+| **Best For**          | Specializing tasks, style/format control, optimizing performance | Simple tasks, rapid prototyping, low data     | Knowledge-intensive Q&A, up-to-date info, citing sources |
+
+### Key takeaways
+
+- **Fine-Tuning vs. Prompt Engineering:** Fine-tuning offers deeper, more reliable control over model behavior and can lead to shorter prompts and lower inference costs long-term, but requires significant upfront investment in data and training. Prompting is easy and fast but offers less control and can be less consistent. _Rule of thumb: Try prompting first; fine-tune if prompting hits limits or becomes too complex/costly at scale._
+
+- **Fine-Tuning vs. RAG:** These solve different problems. Fine-tuning teaches the model _how_ to act or _what style_ to use. RAG teaches the model _what information_ to use. Fine-tuning is poor for injecting dynamic knowledge; RAG excels at it. RAG doesn't inherently change the model's style or task proficiency; fine-tuning does. They are often complementary: fine-tune for behavior, use RAG for knowledge. _Choose RAG if factual accuracy and up-to-date info are key; choose fine-tuning if core task performance or style is the main goal._ You can check out [this video](https://www.youtube.com/watch?v=00Q0G84kq3M) for more details.
+
+- **Full Fine-Tuning vs. PEFT/LoRA:** This is an _implementation_ choice within fine-tuning. PEFT methods like LoRA achieve similar results to full fine-tuning but with drastically lower resource requirements. For most developers, especially those with limited hardware, _PEFT is the practical way to perform fine-tuning today._
+
+- **Fine-Tuning vs. RLHF:** Fine-tuning (supervised) is for teaching specific input-output mappings (correct answers, formats). RLHF is for aligning with subjective human preferences (helpfulness, tone). RLHF is much more complex and typically builds upon a supervised fine-tuned model. _You'd typically use a model already trained with RLHF by a provider if you need that general alignment._
+
+For visual learners, I can recommend checking out [this video](https://www.youtube.com/watch?v=zYGDpG-pTho) to put it together in your head. .
+
+## Open-source vs. proprietary models
+
+An important decision is whether to fine-tune an open-source LLM (like Llama, [Gemma](https://ai.google.dev/gemma/docs/tune), DeepSeek) or a proprietary one offered via API (like OpenAI's GPT models or Anthropic's Claude). This choice significantly impacts your process, costs, and capabilities.
+
+**Fine-tuning open-source LLMs:**
+
+- **Access and control:** You download the model weights and code. You have full control over the fine-tuning process, the data used, the model architecture (if you're advanced), and deployment.
+- **Flexibility:** Run it on your own hardware (local or cloud), modify it, integrate it deeply into your stack, use it offline. No external dependencies or API limits (beyond your own infrastructure).
+- **Cost structure:** Primarily upfront or ongoing infrastructure costs (GPUs, servers) and engineering time. The models themselves are often free (check licenses). Can be very cost-effective at scale as you don't pay per API call.
+- **Data privacy:** Your training data stays within your environment, offering maximum privacy and control, crucial for sensitive applications.
+- **Effort:** Requires more technical setup, ML/DevOps knowledge to manage the environment, training process, and deployment infrastructure. Greater responsibility.
+- **Performance:** Rapidly improving, smaller fine-tuned open models can match or beat larger proprietary models on specific tasks. However, the largest proprietary models often still lead in general reasoning and breadth of knowledge.
+
+**Fine-tuning proprietary LLMs (via API):**
+
+- **Access and control:** You interact via an API. You don't get the model weights. Fine-tuning is offered as a managed service; you upload data, and the provider handles the training. Limited control over the process (e.g., hyperparameters might be fixed).
+- **Ease of use:** Much simpler to get started. No need to manage infrastructure or complex software dependencies. The [provider handles](https://platform.openai.com/docs/guides/fine-tuning) the heavy lifting.
+- **Cost structure:** Pay-as-you-go. You pay for the fine-tuning job (often based on tokens processed) and then continue to pay for inference via API calls to your custom model endpoint. Can become expensive with high usage.
+- **Data privacy:** You must upload your training data to the provider. While providers have privacy policies, the data leaves your control, which may be a concern for sensitive information.
+- **Effort:** Lower technical barrier. Focus is on data preparation and API integration.
+- **Performance:** Access to potentially state-of-the-art base models. However, providers might only allow fine-tuning on slightly older or smaller versions of their best models (e.g., historically, GPT-4 wasn't available for fine-tuning).
+
+**Here's a table summarizing the key differences:**
+
+| Feature          | Open-Source Fine-Tuning                            | Proprietary Fine-Tuning (API)                           |
+| :--------------- | :------------------------------------------------- | :------------------------------------------------------ |
+| **Control**      | High (full model access)                           | Low (API interface)                                     |
+| **Flexibility**  | High (local/cloud deploy, offline)                 | Low (bound by provider service)                         |
+| **Ease of use**  | Lower (requires ML/DevOps setup)                   | Higher (managed service)                                |
+| **Cost model**   | Infrastructure + Time (potentially lower at scale) | Usage-based (training + inference API calls)            |
+| **Data privacy** | High (data stays in-house)                         | Lower (data sent to provider)                           |
+| **Performance**  | Can be excellent on niche tasks; base model varies | Access to potentially SOTA base models (with caveats)   |
+| **Best for**     | Control, privacy, cost at scale, custom deploy     | Speed to market, ease of use, leveraging provider infra |
+
+**Which path to choose?**
+
+- **Startups / quick prototypes:** Proprietary APIs are often faster to get started.
+- **Cost-sensitive / high volume:** Open-source can become cheaper long-term, avoiding per-call fees.
+- **Data sensitivity / compliance:** Open-source hosted internally offers better control.
+- **Need for deep customization / offline use:** Open-source is the only option.
+- **Limited ML expertise / infrastructure:** Proprietary APIs abstract away the complexity.
+
+Many teams start with proprietary models for speed and validation, then consider migrating to fine-tuned open-source models as their application matures, usage scales, or cost/privacy become bigger factors. It's also viable to use a hybrid approach.
+
+## Tools, libraries, and platforms
+
+Navigating the fine-tuning landscape is made easier by a growing ecosystem of tools and platforms. This article is not meant to be a step-by-step tutorial (but I do plan to create one, where I compare results of different fine-tuning methods, stay... tuned), but here are some of the most popular and useful libraries, platforms, and services you can use today to fine-tune your LLMs:
+
+### Core libraries (primarily for open-source)
+
+- **HuggingFace [transformers](https://huggingface.co/docs/transformers/en/index):** The cornerstone. Provides access to thousands of pre-trained models, tokenizers, and the powerful `Trainer` API for simplified fine-tuning loops. Supports `PyTorch`, `TensorFlow`, and `JAX`.
+- **HuggingFace [datasets](https://huggingface.co/docs/datasets/en/index):** Efficiently load, preprocess, and handle datasets, including large ones that don't fit in memory, with integrations for various formats (`JSON`, `CSV`, `Parquet`, etc.) and hubs.
+- **HuggingFace [peft](https://huggingface.co/docs/peft/en/index):** Essential for efficient tuning. Easily applies techniques like `LoRA`, `QLoRA`, `Prefix Tuning`, etc., to `transformers` models with minimal code changes.
+- **[BitsandBytes](https://huggingface.co/docs/bitsandbytes/main/en/index):** Enables quantization (reducing numerical precision, e.g., to 4-bit or 8-bit) during training and inference, drastically cutting memory usage. Key component for QLoRA.
+- **[PyTorch](https://pytorch.org/) / [TensorFlow](https://www.tensorflow.org/?hl=pl):** The underlying deep learning frameworks. While `transformers` abstracts much of it, basic familiarity can be helpful for custom modifications or debugging.
+- **[Accelerate](https://huggingface.co/docs/accelerate/en/index):** A HuggingFace library that simplifies running PyTorch training scripts across different hardware setups (single GPU, multiple GPUs, TPUs) and handles mixed-precision training.
+
+### Platforms and services
+
+- **Cloud Provider ML Platforms ([AWS SageMaker](https://aws.amazon.com/sagemaker/), [Vertex AI](https://cloud.google.com/vertex-ai), [Azure Machine Learning](https://azure.microsoft.com/en-us/products/machine-learning)):** Offer managed infrastructure for training. You can run your Hugging Face scripts (or use their built-in algorithms/containers) on powerful GPU instances without managing the hardware directly. They provide tools for experiment tracking, deployment, etc.
+- **[OpenAI API](https://platform.openai.com/docs/guides/fine-tuning) / [Azure OpenAI Service](https://azure.microsoft.com/en-us/products/ai-services/openai-service):** Provide fine-tuning as a fully managed service for specific models. You upload data via API/UI, they train the model, and you get an API endpoint for your custom model. The easiest option if their models meet your needs.
+- **Other proprietary model providers (Anthropic, Grok etc.)** may offer similar managed fine-tuning services via their APIs. Check their specific documentation, as it changes very quickly.
+- **Hugging Face [AutoTrain](https://huggingface.co/autotrain):** A service/library aiming for automated fine-tuning. You provide data, choose a task, and it handles finding good models and hyperparameters with minimal code/configuration. Lowers the entry barrier.
+- **Specialized platforms (e.g., [Predibase](https://predibase.com/), [Lamini](https://www.lamini.ai/), [Vellum](https://www.vellum.ai/)):** Offer end-to-end platforms specifically designed for fine-tuning and deploying open-source LLMs, often with user-friendly interfaces and optimizations.
+- **Collaboration Platforms ([Google Colab](https://colab.research.google.com/), [Kaggle](https://www.kaggle.com/)):** Provide free or low-cost access to GPUs in a notebook environment, excellent for learning, experimenting, and fine-tuning smaller models or datasets.
+
+The Hugging Face ecosystem (`transformers`, `datasets`, `peft`, `accelerate`) provides a robust, flexible, and widely adopted foundation for open-source fine-tuning. For simpler managed experiences, provider APIs or platforms like AutoTrain are attractive alternatives.
+
+## Local lab or cloud powerhouse?
+
+A common question for developers is: can I realistically fine-tune an LLM on my own machine, or do I absolutely need the cloud? Well, let's break down the options:
+
+### Fine-tuning locally
+
+- **Feasibility:** Yes, it's increasingly feasible, _if_ you have the right hardware. Thanks to `PEFT` methods (especially `QLoRA`), fine-tuning moderately large models (e.g., 7B, 13B, even up to ~70B parameters) is possible on high-end consumer GPUs (like NVIDIA RTX 3090/4090 with 24GB VRAM) or prosumer/workstation GPUs (like A6000 with 48GB VRAM). Smaller models might even fine-tune on GPUs with 12-16GB VRAM using optimizations.
+- **Hardware needs:** A powerful NVIDIA GPU is practically required (CUDA support is dominant). Sufficient VRAM is the main bottleneck. CPU fine-tuning is generally too slow to be practical for LLMs. Good system RAM and fast storage also help.
+- **Pros:** Full control, data stays local (privacy), potentially lower cost long-term if you own the hardware and use it frequently.
+- **Cons:** Significant upfront hardware cost, environment setup complexity (CUDA drivers, libraries), potential for long training times, limited scalability compared to cloud. Requires troubleshooting hardware/software issues yourself.
+
+### Fine-tuning in the cloud
+
+- **Feasibility:** Always feasible, regardless of your local hardware. Cloud providers offer access to powerful GPUs (like NVIDIA A100s, H100s with 40GB, 80GB+ VRAM) on demand.
+- **Hardware Needs:** None locally, beyond a machine to connect to the cloud service.
+- **Pros:** Access state-of-the-art hardware, pay-as-you-go flexibility, scalable resources, managed environments often available (reducing setup pain), faster training times possible with more powerful/multiple GPUs.
+- **Cons:** Can become expensive, especially for long training runs or powerful instances. Data needs to be uploaded to the cloud (potential privacy / compliance steps needed). Requires managing cloud resources (starting / stopping instances, storage, etc.).
+
+### Recommendation
+
+- **For learning and small experiments:** Start with Google Colab or Kaggle for free/cheap GPU access.
+- **For moderate local fine-tuning:** If you have a capable GPU (16GB+ VRAM), try it locally using `PEFT`/`QLoRA`.
+- **For large models or production pipelines:** Cloud GPUs (rented directly or via ML platforms) are generally more practical and scalable.
+- **For maximum ease (if proprietary models suffice):** Use managed API-based fine-tuning (OpenAI, Azure OpenAI, etc.).
+
+The barrier to entry is lower than ever, but be prepared for a learning curve if you choose the open-source path, whether local or cloud.
+
+### Practical examples
+
+As I already mentioned in my other articles, to keep my content up-to-date, I do not create tutorials (which is very often documentation's copy/paste), but I reference the ones I find the most useful.
+
+As fine-tuning is a very broad topic, I am going to create one more article in this space, in which I will compare the results of different fine-tuning methods / online services.
+
+Meanwhile, if you want to see fine-tuning in action, I recommend you to watch the following videos:
+
+- [EASIEST Way to Fine-Tune a LLM and Use It With Ollama](https://www.youtube.com/watch?v=pxhkDaKzBaY): great step-by-step tutorial on how to fine-tune `Llama 3.1` with a cool open-source tool called [unsloth](https://unsloth.ai/)
+
+- [Fine-tuning ChatGPT with OpenAI](https://www.youtube.com/watch?v=VVKcSf6r3CM): nice tutorial showing how it looks to fine tune proprietary `gpt-3.5-turbo` model with OpenAI API.
+
+- If you are on a Mac, then you can find it useful to use [MLX](https://github.com/ml-explore/mlx) for fine-tuning. Just follow [this](https://www.youtube.com/watch?v=BCfCdTp-fdM), [this](https://www.youtube.com/watch?v=3UQ7GY9hNwk) or [this](https://www.youtube.com/watch?v=3PIqhdRzhxE) video.
+
+## Conclusion
+
+Fine-tuning Large Language Models is no longer solely the domain of ML engineers. For us, software developers, it represents a great opportunity to transform capable but generic AI models into specialized tools that significantly enhance application performance, provide deeper customization, and deliver more reliable results for specific tasks.
+
+While it demands more effort than simple prompt engineering – requiring careful data preparation, access to computational resources, and a willingness to engage with ML concepts – the payoff can be substantial. Techniques like `PEFT` have dramatically lowered the barrier to entry, making it feasible to fine-tune even large open-source models on accessible hardware.
+
+Understanding the trade-offs between fine-tuning, prompt engineering, RAG, and other methods, as well as the differences between open-source and proprietary models, allows you to make informed decisions. Start simple, evaluate alternatives, and if the need for deeper specialization is clear, approach fine-tuning methodically.

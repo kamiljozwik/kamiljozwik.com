@@ -23,7 +23,7 @@ export const modelFamilies: Family[] = [
   },
   {
     title: "Qwen",
-    description: "Revolutionary models for every budget",
+    description: "Large range of models for various applications",
     date: "2025-04-16",
     href: "/models/qwen",
     img: "/models/qwen-logo.webp",
