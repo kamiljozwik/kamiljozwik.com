@@ -24,5 +24,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...postsMap,
     ...familiesMap,
+    {
+      url: `https://kamiljozwik.com/news/ai`,
+    },
+    {
+      url: `https://kamiljozwik.com/news/webdev`,
+    },
   ];
 }

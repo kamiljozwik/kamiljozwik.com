@@ -1,7 +1,7 @@
 export const meta = {
   title: "LLM quantization",
   description:
-    "Quantization is a model compression technique that reduces the size and computational requirements of LLMs. This guide explains how quantization works, its advantages and disadvantages, and practical tips for software developers.",
+    "Quantization is a model compression technique that reduces the size and computational requirements of LLMs.",
   date: "2025-04-24",
   tags: ["llm"],
 };
@@ -189,10 +189,6 @@ We've talk a lot about theory, but choosing and potentially creating quantized m
 While using pre-quantized models is easiest, you might need to quantize a custom fine-tuned model or a model not yet available in your desired format. Fortunately, user-friendly tools exist:
 
 1.  **Hugging Face Transformers + [bitsandbytes](https://huggingface.co/docs/bitsandbytes/v0.45.4/index):** The simplest way for quick `PTQ` inference. Just add a parameter when loading. This performs on-the-fly quantization (using methods like NF4 for 4-bit) without needing separate quantization steps. Ideal for quick tests and GPU inference.
-
-    - `model = AutoModelForCausalLM.from_pretrained(..., load_in_8bit=True)`
-    - `model = AutoModelForCausalLM.from_pretrained(..., load_in_4bit=True)`
-
 2.  **[GPTQModel](https://github.com/ModelCloud/GPTQModel):** For creating persistent `GPTQ`-quantized model files (usually 4-bit). Requires a small script but provides high-quality `PTQ` results suitable for GPU inference.
 3.  **[AutoAWQ](https://github.com/casper-hansen/AutoAWQ) / [Transformers AWQ Integration](https://huggingface.co/docs/transformers/main/en/quantization/awq):** Tools and library support for applying `AWQ` quantization (usually 4-bit). May require a small calibration dataset but offers good accuracy, especially for instruction-tuned models on GPUs.
 4.  **[llama.cpp](https://github.com/ggml-org/llama.cpp):** Includes command-line tools to convert models (usually from PyTorch `FP16` format) into the `GGUF` format with various quantization levels (Q4, Q5, Q8, etc.). The primary tool for creating CPU-optimized quantized models.

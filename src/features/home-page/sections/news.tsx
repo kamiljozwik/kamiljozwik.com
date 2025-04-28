@@ -19,7 +19,7 @@ export const NewsSection = async (props: Omit<NewsProps, 'feed'>) => {
   } as const;
 
   return (
-    <Section title="Latests web development and AI news">
+    <Section title="Web development and AI news">
       <div className="flex flex-col md:flex-row justify-between">
         {feeds.map(feed => (
           <div key={feed} className="md:w-[45%] mb-8">
