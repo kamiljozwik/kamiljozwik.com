@@ -11,7 +11,7 @@ type NavigationItem = {
   content: {
     href: string;
     title: string;
-    description: string;
+    description?: string;
   }[];
 };
 
@@ -34,9 +34,14 @@ const navigationItems: NavigationItem[] = [
     trigger: 'News',
     content: [
       {
+        href: "/news/ai",
+        title: "Artificial Intelligence",
+        description: "Latest AI news",
+      },
+      {
         href: "/news/webdev",
         title: "Web Development",
-        description: "WebDev news",
+        description: "Latest WebDev news",
       }
     ]
   },

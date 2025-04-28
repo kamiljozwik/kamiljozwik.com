@@ -9,7 +9,7 @@ type Props = React.ComponentProps<typeof Link>
 
 export const ListItem = ({ className, title, children, ...props }: Props) => {
   return (
-    <li>
+    <li className="w-full">
       <NavigationMenuLink asChild>
         <Link
           className={cn(
