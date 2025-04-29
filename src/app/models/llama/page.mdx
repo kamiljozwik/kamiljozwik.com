@@ -1,0 +1,145 @@
+import { Header } from "../_components/header";
+import llama4 from "./llama4.webp";
+
+<Header model="llama" />
+
+Meta's [Llama family](https://www.llama.com/) has carved out a unique space in a LLM ecosystem. By championing an open approach, Meta has lowered the barrier to entry, allowing developers worldwide to harness well-trained AI without necessarily needing high upfront infrastructure investments.
+
+This guide dives into the Llama 3 and Llama 4 families, exploring their capabilities, differences, and ideal use cases. We'll also demystify the "Llama Stack," Meta's framework designed to streamline building and deploying Llama-powered applications. Our focus is on practical understanding for software developers, highlighting aspects like parameter counts, context limits etc.
+
+## Llama 3 family
+
+The Llama 3 family represents a stride forward in Meta's LLM narrative, building upon previous generations to offer enhanced performance and a richer feature set suitable for a wide array of applications.
+
+### Llama 3.0
+
+The story began in April 2024 with the initial [Llama 3 release](https://ai.meta.com/blog/meta-llama-3/), which immediately set a new benchmark for open models. It arrived in two distinct sizes: an accessible **8B** parameter version, manageable even on consumer-grade hardware, and a more powerful **70B** parameter variant designed for tackling computationally intensive tasks. Both models shared a standard dense [Transformer](https://www.youtube.com/watch?v=ZXiruGOCn9s) architecture. A notable improvement over Llama 2 was the doubling of the context window to **8k tokens**
+
+From a developer's perspective, Llama 3.0 was fundamentally a text-only model; it lacked native understanding of images or built-in mechanisms for function calling. Integration with external tools required prompting the model to generate structured outputs, like `JSON`. Meta did provide [instruction-tuned](/posts/instruction-tuned-models) "Chat" versions, aligned for dialogue using techniques like Supervised Fine-Tuning (`SFT`) and Reinforcement Learning from Human Feedback (`RLHF`).
+
+The open nature of the weights spurred the community to quickly develop quantized versions (like 4-bit and 8-bit models), making deployment more efficient, especially for the 70B model. Developers could also further fine-tune the base models, often using techniques like `LoRA` adapters, to specialize them for particular tasks.
+
+It's also important to note the **knowledge cutoff** dates – March 2023 for the 8B model and December 2023 for the 70B. Lastly, Llama 3 introduced a more permissive custom open license compared to its predecessor, allowing broader commercial use, though you should always review the specific terms.
+
+### Llama 3.1
+
+Mid-2024 [brought Llama 3.1](https://ai.meta.com/blog/meta-llama-3-1/), an iteration focused squarely on expansion. This release not only refreshed the existing 8B and 70B models but also introduced a colossal **405B** parameter dense model. At the time, this giant stood as the [largest](https://www.youtube.com/watch?v=aVvkUuskmLY) openly available model, offering potentially significant performance gains in complex reasoning and coding tasks.
+
+The headline feature, however, was the leap in context length. All Llama 3.1 models boasted a **128k token context window**. This opened up new possibilities, allowing the models to process entire books or maintain context through incredibly long interactions.
+
+Llama 3.1 also brought enhanced multilingual capabilities, with official optimization for dialogue across **8 core languages** (including English, Spanish, French, German, and Hindi). While still text-only, its ability to follow instructions related to tool usage saw marked improvement. It achieved good results in interpreting prompts designed to integrate external tools, making it a more capable component within agentic systems, even without a native function-calling API. The **knowledge cutoff** remained December 2023.
+
+Given the resource demands, particularly of the 405B model, community-driven quantization remained really essential for practical deployment. While all models were fine-tunable, the immense size of the 405B model meant it often served as a powerful knowledge source for [distillation](/posts/models-distilation) into smaller, more manageable models.
+
+### Llama 3.2
+
+Towards the end of 2024, the Llama 3 narrative took an interesting turn with [Llama 3.2](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/), diversifying into two new strategic directions: lightweight efficiency and multimodal understanding. Addressing the growing need for on-device AI, Meta introduced small, text-only models with just **1B** and **3B** parameters, specifically optimized for resource-constrained environments like smartphones or edge devices.
+
+Perhaps more groundbreaking was the introduction of the first Llama models capable of **understanding images**. Llama 3.2 debuted **11B** and **90B** parameter models that could process both text and [image inputs](https://www.youtube.com/watch?v=lzDPQAjItOo), generating textual outputs in response.
+
+While these vision models inherited the 128K token context window of Llama 3.1, some practical limitations (potentially closer to 8K for the 11B vision model in certain setups) were reported, reminding developers to verify capabilities in their target deployment. The small 1B/3B models also supported 128K context, but Meta released [versions](https://huggingface.co/meta-llama/Llama-3.2-1B) specifically optimized via [quantization](/posts/llm-quantization) for an 8K context, making them highly practical for low-memory scenarios. In practice, 128K on a 1B model is rarely needed; the 8K quantized model is geared toward mobile/edge use.
+
+Multilingual support for text tasks continued with the 8 core languages across all models, although image-related outputs from the vision models were primarily supported in English. The **knowledge cutoff** for this release remained December 2023.
+
+All 3.2 models are fine-tunable. Amazon Bedrock, for instance, [enabled](https://aws.amazon.com/about-aws/whats-new/2025/03/metas-llama-3-2-models-fine-tuning-amazon-bedrock/) one-click fine-tuning for Llama 3.2 (1B–90B) on custom data. The vision models can be further fine-tuned for specific image domains or with additional aligned multimodal instruction data (following the same adapter approach). The open release includes [the code](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD_VISION.md) to train the vision adapter with new image data if desired.
+
+### Llama 3.3
+
+In early 2025, the Llama 3 story saw a final chapter focused on refinement with [Llama 3.3](https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct). This release didn't introduce new model sizes but centered on delivering a significantly improved instruction-tuned **70B** [model](https://www.youtube.com/watch?v=-dnGa6Oms5I). Drawing on user feedback and extensive safety research, this iteration aimed to provide a more polished and reliable experience, in some cases approaching the capability of the much larger 405B model but with the resource footprint of a 70B parameter model.
+
+It retained the 128K token context window and remained a text-only model, continuing support for the 8 core languages with subtle improvements in response quality and cultural nuance. Where Llama 3.3 truly shone was in its enhanced instruction-following and interaction style. It adopted a more flexible function calling format and became more reliable at generating structured output like `JSON` or markdown when requested.
+
+Llama 3.3 also featured improved safety alignment. It was less prone to overly cautious refusals of harmless requests, making interactions feel more natural. When declining genuinely problematic prompts, it did so with a more neutral and less "preachy" tone. These refinements resulted in a highly usable and predictable model, becoming a very good choice for demanding chatbot applications or tasks requiring reliable long-form generation within its December 2023 knowledge cutoff.
+
+Llama 3.3 can be seen as Meta’s own fine-tuning update to Llama 3.1. It incorporated an additional round of reinforcement learning from human feedback and safety alignment. For end users, the 70B model was already so capable that many did not need to further fine-tune it, as we got a ready-to-use, highly polished chat model.
+
+## Llama 3 family - summary
+
+You can find all Llama models on [Hugging Face](https://huggingface.co/meta-llama) and [ollama](https://ollama.com/search?q=llama).
+
+| Model Name       | Parameters  | Context Window (Tokens)               | Multilingual Support (Core Langs) | Multimodality | Function Calling (Prompt-Based) | Quantization Support | Knowledge Cutoff |
+| :--------------- | :---------- | :------------------------------------ | :-------------------------------- | :------------ | :------------------------------ | :------------------- | :--------------- |
+| Llama 3 (8B)     | 8 Billion   | 8,192                                 | >30 (Eng-centric)                 | No            | Yes                             | Yes (Community)      | Mar 2023         |
+| Llama 3 (70B)    | 70 Billion  | 8,192                                 | >30 (Eng-centric)                 | No            | Yes                             | Yes (Community)      | Dec 2023         |
+| Llama 3.1 (8B)   | 8 Billion   | 128,000                               | 8                                 | No            | Yes (Improved)                  | Yes (Community)      | Dec 2023         |
+| Llama 3.1 (70B)  | 70 Billion  | 128,000                               | 8                                 | No            | Yes (Improved)                  | Yes (Community)      | Dec 2023         |
+| Llama 3.1 (405B) | 405 Billion | 128,000                               | 8                                 | No            | Yes (Improved)                  | Yes (Community)      | Dec 2023         |
+| Llama 3.2 (1B)   | 1 Billion   | 128,000 (8K optimized available)      | 8                                 | No            | Yes (Agentic Focus)             | Yes (Official QAT)   | Dec 2023         |
+| Llama 3.2 (3B)   | 3 Billion   | 128,000 (8K optimized available)      | 8                                 | No            | Yes (Agentic Focus)             | Yes (Official QAT)   | Dec 2023         |
+| Llama 3.2 (11B)  | 11 Billion  | 128,000 (Reported ~8K practical?)     | 8 (Text), Eng (Vision Output)     | Yes           | Yes                             | Yes (Community)      | Dec 2023         |
+| Llama 3.2 (90B)  | 90 Billion  | 128,000                               | 8 (Text), Eng (Vision Output)     | Yes           | Yes                             | Yes (Community)      | Dec 2023         |
+| Llama 3.3 (70B)  | 70 Billion  | 128,000 (SpecDec variants may differ) | 8                                 | No            | Yes (Improved Format & Tools)   | Yes (Community)      | Dec 2023         |
+
+## Llama 4 Family
+
+Around April 2025, the Llama narrative took another turn with the [arrival](https://ai.meta.com/blog/llama-4-multimodal-intelligence/) of the [Llama 4 family](https://huggingface.co/collections/meta-llama/llama-4-67f0c30d9fe03840bc9d0164). This wasn't just an incremental update; it represented a fundamental architectural shift. Llama 4 models were designed from the outset as **natively multimodal**, seamlessly integrating text and vision processing. They also embraced a **Mixture-of-Experts (MoE)** architecture and pushed the boundaries of context length to [unprecedented levels](https://www.youtube.com/watch?v=TIZmjmsBh20).
+
+The `MoE` approach is key here: these models contain a large number of specialized "expert" sub-networks but cleverly activate only a small, relevant subset for processing each input token. This allows them to possess the vast knowledge associated with enormous total parameter counts while maintaining the computational efficiency of much smaller models during inference. You can read more about this approach in my other [article](/posts/llm-parameters).
+
+The arrival of the Llama 4 has been linked to some [rumours](https://techcrunch.com/2025/04/07/meta-exec-denies-the-company-artificially-boosted-llama-4s-benchmark-scores/) that the model has been specifically designed to perform well in benchmarks. You can watch more on this [here](https://www.youtube.com/watch?v=P4M9wfJH-yI) and [here](https://www.youtube.com/watch?v=90LS4ze4BjQ). This speculation was, of course, very quickly debunked by Meta's representatives, but what it was really like, we will probably never know.
+
+<img src={llama4.src} />
+
+### Llama 4 Scout - the small one
+
+Llama 4 Scout emerged as the specialist for handling vast amounts of information with remarkable efficiency. Its `MoE` architecture packs **109B** total parameters across 16 experts, yet requires only around **17B** active parameters for any given token, making its inference cost akin to a dense **17B** model.
+
+Scout's most striking feature is its potential **10 million token context window** – an industry record (April 2025). Achieved through sophisticated techniques, this allows the model, in principle, to ingest and reason over entire libraries or massive code repositories without needing to break them into smaller chunks.
+
+Being natively multimodal, Scout readily accepts both text and image inputs, performing analysis that can even refer to specific regions within multiple images provided in a prompt. Its multilingual capabilities were also expanded, officially supporting 12 languages, including several Southeast Asian and Middle Eastern languages alongside European and Indian ones.
+
+While it doesn't feature a rigid function-calling API, Scout is explicitly designed for **agentic tool use**. It excels at interpreting natural language instructions to interact with external tools or generate structured data for APIs, fitting into workflows orchestrated by frameworks like the Llama Stack.
+
+Recognizing the need for efficient deployment, Meta and partners provided optimized quantized versions (like INT4 and FP8), and its open weights allow for community quantization efforts.
+
+Fine-tuning is possible, typically using adapter methods like `LoRA`/`QLoRA` to manage the large total parameter count, with cloud platforms offering [streamlined tuning](https://www.ibm.com/new/announcements/Meta-llama-4-maverick-and-llama-4-scout-now-available-in-watsonx-ai) pipelines.
+
+With its **knowledge** updated to August 2024, Scout works well for tasks demanding long-term coherence, such as summarizing extensive document collections, analyzing large-scale codebases, or powering personalized assistants that remember vast interaction histories.
+
+### Llama 4 Maverick - the medium one
+
+Complementing Scout, Llama 4 Maverick offers a compelling blend of broad knowledge, strong reasoning, and multimodal prowess, positioned as a high-capacity generalist. Maverick employs a larger `MoE` configuration with **400B** total parameters distributed across 128 experts. Despite this increase in total parameters compared to Scout, it cleverly maintains the same **~17B** active parameter footprint per token.
+
+Maverick supports a massive context window of up to **1M tokens**, enabling continuous processing of very long documents or dialogues. Like Scout, it's **natively multimodal**, adept at understanding and analyzing text and image inputs, including interpreting multiple images within a single prompt. It shares the same expanded **12 language support** as Scout, with its larger scale potentially yielding even higher accuracy in non-English tasks.
+
+Meta explicitly highlights Maverick's optimization for **coding, tool-calling, and powering agentic systems**, making it a good choice for complex workflows where the LLM needs to interact reliably with external functionalities based on intricate instructions.
+
+Quantization options, such as optimized `FP8` formats and community `INT4`/`INT8` efforts (often requiring distributed computing setups due to the total size), make deployment feasible.
+
+Fine-tuning typically involves adapter-based methods or knowledge distillation rather than attempting to modify all 400B parameters.
+
+With its **August 2024** knowledge base, Maverick stands as a formidable open model, capable (at least on paper) of rivaling closed-source competitors in general assistant tasks, complex multi-image analysis (e.g., comparing medical scans), advanced coding assistance, and sophisticated enterprise applications demanding top-tier multilingual and reasoning capabilities.
+
+### Llama 4 Behemoth - the big one
+
+Have you noticed the naming pattern for **s**mall, **m**edium and **b**ig models? 😉
+
+The final member of the Llama 4 trio, Behemoth, is a fascinating entity, for now primarily operating behind the curtain. It represents Meta's frontier research model, an experimental giant boasting approximately **2 trillion total parameters** and activating around **288B** across 16 exceptionally large experts.
+
+As of its announcement, Behemoth was still in training and **not intended for public deployment**. Its primary role is to serve as the immensely knowledgeable **"teacher" model**. The high-quality outputs and reasoning demonstrated by Behemoth are used to **distill** knowledge and capabilities into the more efficient, deployable models like Scout and Maverick.
+
+While its exact specifications (like context window) aren't fully detailed, it shares the Llama 4 family's native multimodality and is expected to handle extremely long contexts.
+
+**Llama 4 Family Summary Table**
+
+| Model Name       | Parameters (Active / Total) | Context Window (Current / Potential Tokens) | Multilingual Support (Langs) | Multimodality | Function Calling (Prompt-Based) | Knowledge Cutoff | Intended Use Cases                                                     |
+| :--------------- | :-------------------------- | :------------------------------------------ | :--------------------------- | :------------ | :------------------------------ | :--------------- | :--------------------------------------------------------------------- |
+| Llama 4 Scout    | ~17B / 109B                 | 128K / 10 Million                           | 12                           | Yes           | Yes (Optimized for Agents)      | Aug 2024         | Extreme long context tasks, code analysis, image analysis, chat        |
+| Llama 4 Maverick | ~17B / 400B                 | ~524K / 1 Million                           | 12                           | Yes           | Yes (Optimized for Agents)      | Aug 2024         | High-quality chat, enterprise apps, advanced reasoning, coding, vision |
+| Llama 4 Behemoth | ~288B / ~2 Trillion         | Unknown / Very Large                        | Likely 12+                   | Yes           | Likely Yes (Internal)           | Unknown          | Teacher model for distillation, frontier research (not for deploy)     |
+
+## Llama stack
+
+Successfully building and deploying sophisticated AI applications requires more than just access to a powerful language model. As developers, we need robust tools and infrastructure to manage inference, connect the model to external data sources, implement safety measures, orchestrate agentic behavior, and handle deployment complexities.
+
+Recognizing this need, Meta [introduced](https://www.youtube.com/watch?v=mhs9aRH_7uI) the [Llama Stack](https://www.llama.com/products/llama-stack/), conceived as an official, end-to-end framework specifically designed to streamline this entire process for Llama models.
+
+Its core mission is to standardize the essential building blocks, offering a unified and simplified experience. It achieves this through a set of **consistent APIs** that abstract away the complexities of common tasks, like running model **inference**, implementing `RAG` and grounding responses in external knowledge, [building agents](https://www.youtube.com/watch?v=FhEboUKsDD8) capable of decision-making and **tool use**, enforcing **safety** protocols using components like Llama Guard, or setting up **evaluation** and **telemetry** for monitoring.
+
+This standardization is enabled by a **modular, plugin-based architecture**. This clever design means you can easily swap underlying implementations – for instance, switching from local GPU inference during development to a cloud-based API endpoint for production – often without altering your application's core logic. The API call remains the same; only the "provider" plugin changes. To accelerate development, Meta offers **prepackaged distributions** – curated sets of these plugins and configurations optimized for specific environments, such as local development, on-premise servers, cloud platforms, or even mobile devices. Getting started is further eased by **SDKs** for popular languages like Python, Typescript (Node.js), Swift (iOS), and Kotlin (Android), alongside a helpful **Command-Line Interface (CLI)** for managing models and environments.
+
+## Conclusion
+
+Meta's Llama family offers developers a powerful, versatile, and increasingly accessible suite of large language models. The rapid evolution from Llama 3's text-centric focus to Llama 4's native multimodality and extreme context lengths showcases a commitment to pushing the boundaries of open AI (do not confuse with closed AI from OpenAI)🦙
+
+Furthermore, the Llama Stack provides an essential framework, simplifying the often-complex process of integrating these powerful models into real-world applications. By standardizing components for RAG, agents, safety, and deployment, it allows us, developers, to innovate faster and build more reliable AI solutions.

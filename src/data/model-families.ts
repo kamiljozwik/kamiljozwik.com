@@ -28,4 +28,11 @@ export const modelFamilies: Family[] = [
     href: "/models/qwen",
     img: "/models/qwen-logo.webp",
   },
+  {
+    title: "Llama",
+    description: "Open source provided by Meta",
+    date: "2025-04-28",
+    href: "/models/llama",
+    img: "/models/llama-logo.webp",
+  },
 ] as const;
