@@ -46,7 +46,7 @@ All 3.2 models are fine-tunable. Amazon Bedrock, for instance, [enabled](https:/
 
 ### Llama 3.3
 
-In early 2025, the Llama 3 story saw a final chapter focused on refinement with [Llama 3.3](https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct). This release didn't introduce new model sizes but centered on delivering a significantly improved instruction-tuned **70B** [model](https://www.youtube.com/watch?v=-dnGa6Oms5I). Drawing on user feedback and extensive safety research, this iteration aimed to provide a more polished and reliable experience, in some cases approaching the capability of the much larger 405B model but with the resource footprint of a 70B parameter model.
+In early 2025, the Llama 3 story saw a final chapter focused on refinement with [Llama 3.3](https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct). This release didn't introduce new model sizes but centered on delivering a significantly improved instruction-tuned **70B** [model](https://www.youtube.com/watch?v=-dnGa6Oms5I). Drawing on user feedback and extensive safety research, this iteration aimed to provide a more polished and reliable experience, in some cases approaching the capability of the much larger 405B model but with the resource footprint of a 70B parameter model (which you can [run locally](https://www.youtube.com/shorts/2JKVwpRoHdU)).
 
 It retained the 128K token context window and remained a text-only model, continuing support for the 8 core languages with subtle improvements in response quality and cultural nuance. Where Llama 3.3 truly shone was in its enhanced instruction-following and interaction style. It adopted a more flexible function calling format and became more reliable at generating structured output like `JSON` or markdown when requested.
 
@@ -138,6 +138,14 @@ Recognizing this need, Meta [introduced](https://www.youtube.com/watch?v=mhs9aRH
 Its core mission is to standardize the essential building blocks, offering a unified and simplified experience. It achieves this through a set of **consistent APIs** that abstract away the complexities of common tasks, like running model **inference**, implementing `RAG` and grounding responses in external knowledge, [building agents](https://www.youtube.com/watch?v=FhEboUKsDD8) capable of decision-making and **tool use**, enforcing **safety** protocols using components like Llama Guard, or setting up **evaluation** and **telemetry** for monitoring.
 
 This standardization is enabled by a **modular, plugin-based architecture**. This clever design means you can easily swap underlying implementations – for instance, switching from local GPU inference during development to a cloud-based API endpoint for production – often without altering your application's core logic. The API call remains the same; only the "provider" plugin changes. To accelerate development, Meta offers **prepackaged distributions** – curated sets of these plugins and configurations optimized for specific environments, such as local development, on-premise servers, cloud platforms, or even mobile devices. Getting started is further eased by **SDKs** for popular languages like Python, Typescript (Node.js), Swift (iOS), and Kotlin (Android), alongside a helpful **Command-Line Interface (CLI)** for managing models and environments.
+
+## Llama ecosystem
+
+Meta is constantly expanding the Llama ecosystem. Without going into too much detail, here are some of the most interesting components:
+
+- [Llama API](https://www.llama.com/products/llama-api/): A web-based app for Llama models, offering a simple interface for developers to create API keys, integrate Llama capabilities into their applications and test new models without needing to manage the underlying infrastructure. Very similar what we know from Google AI Studio.
+
+- [Meta AI App](https://ai.meta.com/meta-ai/): Mobile (Android and iOS) assistant that gets to know your preferences, remembers context and is personalized to you.
 
 ## Conclusion
 

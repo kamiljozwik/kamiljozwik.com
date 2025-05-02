@@ -1,4 +1,5 @@
 import { Header } from "../_components/header";
+import mascot from "./mascot.webp";
 
 <Header model="qwen">Qwen</Header>
 
@@ -150,20 +151,46 @@ Here is some key available information about them:
 - **Performance**: Best suited for simple tasks (e.g., basic Q&A, text generation).
 - **Tool use**: Not explicitly detailed.
 
+## The next leap - Qwen3
+
+Building upon the success of its predecessors, Alibaba introduced [Qwen3](https://huggingface.co/collections/Qwen/qwen3-67dd247413f0e2e4f653967f), the latest generation of large language models in the Qwen series. Announced [late April 2025](https://qwenlm.github.io/blog/qwen3/), `Qwen3` offers a comprehensive suite of dense and `MoE` models, delivering some advancements in reasoning, instruction-following, agent capabilities, and multilingual support.
+
+- **Architecture & model range:** `Qwen3` continues the Transformer-based architecture but introduces significant enhancements and a diverse lineup:
+  - **Dense models:** Six open-source dense models were released, ranging in size from **0.6B, 1.7B, 4B, 8B, 14B, to 32B**.
+  - **MoE models:** Two powerful and efficient open-source `MoE` models:
+    - `Qwen3-30B-A3B`: A compact `MoE` model with **30B total parameters**, but only **3B active** during inference, offering good performance for its computational footprint.
+    - `Qwen3-235B-A22B`: The flagship `MoE` model with **235B total parameters** and **22B active**, designed to compete at the highest level.
+- **Context window:** Context length varies across the models:
+  - The smaller dense models (0.6B, 1.7B, 4B) support a **32K token** context.
+  - Larger dense models (8B, 14B, 32B) and both MoE models (30B, 235B) support an extended **128K token** context length.
+- **Modality:** `Qwen3` models are currently **text-only**, focusing on text input and text output (including code). They do not natively support image or audio modalities in this release series.
+- **Multilingual support:** `Qwen3` significantly expands its linguistic reach, supporting **119 languages and dialects**.
+- **Function calling / tool use:** Agentic capabilities have been notably improved. `Qwen3` models are optimized for coding and agentic tasks, with strengthened support for tool calling and MCP.
+- **Hybrid thinking modes:** A key innovation in `Qwen3` is the introduction of hybrid thinking modes:
+  1.  **Thinking mode:** The model takes more time to reason step-by-step before delivering the final answer, ideal for complex problems requiring deeper thought (similar to `Chain-of-Thought`).
+  2.  **Non-thinking mode:** Provides quick, near-instant responses, suitable for simpler questions where speed is prioritized over depth.
+      This allows users to configure a "thinking budget" (in tokens) to balance response quality with latency and computational cost.
+- **Use Cases:** `Qwen3` models are suitable for a wide range of applications, building on the strengths of Qwen2.5 but with enhanced performance, particularly in coding, math, and multilingual scenarios. Their improved agentic capabilities make them excellent choices for building sophisticated AI agents and tool-using applications. The Hybrid Thinking feature adds a layer of control for developers needing to balance complexity and speed.
+
+You can also check out this nice video overview of `Qwen3` [here](https://www.youtube.com/watch?v=K3MlgNf__bc).
+
 ## Qwen family at-a-glance
 
 This table summarizes the key characteristics of the main Qwen models discussed (without the `Qwen-Plus` and `Qwen-Turbo` models):
 
-| Model              | Parameter sizes                   | Primary modality                      | Context window             | Specialization                         | License         | Multilingual               |
-| :----------------- | :-------------------------------- | :------------------------------------ | :------------------------- | :------------------------------------- | :-------------- | :------------------------- |
-| **Qwen2.5 (Base)** | 0.5B, 1.5B, 3B, 7B, 14B, 32B, 72B | Text                                  | 128k (Input) / 8k (Output) | Foundational, General Purpose          | Apache 2.0      | 29+ Languages              |
-| **Qwen2.5-Coder**  | 0.5B, 1.5B, 3B, 7B, 14B, 32B      | Text (Code)                           | ~Tens of Thousands         | Code Generation & Assistance           | Apache 2.0      | Many Prog. Langs + Eng/Chi |
-| **Qwen2.5-Math**   | 1.5B, 7B, 72B                     | Text (Math)                           | ~128k                      | Mathematical Reasoning, Tool Use (TIR) | Apache 2.0      | English & Chinese          |
-| **Qwen2.5-VL**     | 3B, 7B, 32B, 72B                  | Image/Video -> Text                   | Long Video + Large Text    | Vision-Language Understanding          | Apache 2.0      | Yes (Eng/Chi focused)      |
-| **Qwen2.5-Omni**   | 7B                                | Text/Image/Audio/Video -> Text/Speech | Streaming / Real-time      | End-to-End Multimodal Interaction      | Apache 2.0      | Yes (Speech Eng/Chi)       |
-| **QVQ-Max**        | ~72B                              | Image/Video -> Text (w/ Reasoning)    | Extended Visual & Text     | Deep Visual Reasoning (CoT)            | Proprietary API | Yes (Eng/Chi focused)      |
-| **QwQ**            | 32B                               | Text (Reasoning)                      | ~32k                       | Reinforced Reasoning (Math/Logic/Code) | Apache 2.0      | Yes (Eng/Chi)              |
-| **Qwen2.5-Max**    | ~325B (MoE)                       | Text                                  | 32k                        | Flagship Scale & Performance (MoE)     | Proprietary API | Yes (Broad)                |
+| Model                     | Parameter Sizes              | Primary Modality                      | Context Window                | Key Feature / Specialization           | License         | Multilingual               |
+| :------------------------ | :--------------------------- | :------------------------------------ | :---------------------------- | :------------------------------------- | :-------------- | :------------------------- |
+| **Qwen2.5 (Base)**        | 0.5B - 72B (Dense)           | Text                                  | 128k (Input) / 8k (Output)    | Foundational, General Purpose          | Apache 2.0      | 29+ Languages              |
+| **Qwen2.5-Coder**         | 1.5B, 7B (Dense)             | Text (Code)                           | ~Tens of Thousands            | Code Generation & Assistance           | Apache 2.0      | Many Prog. Langs + Eng/Chi |
+| **Qwen2.5-Math**          | 1.5B, 7B, 72B (Dense)        | Text (Math)                           | ~128k                         | Mathematical Reasoning, Tool Use (TIR) | Apache 2.0      | English & Chinese          |
+| **Qwen2.5-VL**            | 3B - 72B (Dense)             | Image/Video -> Text                   | Long Video + Large Text       | Vision-Language Understanding          | Apache 2.0      | Yes (Eng/Chi focused)      |
+| **Qwen2.5-Omni**          | 7B (Dense)                   | Text/Image/Audio/Video -> Text/Speech | Streaming / Real-time         | End-to-End Multimodal Interaction      | Apache 2.0      | Yes (Speech Eng/Chi)       |
+| **QVQ-Max**               | ~72B (Optimized/MoE?)        | Image/Video -> Text (w/ Reasoning)    | Extended Visual & Text        | Deep Visual Reasoning (CoT)            | Proprietary API | Yes (Eng/Chi focused)      |
+| **QwQ**                   | 32B (Dense)                  | Text (Reasoning)                      | ~32k                          | Reinforced Reasoning (Math/Logic/Code) | Apache 2.0      | Yes (Eng/Chi)              |
+| **Qwen2.5-Max**           | ~325B (MoE)                  | Text                                  | 32k                           | Flagship Scale & Performance (MoE)     | Proprietary API | Yes (Broad)                |
+| **Qwen3 (Dense)**         | 0.6B, 1.7B, 4B, 8B, 14B, 32B | Text                                  | 32K (for ≤4B), 128K (for ≥8B) | Hybrid Thinking, Strong Coding/Math    | Apache 2.0      | 119 Languages              |
+| **Qwen3-30B-A3B (MoE)**   | 30B Total / 3B Active        | Text                                  | 128K                          | Efficient MoE, Strong Coding/Math      | Apache 2.0      | 119 Languages              |
+| **Qwen3-235B-A22B (MoE)** | 235B Total / 22B Active      | Text                                  | 128K                          | Flagship MoE, Top Performance          | Apache 2.0      | 119 Languages              |
 
 _(Note: Context window sizes can sometimes vary based on specific implementation or fine-tuning. The table provides typical or maximum advertised values.)_
 
@@ -175,4 +202,6 @@ If you want to try out the models locally, you can find them on [Hugging Face](h
 
 ## Conclusion
 
-The Qwen family from Alibaba Cloud presents a compelling and versatile suite of large language models. With a strong emphasis on open-source releases for many core and specialized models, we have access to really powerful AI capabilities. From the foundational `Qwen2.5` suitable for general tasks to specialized `Coder` and `Math` variants, advanced multimodal `Omni` and `VL` models, deep reasoning `QVQ` and `QwQ` models, and the enterprise-scale `Qwen2.5-Max`, there is likely a Qwen model well-suited for your application needs 🤞
+The Qwen family from Alibaba Cloud presents a compelling and versatile suite of large language models. With a strong emphasis on open-source releases for many core and specialized models, we have access to really powerful AI capabilities. No matter what you are building, there is likely a Qwen model well-suited for your application needs 🤞
+
+<img src={mascot.src} />
