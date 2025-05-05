@@ -1,0 +1,169 @@
+import talk from "./talk.webp";
+
+export const meta = {
+  title: "Prompt engineering",
+  description:
+    "Prompt engineering is the process of designing and refining prompts to elicit desired responses from Large Language Models.",
+  date: "2025-05-04",
+  tags: ["llm"],
+};
+
+We stand at the cusp of a new era, one where interacting with AI is becoming as commonplace as sending an email. LLMs like Gemini, GPT, and Claude can draft text, summarize complex documents, brainstorm ideas, and even assist with coding.
+
+Yet, anyone who has used these tools knows the experience can be unpredictable. Sometimes the AI delivers a stroke of brilliance; other times, its response feels strangely off-target. Why the inconsistency? Often, the difference lies not just in the AI, but in how we _ask_.
+
+ChatGPT showed that you don't need a degree in computer science or a background in machine learning to talk to AI. It’s a tool designed for everyone. However, learning to talk to it _effectively_ — to phrase your requests, questions, and instructions in a way that consistently yields the results you envision — is a skill.
+
+It's part art, part science, and it's called **prompt engineering**. This guide aims to demystify this skill, showing you how to have more productive and rewarding conversations with your AI assistants.
+
+## How AI "thinks"
+
+Before we sculpt the perfect prompt, it’s helpful to grasp the basics of how these AI models operate. Imagine an LLM not as a thinking entity, but as an incredibly advanced prediction engine. It has digested unfathomable amounts of text and code from the internet and books, learning intricate patterns of language. When you provide a prompt — your input text — the LLM doesn't "understand" your intent in a human way. Instead, it calculates the most statistically likely sequence of words (or parts of words, called `tokens`) that should follow your input, based on the patterns it has learned.
+
+The AI builds its response incrementally, predicting one token after the next, using the preceding tokens (including your original prompt) as context for each new prediction. Your prompt, therefore, acts as the crucial starting point, the contextual seed from which the AI's response grows. A well-designed prompt steers this predictive process, guiding the AI toward generating the specific sequence of tokens that forms the helpful, accurate, or creative output you desire.
+
+## More than just asking
+
+So, what exactly is this skill? Prompt engineering is **the practice of carefully designing, refining, and structuring the input text (the prompt) given to an LLM to elicit the most accurate, relevant, and useful output possible.**
+
+Think of it as learning the AI's "language," not in terms of programming code, but in terms of effective communication strategies. It's rarely a one-shot process.
+
+You'll often find yourself in an iterative cycle:
+
+1.  craft a prompt,
+2.  observe the AI's response,
+3.  analyze its strengths and weaknesses,
+4.  tweak the prompt,
+
+adjusting wording, structure, or context — to nudge the next response closer to your goal.
+
+Many elements influence the outcome: the specific AI model (different models have different strengths and knowledge), the crucial configuration settings we’ll discuss next, your specific word choices, the overall structure and flow of your prompt, the implied tone, and any background information you provide.
+
+A vague or poorly constructed prompt is like giving unclear directions; the AI might end up somewhere completely unexpected.
+
+## Beyond the prompt text
+
+While the words you use are vital, the control panel offered by most LLMs provides additional levers to shape the output. Understanding these configuration settings is key to fine-tuning the AI’s performance:
+
+### Output length
+
+First, there's the **output length**. This setting imposes a hard limit on the number of tokens the AI will generate. It's not about making the AI write more concisely in terms of style; it simply stops the generation process once the specified token count is reached. Setting an appropriate limit is practical – it helps manage costs (generating more tokens requires more computation), keeps response times reasonable, and prevents the AI from rambling on indefinitely or getting stuck in repetitive loops.
+
+### Temperature and sampling controls
+
+Then come the **sampling controls**, which manage the element of randomness or creativity in the AI's word choices. Remember, the AI predicts probabilities for many potential next tokens.
+
+Sampling controls dictate how it selects from that pool of possibilities. The most common control is **temperature**. Think of it as a creativity dial.
+
+Lower temperatures (near `0`) make the AI highly focused and deterministic; it consistently picks the tokens with the highest probability, leading to predictable, often factual responses.
+
+Higher temperatures inject more randomness, allowing the AI to explore less probable options, resulting in more diverse, unexpected, or creative outputs. A temperature of exactly `0` typically forces the AI to _always_ choose the single most likely next token, making the output highly consistent (though slight variations can still occur if multiple tokens share the top probability).
+
+### `Top-K` and `Top-P`
+
+Other related controls include **Top-K** and **Top-P**. `Top-K` restricts the AI's choices to the 'k'-most probable tokens.
+
+`Top-P` is a bit more dynamic; it selects from the smallest group of tokens whose combined probability exceeds a threshold 'p'.
+
+Both serve to limit the pool of potential next words, balancing predictability and variety. Lower values make the output more focused, while higher values allow for more exploration.
+
+These settings interact. For tasks demanding accuracy and consistency, like summarizing technical text or extracting specific data, lower temperature and restrictive `Top-K/P` settings are usually preferred. For brainstorming, story writing, or generating novel ideas, dialing up the temperature and using broader `Top-K/P` settings can yield more interesting results.
+
+Finding the right balance often requires experimentation, tailored to your specific task and desired outcome.
+
+## Crafting effective prompts
+
+Armed with an understanding of the AI and its controls, let's explore specific strategies for structuring your prompts.
+
+These are different tools or techniques in your communication toolkit.
+
+### Zero-shot prompting
+
+The most basic approach is **zero-shot prompting**. Here, you simply give the AI a direct command or question without providing any prior examples. It might be a request like, `Translate this sentence into German: 'Hello, world!'`. This often works well for straightforward tasks where the AI's general training is sufficient.
+
+### One-shot and few-shot prompting
+
+However, sometimes the AI needs a clearer demonstration of what you want. This is where **one-shot** and **few-shot prompting** shine. You provide the AI with one (one-shot) or several (few-shot) examples of the task performed correctly.
+
+For instance, if you want the AI to classify customer feedback, you might show it a few examples:
+
+- Feedback: **"Love the product!"**, Sentiment: **Positive**,
+- Feedback: **"The setup was difficult."**, Sentiment: **Negative**.
+
+Then, you provide the new feedback and let the AI follow the pattern. This technique is remarkably powerful for guiding the AI toward specific formats, styles, or complex instructions.
+
+### Instruction-based prompting
+
+Beyond direct instructions and examples, you can shape the interaction by setting the stage.
+
+**System prompting** involves defining an overall purpose or set of operating rules for the AI at the beginning of a conversation, like `You are a concise technical writer. Explain concepts clearly using simple terms.`. This guides the AI's persona throughout the interaction.
+
+**Contextual prompting**, on the other hand, provides specific background information relevant _only_ to the immediate task or question, helping the AI grasp nuances. Imagine saying, `Context: Our company's main product is eco-friendly packaging. Question: Suggest three marketing slogans.`
+
+Lastly, **role prompting** explicitly assigns a character or identity for the AI to adopt, influencing its tone, style, and even the knowledge it draws upon. `Act as a skeptical historian analyzing the primary sources for Event X` will yield a very different response than `Act as an enthusiastic travel blogger describing Event X.`
+
+### Advanced techniques
+
+For more complex problems, advanced reasoning techniques come into play. Sometimes, asking the AI to first consider a broader, related concept before tackling the specific query can improve results; this is **step-back prompting**. It helps the AI activate relevant knowledge domains.
+
+A breakthrough technique for improving reasoning is **Chain of Thought (`CoT`) prompting**. Since LLMs can falter on multi-step logic, `CoT` encourages the AI to articulate its reasoning process step-by-step before providing the final answer. Often, simply adding "Let's think step by step" to your prompt can trigger this behavior, making the AI's logic more transparent and often more accurate, especially for mathematical or deductive tasks.
+
+### Self-consistency and `ReAct`
+
+Building upon `CoT`, **self-consistency** takes it a step further. You run the same `CoT` prompt multiple times (perhaps with slightly increased randomness via `temperature`) to generate several different reasoning paths. By observing which final answer appears most frequently, you can select the most robust conclusion, mitigating the risk of a single flawed reasoning chain.
+
+Techniques like **Tree of Thoughts** (`ToT`) allow the AI to explore multiple reasoning branches simultaneously, evaluating intermediate steps to find the best path forward, useful for complex problem-solving.
+
+Finally, the **ReAct** (_Reason and Act_) framework empowers LLMs to go beyond text generation by allowing them to use external tools. The AI reasons about what information it needs, decides on an action (like performing a web search), executes it, observes the result (e.g., the search findings), and incorporates that new information into its ongoing reasoning process to arrive at a final answer. This connects the LLM to real-time data and external capabilities.
+
+## Habits of effective prompters
+
+Mastering prompt engineering isn't about finding a single "magic" prompt; it's about developing good habits and an intuitive feel for communicating with AI. Here are some guiding principles for you.
+
+First and foremost, **embrace examples**. Providing one-shot or few-shot demonstrations is often the most direct route to improving performance, especially when you need a specific output format or style. Show, don't just tell.
+
+Strive for **clarity and simplicity** in your own words. If your prompt feels convoluted or ambiguous to you, it will almost certainly confuse the AI. Be direct, use clear language, and avoid unnecessary complexity. This clarity extends to being **specific about the desired output**. Instead of a vague request like "_Tell me about electric cars_", define the scope: "_Compare the battery range, charging time, and starting price of the three best-selling electric sedans in the US market_".
+
+When guiding the AI, favor **instructions over constraints**. Telling the AI _what to do_ ("_Summarize this in three key bullet points_") is generally more effective than telling it _what not to do_ ("_Don't write a long summary_"). Positive framing provides clearer direction. Constraints still have their place, particularly for enforcing safety guidelines or highly specific formatting rules, but instructions should be your primary tool.
+
+Remember to **manage the output length**, either through the configuration settings or by specifying limits within your prompt ("_Explain this concept in under 100 words_"). If you foresee reusing a prompt structure with varying inputs (like different product names or customer details), design it with **variables or placeholders**. This allows you to easily swap in new values without rewriting the entire prompt each time.
+
+Perhaps the most crucial habit is **persistent experimentation**. Try different ways of phrasing your requests. Test various prompt types – zero-shot, few-shot, role-play. Play with the configuration settings like `temperature`. Observe the subtle (and sometimes not-so-subtle) differences in the AI's responses. Consider asking for **structured output**, like `JSON`, especially when dealing with data extraction or classification. This often makes the results more reliable and easier for other programs to use, though you might need tools to handle minor formatting errors if the output gets cut off.
+
+Finally, and this cannot be stressed enough, **document your experiments**. Keep a log of your prompt attempts. Note the prompt text, the model and settings used, the goal, the output received, and whether it was successful. This detailed record is invaluable for learning what works, debugging failures, tracking progress across model updates, and efficiently revisiting past efforts. It transforms trial-and-error into systematic improvement.
+
+## Prompt engineering with reasoning models
+
+As LLMs continue to evolve, a significant development is the emergence of "reasoning models" like OpenAI's `o1` series, designed with more inherent capabilities to break down problems, infer context, and perform multi-step thinking internally.
+
+This contrasts with earlier or more general-purpose models (which we might term "non-reasoning" for this comparison, like `GPT-4o` in many standard tasks) that often rely more heavily on the prompt itself to guide their thought process. This distinction has implications for how we approach prompt engineering.
+
+[Research](https://www.prompthub.us/blog/prompt-engineering-with-reasoning-models) and practical experience, including analyzes comparing models like `o1-mini` and `GPT-4o`, suggest that these newer models possess sophisticated internal mechanisms for problem decomposition and reasoning. Consequently, the very techniques that help non-reasoning models can sometimes hinder or provide diminishing returns with reasoning models.
+
+One key finding is that **minimal prompting often works best** for reasoning models, particularly for complex tasks. Because the model has its own ways of thinking through a problem, overly detailed prompts, excessive few-shot examples, or highly prescriptive step-by-step instructions can potentially _interfere_ with its native reasoning process or lead it to "overcomplicate" its response.
+
+Providing too much context, especially in the form of many examples, can sometimes degrade performance compared to a simpler, direct prompt. It seems these models benefit from being given the problem clearly and then allowed the space to "think" using their built-in capabilities.
+
+This doesn't mean instructions are useless, but their nature might shift. Instead of telling the model _how_ to think step-by-step, it might be more effective to simply **encourage thoroughness** for complex tasks (e.g., "_Think carefully and deliberately about the problem. Take as much time as you need._") or to **request specific output formats**.
+
+Indeed, one area where reasoning models might struggle compared to their predecessors is adhering strictly to requested output structures or formats; they may sometimes "leak" parts of their internal reasoning into the final answer unless explicitly told not to. Therefore, clear instructions about the desired output format remain important.
+
+So, **when should you use which type of model**, and how should you prompt? A useful heuristic emerging from research, particularly in coding tasks, revolves around the complexity of the task, often estimated by the number of reasoning steps required (like `CoT` steps).
+
+- For tasks requiring **five or more reasoning steps**, reasoning models like `o1-mini` tend to significantly outperform models like `GPT-4o`. Here, a minimal prompt allowing the reasoning model to leverage its internal capabilities is often best.
+- For tasks requiring **fewer than five steps**, the advantage of reasoning models shrinks considerably.
+- For very **simple tasks (fewer than three steps)**, a reasoning model might even _underperform_ due to applying excessive internal reasoning where it's not needed. In these cases, a model like `GPT-4o`, perhaps guided by a simple prompt, might be more efficient and effective.
+
+A practical way to gauge task complexity is to test your prompt using a strong non-reasoning model and observe how many reasoning steps _it_ generates when asked to think step-by-step. This can provide a rough estimate to help guide your choice between a reasoning and non-reasoning model, and tailor your prompting strategy accordingly.
+
+In essence, prompting reasoning models often involves trusting their built-in intelligence more. Focus on clearly defining the task and the desired output format, avoid cluttering the prompt with excessive examples or overly prescriptive steps (especially few-shot prompting), and gently guide the model's _effort_ (e.g., "_think thoroughly_") rather than its exact _process_. As always, weigh these performance considerations against factors like cost and latency specific to your use case.
+
+## Conclusion
+
+Prompt engineering is your key to unlocking the true potential of today's powerful AI models. It’s less about technical wizardry and more about the art of clear, intentional communication. By understanding how LLMs process information, leveraging configuration settings, employing diverse prompting techniques, and cultivating disciplined habits of experimentation and documentation, you can enhance the quality, relevance, and usefulness of your AI interactions.
+
+This is a dynamic field; as AI continues to advance, the specific techniques and nuances of prompt engineering will undoubtedly evolve. But the fundamental skill—learning how to ask the right questions in the right way—will only become more valuable. Embrace the iterative process, enjoy the learning curve, and get ready to have much more productive and fascinating conversations with your AI partners.
+
+If you are eager to explore prompt engineering in more details, here is a nice [deep-dive](https://www.youtube.com/watch?v=T9aRN5JkmL8) on the topic done by the Anthropic team.
+
+<img src={talk.src} />

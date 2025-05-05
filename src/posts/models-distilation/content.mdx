@@ -106,7 +106,9 @@ While powerful, knowledge distillation isn't a magic bullet. We should be aware 
 5.  **Task-specific customization:** The optimal distillation strategy can vary depending on the specific task (e.g., text generation vs. classification) and the model architectures involved.
 6.  **Ethical and legal considerations:** Distilling knowledge from proprietary models can raise questions about licensing, intellectual property, and fair use. Always check the terms of service of the teacher model if you plan to perform distillation yourself or use a distilled model commercially. Is the distilled model considered a derivative work? These are ongoing discussions in the AI community.
 
-## DeepSeek R1 case study
+## Case studies
+
+### DeepSeek R1
 
 To see distillation in action, let's look at [DeepSeek R1](https://huggingface.co/deepseek-ai/DeepSeek-R1). The original DeepSeek R1 is a massive 671 billion parameter Mixture-of-Experts (MoE) model known for its strong reasoning capabilities, rivaling top models in math, coding, and science benchmarks.
 
@@ -138,6 +140,12 @@ DeepSeek is not the only one to use distillation to create great models. [Gemma 
 > Gemma's pre-training and post-training processes were optimized using a combination of distillation, reinforcement learning, and model merging.
 >
 > For post-training, Gemma 3 uses (...) distillation from a larger instruct model into the Gemma 3 pre-trained checkpoints.
+
+### Amazon Nova Premier
+
+Yet another example of models that have been distilled is the use case of [Amazon Nova Premier](https://aws.amazon.com/blogs/aws/amazon-nova-premier-our-most-capable-model-for-complex-tasks-and-teacher-for-model-distillation). This model is desired to be used as a teacher model for distilling smaller ones, and you can also use it for your own needs.
+
+> With Nova Premier and Amazon Bedrock Model Distillation, you can create highly capable, cost-effective, and low-latency versions of Nova Pro, Lite, and Micro, for your specific needs.
 
 ## How can I use it?
 

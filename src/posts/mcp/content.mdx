@@ -1,3 +1,5 @@
+import handshake from "./handshake.webp";
+
 export const meta = {
   title: "Model Context Protocol (MCP)",
   description:
@@ -96,6 +98,14 @@ And for a really lazy developers, you can just use [MCPify](https://mcpify.ai/)
 
 What a time to build amazing things 🤖
 
+## Hosting
+
+Based on my experience and research, it looks like Cloudflare is one of the best and the easiest places to host your MCP servers.
+
+Cloudflare's team is doing a really great job in providing documentation [[1]](https://developers.cloudflare.com/agents/guides/remote-mcp-server/), [[2]](https://developers.cloudflare.com/agents/model-context-protocol/), tutorials [[1]](https://blog.cloudflare.com/remote-model-context-protocol-servers-mcp/), [[2]](https://www.youtube.com/watch?v=Pjc8cC8zVRY) and [examples](https://github.com/cloudflare/ai/tree/main/demos/remote-mcp-authless).
+
+Some of the examples go [way beyond 🍕](https://www.youtube.com/watch?v=oyl-UsWXoKU) standard use case, showcasing how universal MCP servers can be.
+
 ## Recommended resources
 
 The most obvious place to start is the [MCP website](https://modelcontextprotocol.io/). It contains all the necessary documentation, including the protocol specification, SDKs, and a list of available servers.
@@ -105,3 +115,5 @@ If you want to quickly see how to build and use (with Claude Code) simple MCP se
 If you are looking for a step-by-step tutorial, Matt again [gets you covered](https://www.aihero.dev/model-context-protocol-tutorial). It is a mix of video and text, so you can choose what works best for you.
 
 There are also more in-depth video tutorials prepared by Jack Herrington and you can watch them [here (introduction)](https://www.youtube.com/watch?v=VChRPFUzJGA) and [here (practical)](https://www.youtube.com/watch?v=eD0uBLr-eP8).
+
+<img src={handshake.src} />
