@@ -34,7 +34,7 @@ export const News = async ({ feed, limit = 5, offset = 0, showMonths = true }: N
           {showMonths ? <h3 className="text-xl font-semibold border-b text-gray-400 border-gray-800 pb-2">
             {monthYear}
           </h3> : null}
-          <div className="grid gap-4">
+          <div className="grid gap-6">
             {items.map((item) => (
               <ExternalLink
                 key={item.id}
@@ -44,7 +44,7 @@ export const News = async ({ feed, limit = 5, offset = 0, showMonths = true }: N
                 <h3 className="text-xl font-bold flex gap-2 items-center">
                   <span>{item.title}</span>
                 </h3>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground line-clamp-2">
                   {item.description}
                 </p>
               </ExternalLink>

@@ -30,5 +30,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `https://kamiljozwik.com/news/webdev`,
     },
+    {
+      url: `https://kamiljozwik.com/generative-ai-101`,
+    },
   ];
 }

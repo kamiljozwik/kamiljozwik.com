@@ -27,6 +27,11 @@ const navigationItems: NavigationItem[] = [
         href: "/posts",
         title: "All posts",
         description: "See all my articles",
+      },
+      {
+        href: "/generative-ai-101",
+        title: "Generative AI 101",
+        description: "Get started with gen. AI",
       }
     ]
   },

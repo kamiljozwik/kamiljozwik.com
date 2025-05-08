@@ -30,7 +30,7 @@ export const modelFamilies: Family[] = [
   },
   {
     title: "Llama",
-    description: "Open source provided by Meta",
+    description: "Open source models provided by Meta",
     date: "2025-04-28",
     href: "/models/llama",
     img: "/models/llama-logo.webp",

@@ -22,7 +22,7 @@ export const Footer = () => {
           <Github size={20} />
         </ExternalLink>
       </div>
-      <p className='text-muted-foreground'>kamiljozwik.com@{new Date().getFullYear()}</p>
+      <p className='text-muted-foreground'>kamiljozwik.com</p>
     </footer>
   )
 }
