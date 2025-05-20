@@ -4,7 +4,7 @@ export const meta = {
   title: "Model Context Protocol (MCP)",
   description:
     "Unlocking AI's potential with the Model Context Protocol (MCP).",
-  date: "2025-04-04",
+  date: "2025-04-18",
   tags: ["ai", "llm"],
 };
 
@@ -43,6 +43,8 @@ The flow usually goes something like this:
 7.  The AI incorporates this fresh information into its response to you.
 
 All of the above is very well presented in this [short video](https://www.youtube.com/watch?v=eur8dUO9mvE) from IBM.
+
+If all the above sounds to you like **"just another API"**, here is [another video](https://www.youtube.com/watch?v=7j1t3UZA1TY) (IBM again) explaining key differences between APIs and MCP.
 
 ## What can MCP actually do?
 
@@ -83,6 +85,7 @@ Before you start creating your own server, explore the expanding list of already
 - [Cline marketplace](https://cline.bot/mcp-marketplace) - servers only
 - [Pulse MCP](https://www.pulsemcp.com/) - servers and clients
 - [mcp.so](https://mcp.so/) - servers and clients
+- [Pipedream](https://mcp.pipedream.com/) - servers
 
 ## How to build MCP servers?
 
@@ -92,11 +95,17 @@ This way you can always come back to this article and find the most recent and v
 
 You can also (of course) ask your AI coding assistant to [build an MCP server in 5 prompts](https://www.youtube.com/watch?v=FRogt98OF80). The MCP creators made use of [llms.txt files](/posts/llms-txt) and provide us [the whole documentation](https://modelcontextprotocol.io/llms-full.txt) needed for LLM to get things done.
 
-Going even further, you can use [Context7 MCP Server](https://github.com/upstash/context7) to pull up-to-date, version-specific documentation and code examples for frameworks like Next.js, MongoDB, .NET etc. straight from the source — and places them directly into your prompt.
-
 And for a really lazy developers, you can just use [MCPify](https://mcpify.ai/)
 
 What a time to build amazing things 🤖
+
+## Development docs
+
+I am pretty sure, that for developers, one of the most common use cases for MCP is to build or use a server that can reach for up-to-date documentation.
+
+For that purpose, you can use [Context7 MCP Server](https://github.com/upstash/context7) to pull up-to-date, version-specific documentation and code examples for frameworks like Next.js, MongoDB, .NET etc. straight from the source — and places them directly into your prompt.
+
+Another useful tool is [gitmcp](https://gitmcp.io/), which allows to instantly create a remote MCP server for any GitHub repository.
 
 ## Hosting
 

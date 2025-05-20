@@ -35,4 +35,11 @@ export const modelFamilies: Family[] = [
     href: "/models/llama",
     img: "/models/llama-logo.webp",
   },
+  {
+    title: "Phi",
+    description: "Small open source models from Microsoft",
+    date: "2025-05-20",
+    href: "/models/phi",
+    img: "/models/phi-logo.webp",
+  },
 ] as const;

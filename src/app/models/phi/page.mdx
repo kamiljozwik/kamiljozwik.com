@@ -1,0 +1,115 @@
+import { Header } from "../_components/header";
+
+<Header model="phi">Phi</Header>
+
+The Microsoft Phi-4 series is the latest generation in Microsoft’s Phi family of small, open large language models (LLMs). These models are designed to give developers powerful AI capabilities with relatively compact model sizes, enabling deployment in resource-constrained environments (even on-device) while maintaining strong performance in reasoning, coding, and multimodal tasks.
+
+All Phi-4 models are open-source (MIT licensed) and available for use via [Hugging Face](https://huggingface.co/collections/microsoft/phi-4-677e9380e514feb5577a40e4), [Azure AI services](https://azure.microsoft.com/en-us/products/phi), [Ollama](https://ollama.com/search?q=phi4) and other platforms
+
+This guide will journey through the Phi-4 series, illuminating their unique strengths and showing how you can harness their power.
+
+## Small models, big impact
+
+Instead of an arms race for sheer parameter count, Phi models are crafted through training on high-caliber data. This includes unique, "textbook-like" synthetic datasets specifically engineered to instill robust reasoning and common-sense understanding. The outcome? Smaller models that can often match, or even surpass, their much larger counterparts on a variety of tasks.
+
+This intelligent approach translates into benefits for us, developers. The reduced size of Phi models makes them easier and more economical to run. Suddenly, deploying on edge devices, mobile platforms, or within resource-constrained environments becomes a practical reality.
+
+Furthermore, their manageable scale simplifies the process of fine-tuning, allowing for tailored customization to specific domains or tasks. Guiding this innovation is Microsoft's steadfast commitment to responsible AI principles, ensuring that safety, reliability, and ethical considerations are woven into the fabric of these models from their inception. The Phi-4 generation embodies this vision, presenting a suite of specialized models ready to tackle diverse challenges.
+
+## Phi-4 family
+
+The Phi-4 series is not a one-size-fits-all solution; rather, it's a carefully curated collection of models, each honed for particular strengths. They generally share a foundation in the dense decoder-only `Transformer architecture` — a proven design in language modeling — and all are open-source under the MIT license.
+
+### `Phi-4`: the foundational powerhouse for reasoning and math
+
+At the core of the latest generation stands **Phi-4**, a robust base model endowed with approximately **14B parameters**. This model is engineered for strong performance in tasks demanding complex reasoning, mathematical problem-solving, and even coding.
+
+When it comes to processing information, `Phi-4` offers **32k token context window**. Microsoft's internal experiments even hint at promising results with contexts stretching up to 64,000 tokens.
+
+Currently, `Phi-4` operates exclusively in the **text modality**, processing textual prompts to generate textual completions. While its expanded vocabulary provides **support for over 20 languages**, including widely spoken ones like Arabic, Chinese, French, and Spanish, its training was primarily English-centric, meaning its performance is strongest in English.
+
+For developers considering integrating external tools, it's important to note that while `Phi-4` can be manually prompted to format tool calls, built-in, instruction-tuned **function calling** is not a primary design focus for this base variant.
+
+One of `Phi-4`'s developer-friendly aspects is its full support for **quantization**. Its open nature means its weights can be readily converted to lower bit levels, such as 4-bit or 8-bit. Furthermore, `Phi-4` is designed for **fine-tuning** as well, with Microsoft providing a [Phi Cookbook](https://github.com/microsoft/PhiCookBook) rich with guidance.
+
+You can also check out this short [video](https://www.youtube.com/watch?v=H85F0vib85Y) for a quick overview of the Phi-4 model.
+
+### `Phi-4-mini`: compact agility with impressive reach
+
+**Phi-4-mini** is a testament to the Phi philosophy, a 3.8B parameter model that truly "punches above its weight." It’s engineered for language understanding and instruction-following capabilities, all within a lightweight package. Despite its smaller stature, `Phi-4-mini` incorporates architectural enhancements.
+
+Perhaps its most striking feature is its **128k token context window**. This allows `Phi-4-mini` to effortlessly process and generate content from very large inputs, such as entire books. Like its larger sibling, it operates as a **text-only** model but offers **broad multilingual support**. Its vocabulary covers **over 20 languages**, enabling it to understand and generate content effectively in languages well beyond English.
+
+A key differentiator for developers is `Phi-4-mini`'s **built-in native function calling support**. It has been specifically fine-tuned to identify when a user's request necessitates an external tool or API, intelligently formulate the appropriate function call with necessary parameters, and then integrate the tool's response back into its answer. This makes it particularly useful for building AI agents that can operate efficiently, even on-device.
+
+Given its compact size, `Phi-4-mini` is highly amenable to **quantization**. It can be effectively quantized to 8-bit or even 4-bit precision, with the latter potentially requiring less than 2GB of memory. **Fine-tuning** is also a strong suit; its smaller parameter count makes the process easier and more cost-effective compared to larger LLMs, often achievable on a single GPU using techniques like `LoRA` or `QLoRA`.
+
+### `Phi-4-multimodal`: unifying text, vision, and audio
+
+Marking a [significant step](https://azure.microsoft.com/en-us/blog/empowering-innovation-the-next-generation-of-the-phi-family) for the Phi family, **Phi-4-multimodal** is a **5.6B parameter** model that extends beyond text to embrace the worlds of vision and speech. This innovative model is engineered to process **image, audio, and text inputs simultaneously**, generating textual outputs, all within a single, unified neural network. It achieves this through a `mixture-of-LoRAs` (`Low-Rank Adapters`) architecture. This design augments a base language model with specialized adapters for vision and speech, allowing it to manage diverse modalities within a shared representational space, thereby eliminating the need for complex pipelines or separate models for each input type. Complementing its multimodal nature is a **128k token context window** for text input and output, into which non-text inputs like images and audio are encoded as token sequences.
+
+Its **multilingual support** is also noteworthy: in text mode, it handles over 20 languages. For audio, while primarily trained on English, it includes `ASR` (Automatic Speech Recognition) and translation capabilities in several other major languages like Chinese, German, and French. Vision understanding is largely language-agnostic. However, **function calling** is not a primary focus for this model, as its strength lies in processing user-provided multimodal data.
+
+Like its siblings, `Phi-4-multimodal` supports **quantization**, with ONNX-optimized versions available for efficient CPU/NPU inference. While **fine-tuning** is possible, it is inherently more complex due to the multimodal nature of the data, though `LoRA` fine-tuning for specific modalities is feasible.
+
+### `Phi-4-reasoning`: honed for complex logical deduction
+
+For tasks that demand intricate, multi-step logical inference, Microsoft offers **Phi-4-Reasoning**. This is a specialized 14B parameter variant of the base `Phi-4` model, fine-tuned to excel in the reasoning. It maintains the same **14B parameter count** as the base model but inherits new, reasoning abilities through its specialized training. It operates with a **32k token context window**. This model is **text-only**.
+
+Given that its specialized reasoning datasets were predominantly in English, `Phi-4-Reasoning`'s strongest performance is in **English**. It does not include built-in **function calling**, as its design encourages it to solve problems through its own internal reasoning processes.
+
+Despite its 14-billion parameter size, `Phi-4-Reasoning` can be made accessible on consumer hardware through **quantization**; 4-bit quantized versions can run with approximately 8GB of RAM. While it's already fine-tuned, further **fine-tuning** is supported, though developers should proceed with caution to preserve its carefully honed reasoning style and safety alignment.
+
+### `Phi-4-reasoning-plus`: pushing the boundaries of accuracy
+
+Building directly upon the strengths of `Phi-4-Reasoning`, **Phi-4-Reasoning-Plus** represents an even more potent iteration for tackling the most demanding logical challenges. This **14B parameter** model undergoes an additional training phase utilizing outcome-based reinforcement learning. This optimization is designed to further sharpen the model's accuracy, particularly in high-variance reasoning tasks such as competition-level mathematics, by rewarding correct solutions and refining its inferential pathways. It shares the same 14B parameter count and **32k token context window** (with potential to handle up to 64k) as its predecessor and remains a **text-only** model.
+
+The key difference lies in its enhanced training. The reinforcement learning process encourages `Phi-4-Reasoning-Plus` to produce more detailed and exhaustive reasoning chains. It's a good choice for high-stakes reasoning scenarios where maximum accuracy is required.
+
+This pursuit of peak accuracy does come with a trade-off: the model's responses are inherently more verbose, typically generating about 1.5 times more tokens than the standard `Phi-4-Reasoning`. This verbosity means a higher computational cost and increased latency per query, a factor to consider for real-time systems. Like its sibling, it does **not feature function calling** and is similarly **quantizable**. Given its highly optimized state, further **fine-tuning** is generally not needed.
+
+### `Phi-4-mini-reasoning`: mathematical expertise in a compact form
+
+For developers needing robust reasoning capabilities within highly resource-constrained environments, **Phi-4-mini-reasoning** is a way to go. This compact `3.8B parameter` model is specifically optimized to tackle multi-step, logic-intensive problem-solving. It shares the same efficient architecture as the standard `Phi-4-mini`, including **128k token context window**. Despite its small size, this **text-only** model packs a significant analytical punch.
+
+`Phi-4-mini-reasoning` was trained exclusively on a vast dataset of synthetic mathematical content, totaling 150 billion tokens. This data, comprising over one million diverse mathematical problems spanning various difficulty levels, was generated by a more advanced expert model (`Deepseek-R1`) through a process known as knowledge distillation. The singular goal was to imbue this compact model with formidable mathematical reasoning prowess. As a result, it excels at delivering high-quality, step-by-step solutions to mathematical problems, making it an excellent tool for educational purposes where understanding the "how?" is as important as the "what?".
+
+`Phi-4-mini-reasoning` is small enough to run efficiently on a CPU in real-time, especially when subjected to `int4` quantization, and has even been reported to run on devices like the Raspberry Pi. This makes it ideal for offline AI applications, such as embedded tutoring systems on a student's tablet or features within productivity apps that require on-device calculations without cloud connectivity.
+
+Microsoft has [indicated](https://azure.microsoft.com/en-us/blog/one-year-of-phi-small-language-models-making-big-leaps-in-ai) optimizations for NPUs in upcoming "Copilot PCs" for Windows 11, signaling a future where such reasoning engines are readily available locally.
+
+Its reasoning capabilities are primarily tuned for English, and it does **not include function calling**. Given its small size, **fine-tuning** for even more specialized reasoning tasks is inexpensive and feasible.
+
+## Comparing the Phi-4 family
+
+To help crystallize the choices, the following table offers a side-by-side comparison of these models:
+
+| Feature               | Phi-4 (Base)                  | Phi-4-mini                                       | Phi-4-multimodal                    | Phi-4-reasoning                    | Phi-4-reasoning-plus         | Phi-4-mini-reasoning          |
+| :-------------------- | :---------------------------- | :----------------------------------------------- | :---------------------------------- | :--------------------------------- | :--------------------------- | :---------------------------- |
+| **Parameters**        | ~14B                          | 3.8B                                             | 5.6B                                | 14B                                | 14B                          | 3.8B                          |
+| **Context window**    | 32k                           | 128k                                             | 128k                                | 32k                                | 32k                          | 128k                          |
+| **Primary modality**  | Text-only                     | Text-only                                        | Text, Vision, Audio (Text out)      | Text-only                          | Text-only                    | Text-only                     |
+| **Multilingual**      | Yes (20+ langs, Eng strong)   | Yes (Broad, 20+ langs)                           | Yes (Text broad; Audio varied)      | Primarily English                  | Primarily English            | Primarily English (reasoning) |
+| **Function calling**  | Limited/Not primary           | Yes (Built-in)                                   | No                                  | No                                 | No                           | No                            |
+| **Quantization**      | Yes                           | Yes (Highly amenable)                            | Yes                                 | Yes                                | Yes                          | Yes (Key advantage)           |
+| **Fine-tuning**       | Yes                           | Yes (Easier)                                     | Yes (More complex)                  | Yes (With caution)                 | Not typically needed         | Yes (Inexpensive)             |
+| **Key strengths**     | General reasoning, math, code | Efficiency, long context, tool use, multilingual | Multimodal understanding, ASR       | Advanced logical inference, CoT    | Peak reasoning accuracy      | Compact math reasoning        |
+| **Primary use cases** | General AI, complex tasks     | Edge/mobile AI, agents, multilingual apps        | Vision/audio apps, smart assistants | Tutoring, advanced problem-solving | High-stakes expert reasoning | Educational tools, offline AI |
+
+For video-learners, you can also check out this [video](https://www.youtube.com/watch?v=qAgAQQ41P3A) for a 17 minutes overview of the Phi-4 models family.
+
+## Deployment and customization
+
+Microsoft's commitment to the developer community is evident in the widespread accessibility and adaptability of the Phi-4 family. These models are not confined to research labs; they are ready to be integrated into your projects. You can find them on platforms such as the **Hugging Face Hub**, ideal for direct downloads and seamless use with the popular Transformers library.
+
+For those embedded in the Microsoft ecosystem, the **Azure AI Foundry model catalog** offers managed endpoints and streamlined integration.
+
+**Ollama** provides an easy pathway for local deployment across various operating systems, and for enterprise-level use cases involving multimodal capabilities, `Phi-4-multimodal` is even accessible via the [NVIDIA API Catalog](https://build.nvidia.com/models?filters=publisher%3Amicrosoft).
+
+## Conclusion
+
+The Microsoft `Phi-4` family represents a significant leap forward in the evolution of language models, offering a compelling suite of tools for software developers. Each variant brings a unique constellation of features and strengths, meticulously tailored to address a wide spectrum of application requirements.
+
+By carefully considering the trade-offs between model size, context window, modal capabilities, language support, function calling integration, and reasoning specialization, you can select the optimal `Phi-4` variant for your specific needs.
+
+The strong support for quantization and fine-tuning further amplifies your ability to deploy these models effectively, whether in the cloud or directly on edge devices.

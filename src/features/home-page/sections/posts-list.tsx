@@ -15,15 +15,13 @@ export const PostsList = () => {
           {allPosts.slice(0, 5).map((post) => (
             <PostLink key={post.slug} post={post} />
           ))}
+          <Button asChild variant="default" className="mb-4">
+            <Link href="/posts">See all articles</Link>
+          </Button>
         </div>
         <div className="md:w-[45%] mb-8">
           <GenAi />
         </div>
-      </div>
-      <div>
-        <Button asChild variant="default">
-          <Link href="/posts">See all articles</Link>
-        </Button>
       </div>
     </Section>
   )
