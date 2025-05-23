@@ -1,0 +1,130 @@
+import copilot from "./copilot.webp";
+
+export const meta = {
+  title: "VS Code is all you need for AI coding",
+  description:
+    "Explore how Visual Studio Code, powered by GitHub Copilot, is practically the all-in-one environment for AI development.",
+  date: "2025-05-22",
+  tags: ["github", "vscode"],
+};
+
+In the rapidly evolving landscape of software development, AI is no longer a futuristic concept but a present-day assistant. Visual Studio Code, a long-time favorite editor for millions, stands at forefront of this revolution, seamlessly integrating powerful AI capabilities primarily through [GitHub Copilot](https://github.com/features/copilot).
+
+This article will guide you through the rich AI features within VS Code, demonstrating how it's becoming the all-in-one environment for developers looking to leverage AI in their daily workflows.
+
+## GitHub Copilot
+
+At the heart of VS Code's AI prowess is GitHub Copilot, an AI pair programmer that helps you write code faster and with less work. It draws context from your comments and code to suggest individual lines and whole functions instantly.
+
+Getting started is straightforward. You'll need access to GitHub Copilot, which can be through an individual [subscription](https://github.com/features/copilot/plans?cft=copilot_li.features_copilot) (including a **free tier** with monthly limits for completions and chat interactions) or as part of a GitHub Copilot Business or Enterprise plan from your organization. Once you have access, installing the [GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) and [GitHub Copilot Chat](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat) extensions from the VS Code Marketplace is all it takes to bring AI into your editor.
+
+## AI-powered suggestions
+
+One of the most immediate benefits of AI in VS Code is the enhancement to your coding speed and efficiency.
+
+**Inline code completions** are perhaps the most well-known feature. As you type, Copilot proactively offers suggestions, from completing the current line to generating entire blocks of code. These suggestions appear as "ghost text" right in your editor. You can simply press `Tab` to accept a suggestion. If multiple suggestions are available, you can cycle through them or even accept them word by word (using `Ctrl +  Right Arrow`), giving you fine-grained control.
+
+Beyond simple line completion, Copilot offers **Next Edit Suggestions (NES)**. This [feature](https://www.youtube.com/watch?v=mbUnwaSllTY) intelligently predicts the location of your next edit and what that edit might be, helping you stay in the flow by anticipating subsequent changes relevant to your current work.
+
+You can also guide Copilot by writing **natural language comments**. Describe what you want to achieve, and Copilot will attempt to generate the code to match your instructions. For instance, a comment like "function to calculate the difference between two dates in days" can prompt Copilot to draft the entire function body for you.
+
+## Copilot Chat
+
+While code completions work in the background, [Copilot Chat](https://code.visualstudio.com/docs/copilot/chat/getting-started-chat) provides an interactive, conversational interface to your AI pair programmer. It's a space where you can ask questions, request code generation, debug issues, and much more.
+
+You can **access Copilot Chat** in several ways:
+
+- The dedicated **Chat view** (`Ctrl+Alt+I`), typically in the secondary side bar, for ongoing conversations.
+- **Inline Chat** (`Ctrl+I`) directly within your editor or integrated terminal, perfect for quick questions or modifications related to your current context.
+- **Quick Chat** (`Ctrl+Shift+Alt+L`) for asking a question without breaking your flow or starting a full chat session.
+
+Copilot Chat isn't a one-size-fits-all tool; it offers distinct **chat modes** optimized for different tasks:
+
+- **Ask Mode:** Ideal for general coding questions, understanding concepts, or brainstorming. For example, "What is the factory design pattern?" or "Explain this selected code."
+- **Edit Mode:** Designed for making code changes across your project. You can prompt Copilot to refactor code, add features, or fix bugs, and it will propose edits directly in your files.
+- **Agent Mode 🔥:** This mode takes AI assistance to the [next level](https://www.youtube.com/watch?v=dutyOc_cAEU). You provide a high-level task, and Copilot autonomously reasons about the request, plans the necessary work, invokes tools (like terminal commands or file operations), and applies changes to your codebase, even iterating to resolve issues.
+
+You can watch this one-hour long [video](https://www.youtube.com/watch?v=s7Qzq0ejhjg), if you want to understand all the chat modes.
+
+A crucial aspect of effective prompting in development is **leveraging context**. Copilot Chat can become an expert in _your_ specific codebase. You can explicitly include context using:
+
+- **Chat Variables:** Type `#` to reference workspace files (`#myFile.ts`), the current selection (`#selection`), or the entire codebase (`#codebase`). The `#codebase` (or `@workspace` participant in Ask mode) allows Copilot to intelligently search your project for relevant information.
+- **Slash Commands:** Use `/` to indicate your intent, such as `/explain` to get an explanation of code, `/fix` to get suggestions for fixing issues, or `/tests` to generate unit tests.
+- **Chat Participants:** Use `@` to invoke specialized agents like `@workspace` (for codebase-specific questions), `@vscode` (for questions about VS Code itself), or `@terminal` (for help with shell commands).
+- **Attaching Context:** The "Add Context" button (paperclip icon) lets you explicitly attach files, symbols, terminal selections, problems, and even fetch content from web pages (`#fetch`) or search GitHub repositories (`#githubRepo`).
+
+Remember, the chat history itself provides context for follow-up questions. You can clear irrelevant parts of the conversation or start a new chat session to reset the context.
+
+One thing that is sometimes missing in tutorials and documentation is the fact of "premium" [requests limits](https://docs.github.com/en/copilot/managing-copilot/monitoring-usage-and-entitlements/about-premium-requests). Even though within our subscription we get access to various models, we are [limited](https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot#comparing-copilot-plans) to a certain number of premium requests per month. It is worth to keep in mind that some reasoning models can exhaust the common pool of premium requests very quickly, and we will be left with only one basic LLM model by the end of the month.
+
+## Smart actions and integrations
+
+VS Code and Copilot offer a suite of [smart actions](https://code.visualstudio.com/docs/copilot/copilot-smart-actions) that integrate AI into various parts of your development workflow, often without needing to write a manual prompt. Here are some examples:
+
+- **Source Control:** Copilot can generate commit messages based on your staged changes or suggest titles and descriptions for your pull requests in the GitHub PR extension.
+- **Refactoring:** When renaming symbols (F2), Copilot can suggest contextually relevant new names.
+- **Documentation & Understanding:**
+  - Generate JSDoc comments or other language-specific documentation for your functions and classes using the `/doc` command or a right-click context menu.
+  - Quickly explain a selected block of code using the `/explain` command or its context menu equivalent.
+- **Error Fixing:**
+  - If your code has compiler or linter errors, Copilot often provides a "Fix using Copilot" Code Action to suggest a solution.
+  - When a terminal command fails, a sparkle icon might appear, offering to explain the error with Copilot.
+  - In the Test Explorer, failing tests can have a "Fix Test Failure" button that leverages Copilot for suggestions. The `/fixTestFailure` chat command offers similar help.
+- **Testing:** Copilot assists in setting up testing frameworks (`/setupTests` command), generating various types of tests (`/tests` command or right-click action), and even helping to cover edge cases.
+- **Debugging:** Copilot can help configure your `launch.json` debug settings (using the `/startDebugging` command or natural language prompts like "Create a debug configuration for a Django app"). The `copilot-debug` terminal command can also simplify starting a debug session by automatically configuring it based on your application's start command.
+- **Search:** The Search view (`Ctrl + Shift + F`) can display semantically relevant results, not just exact text matches, thanks to Copilot.
+- **Code Review (Experimental):** Copilot can perform a quick review of a selected code block or a more comprehensive review of uncommitted changes, providing feedback as comments.
+
+## Tailoring Copilot to your needs
+
+VS Code offers several ways to customize Copilot to better suit your individual preferences and project requirements.
+
+You can **choose your AI model** for chat conversations and code completions. Different models offer varying strengths, some optimized for fast coding and others for more complex reasoning and planning. VS Code even allows you to "Bring Your Own Key" ([BYOK](https://www.youtube.com/watch?v=tqoGDAAfSWc)) for models from providers like Anthropic, Azure, Google, OpenAI, OpenRouter, or Ollama, giving you access to a wider range of models (though this is currently a preview feature and not available for Copilot Business/Enterprise users).
+
+[Custom instructions](https://code.visualstudio.com/docs/copilot/copilot-customization#_instruction-files) are a powerful way to guide Copilot's generation style. You can define coding practices, preferred technologies, naming conventions, and project requirements in Markdown files.
+
+- A `.github/copilot-instructions.md` file at the root of your workspace provides global instructions for that project.
+- More granular `.instructions.md` files (stored in `.github/instructions` or user profile folders) can be created for specific tasks or file types, and can even be configured to apply automatically based on file paths using the `applyTo` metadata.
+  You can also specify these instructions directly in VS Code settings for different scenarios like code generation, test generation, or code review.
+
+For frequently used, complex prompts, reusable [prompt files](https://code.visualstudio.com/docs/copilot/copilot-customization#_prompt-files-experimental) (`.prompt.md`) are invaluable. These Markdown files allow you to craft complete prompts, including metadata (like chat mode or required tools), natural language instructions, and context variables. You can then easily invoke these prompts in chat (for example, by typing `/` followed by the prompt file name), store them in your workspace for team sharing, or keep them in your user profile for cross-project use.
+
+To further enhance Copilot's understanding of your project, especially for `@workspace` or `#codebase` queries, VS Code utilizes [workspace indexing](https://code.visualstudio.com/docs/copilot/reference/workspace-context#_managing-the-workspace-index). For GitHub repositories, a remote index can be built using GitHub code search, providing fast and accurate context retrieval for even very large codebases. For other projects, a local semantic index can be built (up to a certain file limit), or a basic index is used for larger local projects. Managing and understanding your index status (visible in the Copilot status dashboard) can significantly improve the relevance of Copilot's responses.
+
+## Extending possibilities
+
+VS Code doesn't just consume AI; it also provides **extension APIs** for developers to build their own AI-powered features or integrate existing services more deeply.
+
+- **Language Model API:** [Directly](https://code.visualstudio.com/api/extension-guides/language-model) access Copilot's underlying language models to build custom AI features into your own extensions.
+- **Chat API:** Create custom [chat participants](https://code.visualstudio.com/api/extension-guides/chat-tutorial) (like `@myExtension`) that can provide domain-specific knowledge or interact with your extension's unique functionalities through the chat interface.
+- **Language Model Tool API:** Contribute [tools for Agent mode](https://code.visualstudio.com/api/extension-guides/tools). These tools can perform specialized tasks (like interacting with a database, calling a specific API, or running custom scripts) that Copilot's agent can then invoke autonomously as part of its plan to fulfill a user's high-level request.
+- **MCP ([Model Context Protocol](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)) Tools:** Register external tools that adhere to the MCP standard. These tools run outside the VS Code extension host but can still be leveraged by Agent Mode. You can read more in my [previous article](/posts/mcp) and watch this [video](https://www.youtube.com/watch?v=YRfOiB0Im64) for more information on MCP.
+
+## Competition
+
+While VS Code with GitHub Copilot offers a compelling AI-integrated development environment, it's natural to look at alternatives. You might have encountered tools like [Cursor](https://www.cursor.com/) or [Windsurf](https://windsurf.com). These editors often present themselves as "AI-first" and are, in many cases, forks of VS Code itself. They aimed to provide tighter AI integration or unique UX treatments at a time when VS Code's own AI capabilities were still maturing.
+
+However, these specialized forks typically come with a subscription cost. Furthermore, there can be less transparency regarding the underlying Large Language Models (LLMs) they use – are you accessing the full power of a leading model, or a modified, perhaps cost-optimized version? The initial drive for such forks was often to overcome perceived limitations in VS Code's extensibility for deep AI integration.
+
+This landscape is now shifting significantly. With Microsoft's commitment to [open sourcing](https://code.visualstudio.com/blogs/2025/05/19/openSourceAIEditor) key components of the GitHub Copilot Chat extension and refactoring AI features directly into VS Code core, the playing field is leveling. This strategic move aligns with VS Code's foundational principles of being open, collaborative, and community-driven. It means that the "secret sauce" of prompting strategies or common AI UX patterns are becoming accessible to the entire VS Code ecosystem.
+
+For businesses, the backing of a major company like Microsoft, coupled with a robust open-source community and comprehensive documentation, makes VS Code a reliable and sustainable choice for long-term AI-assisted development.
+
+## Agentic extensions
+
+VS Code's built-in Copilot features, particularly its Agent Mode, provide a powerful baseline for AI-assisted development. However, the true strength of the VS Code ecosystem lies in its extensibility. If you find yourself needing even more sophisticated agentic capabilities or a wider choice of LLMs, the VS Code Marketplace offers a growing number of AI-powered extensions.
+
+Extensions like [Cline](https://cline.bot/), [RooCode](https://roocode.com/), [Kilo Code](https://kilocode.ai/), or [Continue](https://www.continue.dev/) (among others) are designed to push the boundaries of what's possible with AI in your editor. These can serve as an alternatives or complements to the native Agent Mode, often providing:
+
+- **Advanced agentic workflows:** Some extensions offer more intricate multi-step reasoning, specialized tool usage, or unique approaches to problem decomposition for complex tasks.
+- **Broader LLM support:** While Copilot allows bringing your own key for certain providers, these extensions frequently offer an even wider array of LLM choices. Crucially, some can **leverage the LLM models already provided by your existing GitHub Copilot subscription**, maximizing the value of what you're already paying for. Others allow you to connect to LLMs not yet available through Copilot's BYOK feature, offering great flexibility.
+
+The already mentioned announcement of open-sourcing key parts of GitHub Copilot Chat is a game-changer for these extensions. It promises to enable even deeper and more seamless integration with VS Code's core AI functionalities. This move will likely empower extension creators to build features that rival, or even surpass, the capabilities once exclusive to dedicated AI-first forks, like Cursor.
+
+## Conclusion
+
+Visual Studio Code, supercharged by GitHub Copilot and a rich ecosystem of AI features, is rapidly transforming the development experience. From intelligent code completions and conversational coding to smart actions and deep customization, VS Code provides a comprehensive suite of tools to help you code faster, smarter, and with greater ease.
+
+Whether you're learning a new language, tackling a complex project, or simply looking to boost your daily productivity, VS Code equipped with AI is truly becoming all you need for modern development.
+
+<img src={copilot.src} alt="" />
